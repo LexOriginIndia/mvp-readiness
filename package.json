@@ -11,6 +11,7 @@
     "readiness:acceptance": "tsx src/runner.ts --only=acceptance",
     "sync-issues": "tsx src/sync-issues.ts",
     "merge-issues": "tsx src/merge-issues-into-spec.ts",
+    "sync-dev-docs": "tsx scripts/sync-dev-docs.ts",
     "serve": "tsx src/server.ts"
   },
   "dependencies": {

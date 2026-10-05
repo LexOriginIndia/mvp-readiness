@@ -931,7 +931,14 @@ function serveDevDocsView(rel: string): { status: number; headers: Record<string
   }
   const ext = (rel.split(".").pop() || "").toLowerCase();
   if (ext === "md") {
-    const html = marked.parse(readFileSync(abs, "utf8")) as string;
+    let md = readFileSync(abs, "utf8");
+    // Strip YAML frontmatter (--- … ---) so it doesn't render as prose. The
+    // issue-sync script writes it on every pulled issue; some hand-authored
+    // docs do too. We don't currently parse the fields, just hide them.
+    md = md.replace(/^---\n[\s\S]*?\n---\n+/, "");
+    // Strip our own HTML sync comment so it doesn't show as a dangling header.
+    md = md.replace(/^<!-- source: [^>]+ -->\n+/, "");
+    const html = marked.parse(md) as string;
     return { status: 200, headers: { "content-type": "text/html; charset=utf-8" }, body: devDocsFrame(`<article class="dd-md"><h1 class="dd-filename">${escapeHtml(rel)}</h1>${html}</article>`) };
   }
   if (ext === "txt" || ext === "yaml" || ext === "yml" || ext === "json" || ext === "ts" || ext === "js" || ext === "py") {
