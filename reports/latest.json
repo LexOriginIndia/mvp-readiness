@@ -1,0 +1,4400 @@
+{
+  "generated_at": "2026-10-05T12:52:38.023Z",
+  "spec_versions": {
+    "scope": "annexure-a-scope.yaml",
+    "acceptance": "annexure-c-acceptance.yaml",
+    "timeline": "annexure-b-timeline.yaml"
+  },
+  "scope_summary": {
+    "total": 104,
+    "done": 13,
+    "partial": 68,
+    "not_started": 23,
+    "unknown": 0
+  },
+  "acceptance_summary": {
+    "total": 12,
+    "met": 0,
+    "unmet": 10,
+    "unknown": 2
+  },
+  "features": [
+    {
+      "feature": {
+        "id": "rag-pipelines",
+        "name": "RAG pipelines (retrieval-augmented generation)",
+        "annexure": "3.1 Core AI Development",
+        "required_for_mvp": true,
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "prism-service/app/main.py",
+            "note": "Prism service is the RAG + search backend"
+          },
+          {
+            "type": "grep",
+            "path": "prism-service/app",
+            "pattern": "(retrieval|embedding|chunk|vector)",
+            "min_matches": 3,
+            "note": "Must have retrieval + embedding + chunking code"
+          },
+          {
+            "type": "manual",
+            "question": "Does the RAG pipeline retrieve and ground answers from the Indian legal corpus? Give a sample query + top-3 citations.",
+            "review_cadence_days": 30
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "prism-service/app/main.py",
+            "note": "Prism service is the RAG + search backend"
+          },
+          "status": "pass",
+          "detail": "prism-service/app/main.py exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "grep",
+            "path": "prism-service/app",
+            "pattern": "(retrieval|embedding|chunk|vector)",
+            "min_matches": 3,
+            "note": "Must have retrieval + embedding + chunking code"
+          },
+          "status": "pass",
+          "detail": "(retrieval|embedding|chunk|vector) → 43 file(s) matched in prism-service/app (expected ≥3)",
+          "evidence": {
+            "matches": 43
+          },
+          "duration_ms": 15
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Does the RAG pipeline retrieve and ground answers from the Indian legal corpus? Give a sample query + top-3 citations.",
+            "review_cadence_days": 30
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Prism service is 47 846 LOC Python with 579 RAG-term references (retrieval/embedding/chunking/vector), 220 OpenAI + 150 Anthropic client refs. Substantial implementation. Retrieval quality + Indian-corpus grounding not independently measured by an eval set.",
+          "evidence": {
+            "verdict_key": "rag-pipelines",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 2 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "ai-document-drafting",
+        "name": "AI-powered document drafting",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "lexai-be/admin/documents-lib-api/app/main.py"
+          },
+          {
+            "type": "grep",
+            "path": "lexai-be/admin/documents-lib-api/app",
+            "pattern": "(ai_draft|draft_document|generate_document|drafting)",
+            "min_matches": 2
+          },
+          {
+            "type": "manual",
+            "question": "Pick a template, generate a draft via the UI, inspect the output — is it usable without major edits?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "lexai-be/admin/documents-lib-api/app/main.py"
+          },
+          "status": "pass",
+          "detail": "lexai-be/admin/documents-lib-api/app/main.py exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "grep",
+            "path": "lexai-be/admin/documents-lib-api/app",
+            "pattern": "(ai_draft|draft_document|generate_document|drafting)",
+            "min_matches": 2
+          },
+          "status": "pass",
+          "detail": "(ai_draft|draft_document|generate_document|drafting) → 33 file(s) matched in lexai-be/admin/documents-lib-api/app (expected ≥2)",
+          "evidence": {
+            "matches": 33
+          },
+          "duration_ms": 498
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Pick a template, generate a draft via the UI, inspect the output — is it usable without major edits?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Documents API is 116 912 LOC Python with 188 OpenAI + 229 Anthropic client refs. Large real AI drafting codebase. Output quality not evaluated against the ≥98% accuracy bar in Annexure C.",
+          "evidence": {
+            "verdict_key": "ai-document-drafting",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 2 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "ai-document-review",
+        "name": "AI document review (issue spotting, risk detection, clause suggestions, SWOT)",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "grep",
+            "path": "lexai-be/admin/documents-lib-api/app",
+            "pattern": "(review_document|analyze_clauses|risk_detection|issue_spotting|swot)",
+            "min_matches": 1
+          },
+          {
+            "type": "manual",
+            "question": "Upload a sample contract — are risks and clause suggestions returned?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "grep",
+            "path": "lexai-be/admin/documents-lib-api/app",
+            "pattern": "(review_document|analyze_clauses|risk_detection|issue_spotting|swot)",
+            "min_matches": 1
+          },
+          "status": "pass",
+          "detail": "(review_document|analyze_clauses|risk_detection|issue_spotting|swot) → 2 file(s) matched in lexai-be/admin/documents-lib-api/app (expected ≥1)",
+          "evidence": {
+            "matches": 2
+          },
+          "duration_ms": 491
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Upload a sample contract — are risks and clause suggestions returned?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Documents API has substantial AI client integration (188 OpenAI + 229 Anthropic refs across 116 912 LOC). No sample upload tested; risk-detection quality unverified.",
+          "evidence": {
+            "verdict_key": "ai-document-review",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "ai-document-comparison",
+        "name": "Contract comparison — redlining, side-by-side, clause-change tracking",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "grep",
+            "path": "lexai-client-fe/src",
+            "pattern": "(compareDocuments|contract_compare|redline|diff.*document)",
+            "min_matches": 1
+          },
+          {
+            "type": "manual",
+            "question": "Compare two contract versions in the UI — are redlines accurate and clause-level diffs clear?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "grep",
+            "path": "lexai-client-fe/src",
+            "pattern": "(compareDocuments|contract_compare|redline|diff.*document)",
+            "min_matches": 1
+          },
+          "status": "pass",
+          "detail": "(compareDocuments|contract_compare|redline|diff.*document) → 2 file(s) matched in lexai-client-fe/src (expected ≥1)",
+          "evidence": {
+            "matches": 2
+          },
+          "duration_ms": 112
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Compare two contract versions in the UI — are redlines accurate and clause-level diffs clear?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Documents API has 288 comparison/redline/diff references. Code exists at substantial scale; redline accuracy on real contract versions not verified.",
+          "evidence": {
+            "verdict_key": "ai-document-comparison",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "clause-extraction",
+        "name": "Clause extraction + semantic difference engine",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "grep",
+            "path": "lexai-be/admin/documents-lib-api/app",
+            "pattern": "(extract_clause|clause_extraction|semantic_diff)",
+            "min_matches": 1
+          },
+          {
+            "type": "manual",
+            "question": "Does clause extraction identify standard contract sections (indemnity, termination, jurisdiction, etc.)?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "grep",
+            "path": "lexai-be/admin/documents-lib-api/app",
+            "pattern": "(extract_clause|clause_extraction|semantic_diff)",
+            "min_matches": 1
+          },
+          "status": "pass",
+          "detail": "(extract_clause|clause_extraction|semantic_diff) → 2 file(s) matched in lexai-be/admin/documents-lib-api/app (expected ≥1)",
+          "evidence": {
+            "matches": 2
+          },
+          "duration_ms": 469
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Does clause extraction identify standard contract sections (indemnity, termination, jurisdiction, etc.)?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Code hints present; benchmark against standard-clause taxonomy not run.",
+          "evidence": {
+            "verdict_key": "clause-extraction",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "plain-language-summaries",
+        "name": "Plain-language summaries of contracts, legal, financial docs",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "grep",
+            "path": "lexai-be/admin/documents-lib-api/app",
+            "pattern": "(summarize|summary)",
+            "min_matches": 1
+          },
+          {
+            "type": "manual",
+            "question": "Summaries must be understandable by non-lawyers — spot-check 3 outputs."
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "grep",
+            "path": "lexai-be/admin/documents-lib-api/app",
+            "pattern": "(summarize|summary)",
+            "min_matches": 1
+          },
+          "status": "pass",
+          "detail": "(summarize|summary) → 59 file(s) matched in lexai-be/admin/documents-lib-api/app (expected ≥1)",
+          "evidence": {
+            "matches": 59
+          },
+          "duration_ms": 457
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Summaries must be understandable by non-lawyers — spot-check 3 outputs."
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Summarize endpoint present; readability score not measured.",
+          "evidence": {
+            "verdict_key": "plain-language-summaries",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "citation-verification",
+        "name": "Citation verification — auto-validate legal references",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "grep",
+            "path": "prism-service/app",
+            "pattern": "(verify_citation|citation_validation|validate_reference)",
+            "min_matches": 1
+          },
+          {
+            "type": "manual",
+            "question": "Submit a draft with 5 citations (3 real, 2 fabricated) — does the engine flag the fakes?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "grep",
+            "path": "prism-service/app",
+            "pattern": "(verify_citation|citation_validation|validate_reference)",
+            "min_matches": 1
+          },
+          "status": "pass",
+          "detail": "(verify_citation|citation_validation|validate_reference) → 2 file(s) matched in prism-service/app (expected ≥1)",
+          "evidence": {
+            "matches": 2
+          },
+          "duration_ms": 10
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Submit a draft with 5 citations (3 real, 2 fabricated) — does the engine flag the fakes?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Documents API has 478 citation-related references across its Python codebase. Substantial implementation. Adversarial fake-citation test never run; flagging accuracy unverified.",
+          "evidence": {
+            "verdict_key": "citation-verification",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "legal-compliance-check",
+        "name": "Automated compliance check (Civil, Corporate, Criminal, Arbitration, MCA, SEBI, RBI, Labour, IT, GST)",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "lexai-be/admin/compliance"
+          },
+          {
+            "type": "grep",
+            "path": "lexai-be/admin/compliance",
+            "pattern": "(compliance_rule|rule_engine)",
+            "min_matches": 1
+          },
+          {
+            "type": "manual",
+            "question": "Pick one rule from each of the ten law categories — does the engine evaluate correctly for a sample document?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "lexai-be/admin/compliance"
+          },
+          "status": "pass",
+          "detail": "lexai-be/admin/compliance exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "grep",
+            "path": "lexai-be/admin/compliance",
+            "pattern": "(compliance_rule|rule_engine)",
+            "min_matches": 1
+          },
+          "status": "pass",
+          "detail": "(compliance_rule|rule_engine) → 34 file(s) matched in lexai-be/admin/compliance (expected ≥1)",
+          "evidence": {
+            "matches": 34
+          },
+          "duration_ms": 9
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Pick one rule from each of the ten law categories — does the engine evaluate correctly for a sample document?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — compliance (FastAPI 8006) + compliance-calendar (14 regulator-term refs across GSTR/ITR/TDS/ROC/RBI/SEBI/MCA) both exist. Rule coverage across ALL ten contract-named categories (Civil / Corporate / Criminal / Arbitration / MCA / SEBI / RBI / Labour / IT / GST) still needs inventorying.",
+          "evidence": {
+            "verdict_key": "legal-compliance-check",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 2 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "ai-mail-generator",
+        "name": "AI mail generator, summarizer, reply maker (optional Gemini add-on)",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "grep",
+            "path": "authservice/src",
+            "pattern": "(gemini-email|GeminiEmail|generateEmailReply)",
+            "min_matches": 1
+          },
+          {
+            "type": "manual",
+            "question": "Compose, summarize, and reply flows all work end-to-end in the UI?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "grep",
+            "path": "authservice/src",
+            "pattern": "(gemini-email|GeminiEmail|generateEmailReply)",
+            "min_matches": 1
+          },
+          "status": "pass",
+          "detail": "(gemini-email|GeminiEmail|generateEmailReply) → 6 file(s) matched in authservice/src (expected ≥1)",
+          "evidence": {
+            "matches": 6
+          },
+          "duration_ms": 83
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Compose, summarize, and reply flows all work end-to-end in the UI?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — gemini-email module is 657 LOC and calls Google Generative Language API (gemini-pro endpoint) with a real API key. Three flows not end-to-end verified in UI.",
+          "evidence": {
+            "verdict_key": "ai-mail-generator",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "dedup-with-full-view",
+        "name": "Duplicate-document elimination with full-file views on request",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "grep",
+            "path": "lexai-be/admin/documents-lib-api/app",
+            "pattern": "(deduplicat|duplicate_check|dedup)",
+            "min_matches": 1
+          },
+          {
+            "type": "manual",
+            "question": "Upload the same contract twice — is it marked duplicate, and can you still see both files on demand?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "grep",
+            "path": "lexai-be/admin/documents-lib-api/app",
+            "pattern": "(deduplicat|duplicate_check|dedup)",
+            "min_matches": 1
+          },
+          "status": "pass",
+          "detail": "(deduplicat|duplicate_check|dedup) → 3 file(s) matched in lexai-be/admin/documents-lib-api/app (expected ≥1)",
+          "evidence": {
+            "matches": 3
+          },
+          "duration_ms": 453
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Upload the same contract twice — is it marked duplicate, and can you still see both files on demand?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Documents API has 66 deduplication references. Code present; UI 'see both copies on demand' toggle not verified.",
+          "evidence": {
+            "verdict_key": "dedup-with-full-view",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "examination-question-generator",
+        "name": "Examination / cross / re-examination question generator",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Does the module exist in the UI and produce usable questions for a sample witness statement?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Does the module exist in the UI and produce usable questions for a sample witness statement?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No examination-question-generator module found in authservice or Documents API; feature not implemented.",
+          "evidence": {
+            "verdict_key": "examination-question-generator",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "legal-forecast",
+        "name": "Legal forecast — predict case favor/not-favor",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "grep",
+            "path": "authservice/src",
+            "pattern": "(winProbability|lossProbability|legal_forecast|case_prediction)",
+            "min_matches": 1
+          },
+          {
+            "type": "manual",
+            "question": "Does the forecast use historical case data, and is its reasoning displayed to the user?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "grep",
+            "path": "authservice/src",
+            "pattern": "(winProbability|lossProbability|legal_forecast|case_prediction)",
+            "min_matches": 1
+          },
+          "status": "pass",
+          "detail": "(winProbability|lossProbability|legal_forecast|case_prediction) → 3 file(s) matched in authservice/src (expected ≥1)",
+          "evidence": {
+            "matches": 3
+          },
+          "duration_ms": 82
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Does the forecast use historical case data, and is its reasoning displayed to the user?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — ml-prediction module exists with 4 dedicated endpoints: /predictions/outcome, /predictions/duration, /predictions/success-analysis, /predictions/appeal. Case schema stores winProbability/lossProbability. Prediction accuracy on real cases + reasoning UI not independently verified.",
+          "evidence": {
+            "verdict_key": "legal-forecast",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "legal-adviser-assistant",
+        "name": "Legal adviser assistant (conversational)",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "grep",
+            "path": "lexai-be/admin/documents-lib-api/app",
+            "pattern": "ai[-_]?chat|AIChatService",
+            "min_matches": 1
+          },
+          {
+            "type": "file_exists",
+            "path": "lexai-client-fe/src/services/aiChatService.ts"
+          },
+          {
+            "type": "manual",
+            "question": "Chat interface works, retains context across messages, cites sources?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "grep",
+            "path": "lexai-be/admin/documents-lib-api/app",
+            "pattern": "ai[-_]?chat|AIChatService",
+            "min_matches": 1
+          },
+          "status": "pass",
+          "detail": "ai[-_]?chat|AIChatService → 13 file(s) matched in lexai-be/admin/documents-lib-api/app (expected ≥1)",
+          "evidence": {
+            "matches": 13
+          },
+          "duration_ms": 459
+        },
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "lexai-client-fe/src/services/aiChatService.ts"
+          },
+          "status": "pass",
+          "detail": "lexai-client-fe/src/services/aiChatService.ts exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Chat interface works, retains context across messages, cites sources?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Three AI assistant surfaces exist: (1) Documents API /ai-chat endpoints + AIChatService in client-fe, (2) authservice work-order-ai chat endpoint (/work-order-ai/chat), (3) onboarding-agent service. Context-retention and citation grounding not tested.",
+          "evidence": {
+            "verdict_key": "legal-adviser-assistant",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 2 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "financial-software-integration",
+        "name": "Financial-software integration — Zoho Books, SAP, Tally",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/zoho-books/zoho-books.controller.ts"
+          },
+          {
+            "type": "file_exists",
+            "path": "authservice/src/tally/tally.controller.ts"
+          },
+          {
+            "type": "manual",
+            "question": "SAP integration — present? If not, is a replacement planned or waived?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/zoho-books/zoho-books.controller.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/zoho-books/zoho-books.controller.ts exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/tally/tally.controller.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/tally/tally.controller.ts exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "SAP integration — present? If not, is a replacement planned or waived?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — Zoho Books (authservice/zoho-books) and Tally (authservice/tally) are present. SAP is listed in contract (Annexure A §3.1 Financial Software Integration) but no SAP module exists in the codebase. No written waiver on file.",
+          "evidence": {
+            "verdict_key": "financial-software-integration",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 2 pass, 1 fail"
+    },
+    {
+      "feature": {
+        "id": "case-management-infrastructure",
+        "name": "Case management infrastructure",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/cases/case/case.controller.ts"
+          },
+          {
+            "type": "grep",
+            "path": "authservice/src/cases/case/case.controller.ts",
+            "pattern": "@RequirePracticeType",
+            "must_exist": true
+          }
+        ]
+      },
+      "status": "done",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/cases/case/case.controller.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/cases/case/case.controller.ts exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "grep",
+            "path": "authservice/src/cases/case/case.controller.ts",
+            "pattern": "@RequirePracticeType",
+            "must_exist": true
+          },
+          "status": "pass",
+          "detail": "@RequirePracticeType → 1 file(s) matched in authservice/src/cases/case/case.controller.ts (expected ≥1)",
+          "evidence": {
+            "matches": 1
+          },
+          "duration_ms": 1
+        }
+      ],
+      "summary": "DONE — 2 pass"
+    },
+    {
+      "feature": {
+        "id": "litigation-strategy",
+        "name": "Litigation strategy (AI case analysis)",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Is the AI litigation-strategy feature exposed in the UI and does it produce case-specific recommendations?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Is the AI litigation-strategy feature exposed in the UI and does it produce case-specific recommendations?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — ml-prediction module (1 226 LOC, 10 OpenAI refs) has /predictions/outcome, /duration, /success-analysis, /appeal — these ARE the litigation-strategy surfaces. UI exposure + recommendation quality not verified.",
+          "evidence": {
+            "verdict_key": "litigation-strategy",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "enterprise-mgmt-dashboard",
+        "name": "Team, employees, clients, financials dashboard for enterprise",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/ca-dashboard/ca-dashboard.controller.ts"
+          },
+          {
+            "type": "file_exists",
+            "path": "lexai-client-fe/src/app/workspace/dashboard"
+          },
+          {
+            "type": "manual",
+            "question": "Partner-level dashboard shows all four surfaces (team / employees / clients / financials) in one place?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/ca-dashboard/ca-dashboard.controller.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/ca-dashboard/ca-dashboard.controller.ts exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "lexai-client-fe/src/app/workspace/dashboard"
+          },
+          "status": "pass",
+          "detail": "lexai-client-fe/src/app/workspace/dashboard exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Partner-level dashboard shows all four surfaces (team / employees / clients / financials) in one place?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — ca-dashboard controller + 42 workspace dashboard pages exist in client-fe including: /my-business, /enterprise-org, /enterprise-providers, /enterprise-reports, /enterprise-risk, /analytics, /mis, /ca-reports, /lawyer-reports. Four-pane unified owner view (team+employees+clients+financials together) not verified.",
+          "evidence": {
+            "verdict_key": "enterprise-mgmt-dashboard",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 2 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "billing-time-tracking",
+        "name": "Automated billing + time tracking",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/ca-billing/ca-billing.controller.ts"
+          },
+          {
+            "type": "file_exists",
+            "path": "authservice/src/timesheet/timesheet.controller.ts"
+          }
+        ]
+      },
+      "status": "done",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/ca-billing/ca-billing.controller.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/ca-billing/ca-billing.controller.ts exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/timesheet/timesheet.controller.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/timesheet/timesheet.controller.ts exists (expected exists)",
+          "duration_ms": 0
+        }
+      ],
+      "summary": "DONE — 2 pass"
+    },
+    {
+      "feature": {
+        "id": "document-management",
+        "name": "Document management",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "lexai-be/admin/documents-lib-api/app/main.py"
+          }
+        ]
+      },
+      "status": "done",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "lexai-be/admin/documents-lib-api/app/main.py"
+          },
+          "status": "pass",
+          "detail": "lexai-be/admin/documents-lib-api/app/main.py exists (expected exists)",
+          "duration_ms": 0
+        }
+      ],
+      "summary": "DONE — 1 pass"
+    },
+    {
+      "feature": {
+        "id": "voice-translator-drafting",
+        "name": "Voice translator for drafting application/appeals",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/voice-translator/voice-translator.controller.ts"
+          },
+          {
+            "type": "manual",
+            "question": "Record a sample voice input in Hindi — does it transcribe + translate to a draftable application?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/voice-translator/voice-translator.controller.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/voice-translator/voice-translator.controller.ts exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Record a sample voice input in Hindi — does it transcribe + translate to a draftable application?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — voice-translator controller present; end-to-end transcribe → translate → draft flow not tested.",
+          "evidence": {
+            "verdict_key": "voice-translator-drafting",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "hindi-english-translator",
+        "name": "Translator — English + Hindi (local languages)",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "grep",
+            "path": "authservice/src",
+            "pattern": "(hindi|translate|voice-translator)",
+            "min_matches": 1
+          },
+          {
+            "type": "manual",
+            "question": "Hindi UI and bidirectional translation both present?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "grep",
+            "path": "authservice/src",
+            "pattern": "(hindi|translate|voice-translator)",
+            "min_matches": 1
+          },
+          "status": "pass",
+          "detail": "(hindi|translate|voice-translator) → 18 file(s) matched in authservice/src (expected ≥1)",
+          "evidence": {
+            "matches": 18
+          },
+          "duration_ms": 86
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Hindi UI and bidirectional translation both present?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Translator code hints present (grep hits for 'translate'/'voice-translator'). Full Hindi UI (i18n coverage of every page) not verified.",
+          "evidence": {
+            "verdict_key": "hindi-english-translator",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "client-management",
+        "name": "Client management (CRM for a legal/CA practice)",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/clients/clients.controller.ts"
+          }
+        ]
+      },
+      "status": "done",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/clients/clients.controller.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/clients/clients.controller.ts exists (expected exists)",
+          "duration_ms": 0
+        }
+      ],
+      "summary": "DONE — 1 pass"
+    },
+    {
+      "feature": {
+        "id": "compliance-filing-workflow-generator",
+        "name": "Compliance + filing workflow generator",
+        "annexure": "3.1 Core AI Development",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/compliance-calendar/compliance-calendar.controller.ts"
+          },
+          {
+            "type": "file_exists",
+            "path": "authservice/src/work-order-flow/work-order-flow.controller.ts"
+          }
+        ]
+      },
+      "status": "done",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/compliance-calendar/compliance-calendar.controller.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/compliance-calendar/compliance-calendar.controller.ts exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/work-order-flow/work-order-flow.controller.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/work-order-flow/work-order-flow.controller.ts exists (expected exists)",
+          "duration_ms": 0
+        }
+      ],
+      "summary": "DONE — 2 pass"
+    },
+    {
+      "feature": {
+        "id": "due-diligence-analyzer",
+        "name": "Due diligence analyzer (M&A docs, risk extraction)",
+        "annexure": "3.2 Corporate Law features",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Upload company filings — does the analyzer extract red flags and summarize risks?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Upload company filings — does the analyzer extract red flags and summarize risks?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — docscan-ai module is 1 808 LOC with 18 OpenAI refs. Dedicated endpoints: @Post scan/contract, @Post scan/id-document, @Post scan/invoice, @Get history + :scanId. Contract-scanning serves DD. DD-specific red-flag taxonomy not verified.",
+          "evidence": {
+            "verdict_key": "due-diligence-analyzer",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "entity-formation-assistant",
+        "name": "Entity formation & governance assistant (incorporation, bylaws)",
+        "annexure": "3.2 Corporate Law features",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Guided incorporation flow present end-to-end, including bylaws templates?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Guided incorporation flow present end-to-end, including bylaws templates?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — onboarding-agent service in authservice provides AI-driven guided onboarding; could be extended to incorporation. /my-business page exists in client-fe. Bylaws templates + full incorporation workflow not verified.",
+          "evidence": {
+            "verdict_key": "entity-formation-assistant",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "regulatory-change-tracker",
+        "name": "Regulatory change tracker",
+        "annexure": "3.2 Corporate Law features",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Does the platform surface new MCA/SEBI/RBI circulars with impact-on-your-clients tagging?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Does the platform surface new MCA/SEBI/RBI circulars with impact-on-your-clients tagging?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — notifications/alert-engine, ca-alerts, client-alerts (client-compliance-alerts.service.ts) all exist. Live tracker across MCA + SEBI + RBI with impact-tagging not verified.",
+          "evidence": {
+            "verdict_key": "regulatory-change-tracker",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "board-meeting-minutes-generator",
+        "name": "Board meeting minutes generator",
+        "annexure": "3.2 Corporate Law features",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Can a user generate compliant board meeting minutes from an agenda + attendee list?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Can a user generate compliant board meeting minutes from an agenda + attendee list?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Governance page (/alias/.../governance) has full BoardMeeting type: meetingType (board/agm/egm/committee), MeetingStatus, ResolutionStatus (draft/pending_approval/passed/rejected/implemented), minutesSigned, filingRequired, attendees, agendaItems, resolutions. Current page uses mock data (hardcoded sample meetings); backend minutes-generator endpoint not verified.",
+          "evidence": {
+            "verdict_key": "board-meeting-minutes-generator",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "policy-hr-handbook-generator",
+        "name": "Policy & HR handbook generator",
+        "annexure": "3.2 Corporate Law features",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Generate a sample HR handbook — does it cover standard Indian labour-law sections (POSH, PF, gratuity, leave)?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Generate a sample HR handbook — does it cover standard Indian labour-law sections (POSH, PF, gratuity, leave)?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No HR-handbook generator module found. Payroll module covers PF/ESI/gratuity accounting, but not policy drafting.",
+          "evidence": {
+            "verdict_key": "policy-hr-handbook-generator",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "cross-border-law-compliance-checker",
+        "name": "Cross-border law compliance checker",
+        "annexure": "3.2 Corporate Law features",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Supported jurisdictions documented? Does the engine actually check against them?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Supported jurisdictions documented? Does the engine actually check against them?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — fema-cma module covers Indian cross-border law — FEMA registrations (FDI / ODI / ECB / LRS / Liaison), foreign-party fields, FC-GPR filing deadlines. Partial coverage of 'cross-border' as named in contract. International (non-Indian) jurisdictions not covered.",
+          "evidence": {
+            "verdict_key": "cross-border-law-compliance-checker",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "documents-list-generator",
+        "name": "List-of-documents generator (for licenses, entity opening, work completion)",
+        "annexure": "3.2 Corporate Law features",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Pick 3 common filings (GST registration, Pvt Ltd incorporation, MSME) — correct document list produced for each?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Pick 3 common filings (GST registration, Pvt Ltd incorporation, MSME) — correct document list produced for each?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No document-list generator module found.",
+          "evidence": {
+            "verdict_key": "documents-list-generator",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "tax-return-compliance-checker",
+        "name": "Tax return compliance checker",
+        "annexure": "3.3 Tax / Banking Law features",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/sandbox/sandbox.controller.ts",
+            "note": "Sandbox.co.in integration powers GST/ITR/TDS"
+          },
+          {
+            "type": "manual",
+            "question": "Upload a sample ITR — are compliance issues flagged with specific rule references?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/sandbox/sandbox.controller.ts",
+            "note": "Sandbox.co.in integration powers GST/ITR/TDS"
+          },
+          "status": "pass",
+          "detail": "authservice/src/sandbox/sandbox.controller.ts exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Upload a sample ITR — are compliance issues flagged with specific rule references?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — sandbox.co.in integration present for ITR filing. A rule-flagging layer with Income Tax Act section references on uploaded returns is not identified separately.",
+          "evidence": {
+            "verdict_key": "tax-return-compliance-checker",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "tax-planning-assistant",
+        "name": "Tax planning assistant (corporates)",
+        "annexure": "3.3 Tax / Banking Law features",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Does the assistant produce year-end tax-saving recommendations for a sample balance sheet?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Does the assistant produce year-end tax-saving recommendations for a sample balance sheet?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No tax-planning assistant module found.",
+          "evidence": {
+            "verdict_key": "tax-planning-assistant",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "audit-risk-analyzer",
+        "name": "Audit risk analyzer",
+        "annexure": "3.3 Tax / Banking Law features",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/audit/audit.controller.ts"
+          },
+          {
+            "type": "manual",
+            "question": "Risk analyzer surfaces specific anomalies (round-tripping, cash spikes, unusual journals), not just totals?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/audit/audit.controller.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/audit/audit.controller.ts exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Risk analyzer surfaces specific anomalies (round-tripping, cash spikes, unusual journals), not just totals?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — audit controller + service present; anomaly-detection sophistication not inventoried.",
+          "evidence": {
+            "verdict_key": "audit-risk-analyzer",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "cross-border-tax-compliance-checker",
+        "name": "Cross-border tax compliance checker",
+        "annexure": "3.3 Tax / Banking Law features",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Which treaties/jurisdictions supported? Documented?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Which treaties/jurisdictions supported? Documented?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — fema-cma handles cross-border Indian tax reporting flows (FDI tax impact, ECB tax, LRS limits). Full DTAA treaty engine not identified.",
+          "evidence": {
+            "verdict_key": "cross-border-tax-compliance-checker",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "cross-border-transfer-pricing-checker",
+        "name": "Cross-border transfer pricing checker",
+        "annexure": "3.3 Tax / Banking Law features",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "ALP methods supported (CUP, RPM, CPM, TNMM, PSM)? Benchmarking data source?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "ALP methods supported (CUP, RPM, CPM, TNMM, PSM)? Benchmarking data source?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No transfer pricing module found.",
+          "evidence": {
+            "verdict_key": "cross-border-transfer-pricing-checker",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "trademark-search-ai",
+        "name": "Trademark Search AI (conflict detection)",
+        "annexure": "3.4 Intellectual Property",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/ip-module"
+          },
+          {
+            "type": "manual",
+            "question": "Can a user search the Indian trademark registry and get similarity scores?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/ip-module"
+          },
+          "status": "pass",
+          "detail": "authservice/src/ip-module exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Can a user search the Indian trademark registry and get similarity scores?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — ip-module is 2 962 LOC with 14 OpenAI refs. Dedicated endpoints: @Post trademarks/similarity, @Post trademarks/suggest-classes, @Get trademarks + :applicationNumber + classes/all. Live registry integration + similarity-score accuracy not independently tested.",
+          "evidence": {
+            "verdict_key": "trademark-search-ai",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "patent-drafting-assistant",
+        "name": "Patent drafting assistant (claim language)",
+        "annexure": "3.4 Intellectual Property",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Does the assistant draft claim 1 + dependent claims from an invention description?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Does the assistant draft claim 1 + dependent claims from an invention description?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — ip-module has @Post patents/novelty-check + @Post patents/suggest-ipc endpoints. Not a full claim-drafting assistant but has AI assistance for patent prep. Full claim-drafting ability (not just novelty/IPC) still needs verification.",
+          "evidence": {
+            "verdict_key": "patent-drafting-assistant",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "prior-art-finder",
+        "name": "Prior art finder",
+        "annexure": "3.4 Intellectual Property",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Prior art search covers Indian + international patents? Which databases?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Prior art search covers Indian + international patents? Which databases?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — ip-module has @Post prior-art/search + @Get prior-art/search/:searchId + @Get prior-art/history. Dedicated endpoints exist. Database coverage + result quality not verified.",
+          "evidence": {
+            "verdict_key": "prior-art-finder",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "ip-portfolio-manager",
+        "name": "IP portfolio manager (deadlines, renewals, filings)",
+        "annexure": "3.4 Intellectual Property",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Can a user see all their IP assets with upcoming renewal deadlines in one view?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Can a user see all their IP assets with upcoming renewal deadlines in one view?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — ip-module (2 962 LOC) has @Get patents + @Get trademarks + @Get patents/:applicationNumber/family + @Get statistics. Portfolio foundations present. Renewal-deadline aggregation UI not verified.",
+          "evidence": {
+            "verdict_key": "ip-portfolio-manager",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "fair-use-analyzer",
+        "name": "Fair use analyzer",
+        "annexure": "3.4 Intellectual Property",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/fair-use-analyzer"
+          },
+          {
+            "type": "manual",
+            "question": "Analyzer runs through all four fair-use factors and gives a defensible score?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/fair-use-analyzer"
+          },
+          "status": "pass",
+          "detail": "authservice/src/fair-use-analyzer exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Analyzer runs through all four fair-use factors and gives a defensible score?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — fair-use-analyzer module is 725 LOC with 7 OpenAI refs. Endpoints: @Post /analyze, @Get /analyses + /analyses/:id, @Get /factors, @Get /use-types, @Get /work-types. Real four-factor analysis structure. Scoring defensibility not legally reviewed.",
+          "evidence": {
+            "verdict_key": "fair-use-analyzer",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "copyright-infringement-detector",
+        "name": "Copyright infringement detector",
+        "annexure": "3.4 Intellectual Property",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Does the detector scan uploaded content against known works?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Does the detector scan uploaded content against known works?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No copyright-infringement detector module found.",
+          "evidence": {
+            "verdict_key": "copyright-infringement-detector",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "ip-risk-assessment-tool",
+        "name": "IP risk assessment tool",
+        "annexure": "3.4 Intellectual Property",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Produces a defensible registration-chance score for a new filing?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Produces a defensible registration-chance score for a new filing?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No IP risk-assessment tool module found.",
+          "evidence": {
+            "verdict_key": "ip-risk-assessment-tool",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "cross-border-ip-compliance-checker",
+        "name": "Cross-border IP compliance checker",
+        "annexure": "3.4 Intellectual Property",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Which international IP regimes covered (Madrid, PCT, Berne)?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Which international IP regimes covered (Madrid, PCT, Berne)?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — ip-data.schema.ts models cross-border jurisdictions: IpJurisdiction enum includes PCT, WIPO. Jurisdiction field + unique compound index (applicationNumber + jurisdiction) on all three IP types (trademarks, patents, copyrights). Compliance-check logic across these regimes not verified.",
+          "evidence": {
+            "verdict_key": "cross-border-ip-compliance-checker",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "licensing-agreement-drafting-assistant",
+        "name": "Licensing agreement drafting assistant",
+        "annexure": "3.4 Intellectual Property",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Produces usable royalty/distribution/usage-rights agreements for a sample scenario?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Produces usable royalty/distribution/usage-rights agreements for a sample scenario?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Documents API has template-based drafting; dedicated licensing agreement templates + variable prompts not verified.",
+          "evidence": {
+            "verdict_key": "licensing-agreement-drafting-assistant",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "data-protection-compliance-checker",
+        "name": "Data protection compliance checker (DPDP, GDPR)",
+        "annexure": "3.5 Data Privacy / Cybersecurity",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Which DPDP + GDPR articles mapped? Sample output for a privacy policy?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Which DPDP + GDPR articles mapped? Sample output for a privacy policy?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No DPDP/GDPR compliance checker module found.",
+          "evidence": {
+            "verdict_key": "data-protection-compliance-checker",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "breach-risk-analyzer",
+        "name": "Breach risk analyzer",
+        "annexure": "3.5 Data Privacy / Cybersecurity",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Does the analyzer identify high-risk data flows in a sample architecture?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Does the analyzer identify high-risk data flows in a sample architecture?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No breach-risk analyzer module found.",
+          "evidence": {
+            "verdict_key": "breach-risk-analyzer",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "privacy-policy-generator",
+        "name": "Privacy policy generator",
+        "annexure": "3.5 Data Privacy / Cybersecurity",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Generated policy is DPDP + GDPR compliant for a sample B2C app?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Generated policy is DPDP + GDPR compliant for a sample B2C app?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No privacy policy generator module found.",
+          "evidence": {
+            "verdict_key": "privacy-policy-generator",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "user-rights-explainer",
+        "name": "User rights explainer (plain language)",
+        "annexure": "3.5 Data Privacy / Cybersecurity",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Rights-explainer available in-product for end-users of a Client's app?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Rights-explainer available in-product for end-users of a Client's app?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No user rights explainer module found.",
+          "evidence": {
+            "verdict_key": "user-rights-explainer",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "cookie-policy-generator",
+        "name": "Cookie policy generator",
+        "annexure": "3.5 Data Privacy / Cybersecurity",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Scans a URL and generates a compliant cookie policy?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Scans a URL and generates a compliant cookie policy?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No cookie policy generator module found.",
+          "evidence": {
+            "verdict_key": "cookie-policy-generator",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "visa-eligibility-checker",
+        "name": "Visa eligibility checker",
+        "annexure": "3.6 Immigration Law",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/immigration"
+          },
+          {
+            "type": "manual",
+            "question": "Checker supports at least India outbound + inbound visa categories?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/immigration"
+          },
+          "status": "pass",
+          "detail": "authservice/src/immigration exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Checker supports at least India outbound + inbound visa categories?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — immigration module is 1 809 LOC with 26 endpoints: /cases + /forms + /appointments + /timeline + /metadata/{visa-categories,case-statuses,form-types,countries} + /uscis/processing-times + /uscis/visa-bulletin + /statistics. USCIS-focused (US immigration). India in/outbound coverage not verified.",
+          "evidence": {
+            "verdict_key": "visa-eligibility-checker",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "immigration-forms-autofiller",
+        "name": "Immigration forms auto-filler",
+        "annexure": "3.6 Immigration Law",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Which forms supported? Can a user export a filled form for signature?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Which forms supported? Can a user export a filled form for signature?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — immigration module has @Post /forms + @Get /forms/:formId + @Get /metadata/form-types + @Post /cases/:caseId/forms. Forms infrastructure present; auto-fill from case data + export-for-signature flow not verified.",
+          "evidence": {
+            "verdict_key": "immigration-forms-autofiller",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "asylum-precedent-summarizer",
+        "name": "Asylum case precedent summarizer",
+        "annexure": "3.6 Immigration Law",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Summaries draw from real precedent corpus?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Summaries draw from real precedent corpus?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No asylum precedent summarizer module found.",
+          "evidence": {
+            "verdict_key": "asylum-precedent-summarizer",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "residency-work-permit-tracker",
+        "name": "Residency + work permit tracker",
+        "annexure": "3.6 Immigration Law",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Tracks per-user permit status with deadline alerts?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Tracks per-user permit status with deadline alerts?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — immigration module tracks @Get /cases + /cases/:id (status) + /appointments/upcoming + /uscis/processing-times. Permit-tracker use-case is covered by generic case tracking; deadline-alert wiring not verified.",
+          "evidence": {
+            "verdict_key": "residency-work-permit-tracker",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "immigration-pathway-navigator",
+        "name": "Immigration pathway navigator",
+        "annexure": "3.6 Immigration Law",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Given a profile, suggests best-fit visa pathways with timelines?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Given a profile, suggests best-fit visa pathways with timelines?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No pathway navigator module found.",
+          "evidence": {
+            "verdict_key": "immigration-pathway-navigator",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "deportation-defense-assistant",
+        "name": "Deportation defense assistant",
+        "annexure": "3.6 Immigration Law",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Supports standard defense pleadings with precedent citations?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Supports standard defense pleadings with precedent citations?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No deportation defense assistant module found.",
+          "evidence": {
+            "verdict_key": "deportation-defense-assistant",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "naturalization-test-prep",
+        "name": "Naturalization test prep tool",
+        "annexure": "3.6 Immigration Law",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/naturalization-test"
+          },
+          {
+            "type": "manual",
+            "question": "Includes practice questions + answer rationales for target countries?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/naturalization-test"
+          },
+          "status": "pass",
+          "detail": "authservice/src/naturalization-test exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Includes practice questions + answer rationales for target countries?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — naturalization-test module is 1 706 LOC with 13 endpoints. Substantial standalone module. Question bank size + countries covered not inventoried.",
+          "evidence": {
+            "verdict_key": "naturalization-test-prep",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "family-sponsorship-eligibility-checker",
+        "name": "Family sponsorship eligibility checker",
+        "annexure": "3.6 Immigration Law",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Which jurisdictions? Correct eligibility rules?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Which jurisdictions? Correct eligibility rules?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No family sponsorship eligibility checker module found.",
+          "evidence": {
+            "verdict_key": "family-sponsorship-eligibility-checker",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "immigration-rights-explainer",
+        "name": "Plain-language immigration rights explainer",
+        "annexure": "3.6 Immigration Law",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Available in-product in plain English + Hindi?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Available in-product in plain English + Hindi?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No immigration-rights explainer module found.",
+          "evidence": {
+            "verdict_key": "immigration-rights-explainer",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "case-status-notifier",
+        "name": "Immigration case-status notifier (forms, hearings, appeals)",
+        "annexure": "3.6 Immigration Law",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Notifications fire on status change (not just manual check)?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Notifications fire on status change (not just manual check)?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — immigration module has @Post /cases/:id/timeline + @Get /appointments/upcoming + /uscis/visa-bulletin. Infrastructure present. Push notifications on status change (not just manual pull) not verified.",
+          "evidence": {
+            "verdict_key": "case-status-notifier",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "workspace-practice-type-gate",
+        "name": "Workspace service type (Legal / Accounting / Both) + enforcement",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/common/guards/practice-type.guard.ts"
+          },
+          {
+            "type": "file_exists",
+            "path": "authservice/src/common/decorators/require-practice-type.decorator.ts"
+          },
+          {
+            "type": "grep",
+            "path": "authservice/src/payroll/payroll.controller.ts",
+            "pattern": "@RequirePracticeType",
+            "must_exist": true
+          },
+          {
+            "type": "grep",
+            "path": "authservice/src/cases/case/case.controller.ts",
+            "pattern": "@RequirePracticeType",
+            "must_exist": true
+          }
+        ]
+      },
+      "status": "done",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/common/guards/practice-type.guard.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/common/guards/practice-type.guard.ts exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/common/decorators/require-practice-type.decorator.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/common/decorators/require-practice-type.decorator.ts exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "grep",
+            "path": "authservice/src/payroll/payroll.controller.ts",
+            "pattern": "@RequirePracticeType",
+            "must_exist": true
+          },
+          "status": "pass",
+          "detail": "@RequirePracticeType → 1 file(s) matched in authservice/src/payroll/payroll.controller.ts (expected ≥1)",
+          "evidence": {
+            "matches": 1
+          },
+          "duration_ms": 1
+        },
+        {
+          "check": {
+            "type": "grep",
+            "path": "authservice/src/cases/case/case.controller.ts",
+            "pattern": "@RequirePracticeType",
+            "must_exist": true
+          },
+          "status": "pass",
+          "detail": "@RequirePracticeType → 1 file(s) matched in authservice/src/cases/case/case.controller.ts (expected ≥1)",
+          "evidence": {
+            "matches": 1
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "DONE — 4 pass"
+    },
+    {
+      "feature": {
+        "id": "owner-dashboard",
+        "name": "Owner dashboard — clients, matters, employees, task status",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/ca-dashboard/ca-dashboard.controller.ts"
+          },
+          {
+            "type": "manual",
+            "question": "Owner-level view surfaces all four axes in one page?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/ca-dashboard/ca-dashboard.controller.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/ca-dashboard/ca-dashboard.controller.ts exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Owner-level view surfaces all four axes in one page?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — ca-dashboard exists; four-axis unified page not verified.",
+          "evidence": {
+            "verdict_key": "owner-dashboard",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "employee-directory-workloads",
+        "name": "Employee directory with workloads + performance",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/team-members"
+          },
+          {
+            "type": "manual",
+            "question": "Workload column populated from real task assignment data?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/team-members"
+          },
+          "status": "pass",
+          "detail": "authservice/src/team-members exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Workload column populated from real task assignment data?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — team-members module exists; workload-from-tasks join query not verified.",
+          "evidence": {
+            "verdict_key": "employee-directory-workloads",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "performance-heatmap",
+        "name": "Performance heatmap (R / Y / G productivity)",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Does the heatmap exist in-product and reflect real activity?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Does the heatmap exist in-product and reflect real activity?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No performance-heatmap component identified in client-fe.",
+          "evidence": {
+            "verdict_key": "performance-heatmap",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "client-matter-profitability-view",
+        "name": "Client & matter profitability view",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Profitability pulls from billing + timesheet, not placeholders?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Profitability pulls from billing + timesheet, not placeholders?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — ca-billing + timesheet exist; /workspace/dashboard/analytics + /ca-reports pages exist. Specific profitability join query not located; may be in analytics UI.",
+          "evidence": {
+            "verdict_key": "client-matter-profitability-view",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "task-completion-vs-deadline",
+        "name": "Task completion % vs. deadline",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/common/activities"
+          },
+          {
+            "type": "manual",
+            "question": "View exists per team member and firm-wide?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/common/activities"
+          },
+          "status": "pass",
+          "detail": "authservice/src/common/activities exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "View exists per team member and firm-wide?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — activities module records events; a completion-vs-deadline chart UI not verified.",
+          "evidence": {
+            "verdict_key": "task-completion-vs-deadline",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "smart-assignment-engine",
+        "name": "Smart assignment engine (AI recommends, manual override)",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "AI considers expertise + workload, override available in UI?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "AI considers expertise + workload, override available in UI?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — work-order-ai module has AI chat for work-order creation. Case schema has assignedTo + assignmentHistory. AI-driven assignment-recommendation specifically (expertise + workload scoring) not clearly identified as a separate engine.",
+          "evidence": {
+            "verdict_key": "smart-assignment-engine",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "owner-override-button",
+        "name": "Owner override button (reassign / escalate / mark urgent)",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Three actions wired end-to-end?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Three actions wired end-to-end?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Reassign (assignmentHistory) wired on Case schema; escalate + mark-urgent flows not confirmed.",
+          "evidence": {
+            "verdict_key": "owner-override-button",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "assignment-notifications-with-checklists",
+        "name": "Instant assignment notifications with auto checklists",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/notifications"
+          },
+          {
+            "type": "manual",
+            "question": "On assignment, notification + task-type-specific checklist both generated?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/notifications"
+          },
+          "status": "pass",
+          "detail": "authservice/src/notifications exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "On assignment, notification + task-type-specific checklist both generated?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — notifications module present; task-type-aware checklist auto-generation not confirmed.",
+          "evidence": {
+            "verdict_key": "assignment-notifications-with-checklists",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "critical-escalation-alerts",
+        "name": "Critical escalation alerts (missed deadlines, resignations)",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Alert fires within one business day of trigger?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Alert fires within one business day of trigger?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — alert-engine present; business-day latency not measured.",
+          "evidence": {
+            "verdict_key": "critical-escalation-alerts",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "weekly-summary-reports",
+        "name": "Weekly summary reports",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Reports go out automatically on a schedule?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Reports go out automatically on a schedule?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Scheduled job system (apscheduler visible in Prism) exists; a weekly summary job for firm owners not confirmed.",
+          "evidence": {
+            "verdict_key": "weekly-summary-reports",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "deadline-reminders",
+        "name": "Deadline reminders (4d small, 1-2mo big)",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Cadence respected per task size, not uniform?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Cadence respected per task size, not uniform?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — compliance-calendar + notifications present; size-aware cadence (4d small / 1-2mo big per contract) not verified.",
+          "evidence": {
+            "verdict_key": "deadline-reminders",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "risk-compliance-alerts",
+        "name": "Risk & compliance alerts (post-completion detection)",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Alerts fire for issues discovered after a filing is complete?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Alerts fire for issues discovered after a filing is complete?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Post-completion alert path not clearly identified.",
+          "evidence": {
+            "verdict_key": "risk-compliance-alerts",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "billable-vs-nonbillable-tracking",
+        "name": "Billable vs. non-billable hour tracking",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/timesheet/timesheet.controller.ts"
+          }
+        ]
+      },
+      "status": "done",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/timesheet/timesheet.controller.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/timesheet/timesheet.controller.ts exists (expected exists)",
+          "duration_ms": 0
+        }
+      ],
+      "summary": "DONE — 1 pass"
+    },
+    {
+      "feature": {
+        "id": "productivity-insights",
+        "name": "Productivity insights",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Insights produced per attorney / practice area / client?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Insights produced per attorney / practice area / client?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — /workspace/dashboard/analytics + /my-day + /my-practice pages exist. Per-attorney / per-practice-area / per-client slicing not verified.",
+          "evidence": {
+            "verdict_key": "productivity-insights",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "governance-rules",
+        "name": "Governance rules (e.g., partner review for M&A drafts)",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Rule engine supports conditional reviewer injection?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Rule engine supports conditional reviewer injection?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — /workspace/dashboard/governance/ page exists in client-fe. Rule-engine depth (conditional-reviewer-on-M&A-draft semantics) not verified.",
+          "evidence": {
+            "verdict_key": "governance-rules",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "workload-balancing",
+        "name": "Automatic workload balancing suggestions",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Suggestions available in the assignment UI?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Suggestions available in the assignment UI?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Case assignment + team-members modules present; dedicated workload-balancing suggestion engine not identified.",
+          "evidence": {
+            "verdict_key": "workload-balancing",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "firm-insights",
+        "name": "Firm insights (productivity by attorney / practice / client)",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Multi-axis reports available?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Multi-axis reports available?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — mis module + /workspace/dashboard/mis + /ca-reports + /lawyer-reports + /enterprise-reports pages all exist. Multi-axis reporting depth not verified.",
+          "evidence": {
+            "verdict_key": "firm-insights",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "client-profitability-reports",
+        "name": "Client profitability reports",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Separate report distinct from matter profitability?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Separate report distinct from matter profitability?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Client-level profitability report not confirmed.",
+          "evidence": {
+            "verdict_key": "client-profitability-reports",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "future-risk-radar",
+        "name": "Future risk radar (regulatory changes, deadlines, disputes)",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Forecasts shown in a dedicated view?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Forecasts shown in a dedicated view?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — /workspace/dashboard/enterprise-risk/ page exists; risk-matrix module + service in authservice. Forward-looking forecast content vs. current-state risk-register view not verified.",
+          "evidence": {
+            "verdict_key": "future-risk-radar",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "security-soc2-iso27001",
+        "name": "Security: SOC 2 Type II, ISO 27001, GDPR, CCPA alignment",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "SOC 2 Type II audit scheduled/complete? ISO 27001 certification status? GDPR + CCPA controls documented?",
+            "review_cadence_days": 90
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "SOC 2 Type II audit scheduled/complete? ISO 27001 certification status? GDPR + CCPA controls documented?",
+            "review_cadence_days": 90
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No SOC 2 or ISO 27001 certification evidence on file. Not scheduled, not in progress. GDPR + CCPA mapping not documented. This is a hard contract commitment (§3.7).",
+          "evidence": {
+            "verdict_key": "security-soc2-iso27001",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "audit-logs-encryption-access-controls",
+        "name": "Audit logs, data encryption, access controls",
+        "annexure": "3.7 Law Firm Owner — Enterprise",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/user-activity-history"
+          },
+          {
+            "type": "file_exists",
+            "path": "authservice/src/auth/guards/auth.guards.ts"
+          },
+          {
+            "type": "manual",
+            "question": "DB encryption at rest? TLS everywhere? All PII fields encrypted?",
+            "review_cadence_days": 90
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/user-activity-history"
+          },
+          "status": "pass",
+          "detail": "authservice/src/user-activity-history exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/auth/guards/auth.guards.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/auth/guards/auth.guards.ts exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "DB encryption at rest? TLS everywhere? All PII fields encrypted?",
+            "review_cadence_days": 90
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Audit logs: user-activity-history + cross-workspace-access-log services present. JWT + role-based guards present. DB-at-rest encryption + per-column PII encryption not confirmed on the actual deployed instance (MongoDB Atlas + PostgreSQL).",
+          "evidence": {
+            "verdict_key": "audit-logs-encryption-access-controls",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 2 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "custom-models-indian-law",
+        "name": "Custom ML models fine-tuned on Indian law / tax / regulatory",
+        "annexure": "3.8 Custom-Trained AI Models",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Which base models + which fine-tuning datasets? Documented reproducibility?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Which base models + which fine-tuning datasets? Documented reproducibility?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No fine-tuned model artefacts, training scripts, or dataset manifests located. Platform uses general LLMs (OpenAI, Anthropic) via API, not custom-trained models as contract §3.8 requires.",
+          "evidence": {
+            "verdict_key": "custom-models-indian-law",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "continuous-learning-pipeline",
+        "name": "Continuous-learning pipeline (incremental ingestion)",
+        "annexure": "3.8 Custom-Trained AI Models",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Pipeline runs on a schedule? Where are new sources picked up?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Pipeline runs on a schedule? Where are new sources picked up?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No continuous-learning pipeline identified. Prism has sync scheduler for data ingestion but not for model retraining.",
+          "evidence": {
+            "verdict_key": "continuous-learning-pipeline",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "historical-court-datasets",
+        "name": "Historical datasets — Supreme Court, High Court, District Court, Tribunals",
+        "annexure": "3.8 Custom-Trained AI Models",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Which courts ingested, with what coverage period?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Which courts ingested, with what coverage period?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — ecourts integration + Prism (47 846 LOC with 579 RAG terms) handles corpus ingestion. Coverage inventory per court (SC / HCs / District / Tribunals) + year range + document counts not documented.",
+          "evidence": {
+            "verdict_key": "historical-court-datasets",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "specialised-ai-tax-governance-modules",
+        "name": "Specialised modules — Tax/GST/RBI, Corporate governance/MCA/SEBI",
+        "annexure": "3.8 Custom-Trained AI Models",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Separate specialised models or shared base? Benchmarks per domain?"
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Separate specialised models or shared base? Benchmarks per domain?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No domain-specialised models or domain-benchmark results on file.",
+          "evidence": {
+            "verdict_key": "specialised-ai-tax-governance-modules",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    },
+    {
+      "feature": {
+        "id": "centralised-knowledge-library",
+        "name": "Centralised document & knowledge library",
+        "annexure": "3.9 Document & Knowledge Libraries",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "lexai-be/admin/documents-lib-api/app/main.py"
+          },
+          {
+            "type": "manual",
+            "question": "Library browsable across case law + contracts + tax rulings + circulars?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "lexai-be/admin/documents-lib-api/app/main.py"
+          },
+          "status": "pass",
+          "detail": "lexai-be/admin/documents-lib-api/app/main.py exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Library browsable across case law + contracts + tax rulings + circulars?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Documents API (116 912 LOC) + Prism (47 846 LOC) both ingest + index content. Cross-corpus browse UI (single-search over case-law + contracts + tax rulings + circulars) not confirmed.",
+          "evidence": {
+            "verdict_key": "centralised-knowledge-library",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "dedup-version-tracking",
+        "name": "De-duplication, version tracking, automated categorisation",
+        "annexure": "3.9 Document & Knowledge Libraries",
+        "checks": [
+          {
+            "type": "grep",
+            "path": "lexai-be/admin/documents-lib-api/app",
+            "pattern": "(version|dedup|categorize|categorise)",
+            "min_matches": 2
+          }
+        ]
+      },
+      "status": "done",
+      "checks": [
+        {
+          "check": {
+            "type": "grep",
+            "path": "lexai-be/admin/documents-lib-api/app",
+            "pattern": "(version|dedup|categorize|categorise)",
+            "min_matches": 2
+          },
+          "status": "pass",
+          "detail": "(version|dedup|categorize|categorise) → 60 file(s) matched in lexai-be/admin/documents-lib-api/app (expected ≥2)",
+          "evidence": {
+            "matches": 60
+          },
+          "duration_ms": 453
+        }
+      ],
+      "summary": "DONE — 1 pass"
+    },
+    {
+      "feature": {
+        "id": "api-supreme-high-court",
+        "name": "SC + High Court APIs (case updates, judgments)",
+        "annexure": "3.10 External APIs / Sources",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/ecourts/ecourts.controller.ts"
+          },
+          {
+            "type": "manual",
+            "question": "Which courts covered? Sync frequency?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/ecourts/ecourts.controller.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/ecourts/ecourts.controller.ts exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Which courts covered? Sync frequency?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — ecourts controller exists; covered-court inventory + sync frequency not documented.",
+          "evidence": {
+            "verdict_key": "api-supreme-high-court",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "api-mca",
+        "name": "MCA (filings, compliance updates)",
+        "annexure": "3.10 External APIs / Sources",
+        "checks": [
+          {
+            "type": "grep",
+            "path": "authservice/src/government-apis",
+            "pattern": "(MCA|mca)",
+            "min_matches": 1
+          },
+          {
+            "type": "manual",
+            "question": "MCA integration pulls company master + filings in real time?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "grep",
+            "path": "authservice/src/government-apis",
+            "pattern": "(MCA|mca)",
+            "min_matches": 1
+          },
+          "status": "pass",
+          "detail": "(MCA|mca) → 7 file(s) matched in authservice/src/government-apis (expected ≥1)",
+          "evidence": {
+            "matches": 7
+          },
+          "duration_ms": 1
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "MCA integration pulls company master + filings in real time?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — government-apis module referenced MCA; real-time pull of company master + filings not verified.",
+          "evidence": {
+            "verdict_key": "api-mca",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "api-rbi",
+        "name": "RBI (circulars, guidelines)",
+        "annexure": "3.10 External APIs / Sources",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "RBI circular feed live? Latest publication date?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "RBI circular feed live? Latest publication date?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Dedicated RbiScraper (411 LOC) in authservice/src/government-apis/scrapers/. Pulls circulars + notifications + master directions + press releases from rbi.org.in via both HTML scraping and RSS feeds (circulars, notifications, press, FEMA). GovernmentCircular schema persists results. Live sync cadence + latest publication date not verified in deployment.",
+          "evidence": {
+            "verdict_key": "api-rbi",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "api-gst",
+        "name": "GST Portal (notifications, filings)",
+        "annexure": "3.10 External APIs / Sources",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/sandbox/sandbox.controller.ts"
+          }
+        ]
+      },
+      "status": "done",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/sandbox/sandbox.controller.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/sandbox/sandbox.controller.ts exists (expected exists)",
+          "duration_ms": 0
+        }
+      ],
+      "summary": "DONE — 1 pass"
+    },
+    {
+      "feature": {
+        "id": "api-income-tax-cbdt",
+        "name": "Income Tax / CBDT",
+        "annexure": "3.10 External APIs / Sources",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/sandbox/income-tax"
+          },
+          {
+            "type": "manual",
+            "question": "CBDT circulars + notifications ingested? Latest sync date?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/sandbox/income-tax"
+          },
+          "status": "pass",
+          "detail": "authservice/src/sandbox/income-tax exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "CBDT circulars + notifications ingested? Latest sync date?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — sandbox/income-tax directory exists for filing; circulars + notifications ingestion not verified.",
+          "evidence": {
+            "verdict_key": "api-income-tax-cbdt",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "api-sebi",
+        "name": "SEBI (regulatory circulars)",
+        "annexure": "3.10 External APIs / Sources",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "SEBI feed live? Pulled on a schedule?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "SEBI feed live? Pulled on a schedule?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Dedicated SebiScraper (472 LOC) in authservice/src/government-apis/scrapers/. Live schedule + latest publication date not verified in deployment.",
+          "evidence": {
+            "verdict_key": "api-sebi",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "realtime-sync",
+        "name": "Real-time / near-real-time synchronisation across all above sources",
+        "annexure": "3.10 External APIs / Sources",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "What's the actual sync lag per source? Documented SLOs?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "What's the actual sync lag per source? Documented SLOs?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Scheduled-job infrastructure present across many modules — government-apis (RBI + SEBI scrapers), notices/daily-digest.job.ts, document-requests/document-request-reminder.job.ts, employee-exit/jobs/exit-reminder.job.ts, mail-intake, Prism sync scheduler (apscheduler). Per-source cadence + SLO not documented.",
+          "evidence": {
+            "verdict_key": "realtime-sync",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "esign-integration",
+        "name": "E-sign providers — eMudhra, DigiSign, DocuSign",
+        "annexure": "3.10 External APIs / Sources",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "lexai-client-fe/src/app/esign"
+          },
+          {
+            "type": "manual",
+            "question": "Which providers wired, which pending?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "lexai-client-fe/src/app/esign"
+          },
+          "status": "pass",
+          "detail": "lexai-client-fe/src/app/esign exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Which providers wired, which pending?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — esign flow component exists in client-fe (/esign/, /sign/). Which of eMudhra / DigiSign / DocuSign is actually wired on the backend is not inventoried; contract names all three.",
+          "evidence": {
+            "verdict_key": "esign-integration",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "notification-engine-regulatory",
+        "name": "Notification engine — regulatory/legal updates across APIs",
+        "annexure": "3.11 AI-driven Notifications & Insights",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/notifications"
+          },
+          {
+            "type": "file_exists",
+            "path": "authservice/src/notifications/alert-engine"
+          }
+        ]
+      },
+      "status": "done",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/notifications"
+          },
+          "status": "pass",
+          "detail": "authservice/src/notifications exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/notifications/alert-engine"
+          },
+          "status": "pass",
+          "detail": "authservice/src/notifications/alert-engine exists (expected exists)",
+          "duration_ms": 0
+        }
+      ],
+      "summary": "DONE — 2 pass"
+    },
+    {
+      "feature": {
+        "id": "personalised-alerts",
+        "name": "Personalised alerts per user (lawyer / CA / enterprise)",
+        "annexure": "3.11 AI-driven Notifications & Insights",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/notifications/user-notification-preference"
+          },
+          {
+            "type": "manual",
+            "question": "Alerts actually filter by user's active cases/clients, not blast-to-all?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/notifications/user-notification-preference"
+          },
+          "status": "pass",
+          "detail": "authservice/src/notifications/user-notification-preference exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "manual",
+            "question": "Alerts actually filter by user's active cases/clients, not blast-to-all?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — user-notification-preference module present; per-user filtering logic depth not verified.",
+          "evidence": {
+            "verdict_key": "personalised-alerts",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 pass, 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "risk-deadline-detection",
+        "name": "Risk / deadline / law-change detection with actionable summaries",
+        "annexure": "3.11 AI-driven Notifications & Insights",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Alerts carry 'relevant to your X' context, not just a raw headline?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Alerts carry 'relevant to your X' context, not just a raw headline?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Context-tagging on alert payloads not inventoried.",
+          "evidence": {
+            "verdict_key": "risk-deadline-detection",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "aws-cloud-hosting",
+        "name": "AWS cloud hosting",
+        "annexure": "3.12 Infrastructure",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Services deployed on AWS? Which regions? Latest deploy date?"
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Services deployed on AWS? Which regions? Latest deploy date?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Deploy infra uses Railway (per authservice CLAUDE.md references). Contract §3.12 names AWS specifically. Either migrate or get written waiver.",
+          "evidence": {
+            "verdict_key": "aws-cloud-hosting",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "db-schemas",
+        "name": "DB schemas — users, docs, templates",
+        "annexure": "3.12 Infrastructure",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/schemas/user.schema.ts"
+          },
+          {
+            "type": "file_exists",
+            "path": "authservice/src/schemas/workspace.schema.ts"
+          }
+        ]
+      },
+      "status": "done",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/schemas/user.schema.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/schemas/user.schema.ts exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/schemas/workspace.schema.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/schemas/workspace.schema.ts exists (expected exists)",
+          "duration_ms": 0
+        }
+      ],
+      "summary": "DONE — 2 pass"
+    },
+    {
+      "feature": {
+        "id": "role-based-access",
+        "name": "Role-based access control",
+        "annexure": "3.12 Infrastructure",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/roles/guards/roles.guard.ts"
+          },
+          {
+            "type": "grep",
+            "path": "authservice/src/auth/guards/auth.guards.ts",
+            "pattern": "SuperAdminGuard|JwtAuthGuard",
+            "must_exist": true
+          }
+        ]
+      },
+      "status": "done",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/roles/guards/roles.guard.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/roles/guards/roles.guard.ts exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "grep",
+            "path": "authservice/src/auth/guards/auth.guards.ts",
+            "pattern": "SuperAdminGuard|JwtAuthGuard",
+            "must_exist": true
+          },
+          "status": "pass",
+          "detail": "SuperAdminGuard|JwtAuthGuard → 1 file(s) matched in authservice/src/auth/guards/auth.guards.ts (expected ≥1)",
+          "evidence": {
+            "matches": 1
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "DONE — 2 pass"
+    },
+    {
+      "feature": {
+        "id": "encryption",
+        "name": "Encryption (at rest + in transit)",
+        "annexure": "3.12 Infrastructure",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "DB-at-rest encryption on? TLS on all public endpoints? PII fields column-encrypted?",
+            "review_cadence_days": 90
+          }
+        ]
+      },
+      "status": "partial",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "DB-at-rest encryption on? TLS on all public endpoints? PII fields column-encrypted?",
+            "review_cadence_days": 90
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — TLS yes (hosted platforms terminate TLS). DB-at-rest encryption on MongoDB Atlas is default-on but needs confirmation. Column-level PII encryption not implemented.",
+          "evidence": {
+            "verdict_key": "encryption",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "PARTIAL — 1 needs-work"
+    },
+    {
+      "feature": {
+        "id": "audit-logging",
+        "name": "Audit logging",
+        "annexure": "3.12 Infrastructure",
+        "checks": [
+          {
+            "type": "file_exists",
+            "path": "authservice/src/common/activities/activities.controller.ts"
+          },
+          {
+            "type": "file_exists",
+            "path": "authservice/src/auditor-appointment/cross-workspace-access-log.service.ts"
+          }
+        ]
+      },
+      "status": "done",
+      "checks": [
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/common/activities/activities.controller.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/common/activities/activities.controller.ts exists (expected exists)",
+          "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "file_exists",
+            "path": "authservice/src/auditor-appointment/cross-workspace-access-log.service.ts"
+          },
+          "status": "pass",
+          "detail": "authservice/src/auditor-appointment/cross-workspace-access-log.service.ts exists (expected exists)",
+          "duration_ms": 0
+        }
+      ],
+      "summary": "DONE — 2 pass"
+    },
+    {
+      "feature": {
+        "id": "vapt-penetration-testing",
+        "name": "Penetration testing (VAPT) — external + internal",
+        "annexure": "3.12 Infrastructure",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "VAPT engagement scheduled or complete? Vendor + report date + open findings count?",
+            "review_cadence_days": 90
+          }
+        ]
+      },
+      "status": "not_started",
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "VAPT engagement scheduled or complete? Vendor + report date + open findings count?",
+            "review_cadence_days": 90
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No VAPT engagement on file. Not scheduled. Hard contract commitment under §3.12 + Annexure C.",
+          "evidence": {
+            "verdict_key": "vapt-penetration-testing",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "NOT STARTED — 1 fail"
+    }
+  ],
+  "acceptance": [
+    {
+      "metric": {
+        "id": "avg-response-time-2s",
+        "name": "Average response time ≤ 2 seconds on key modules",
+        "target": "≤ 2 000 ms, averaged across 5 samples per key endpoint",
+        "checks": [
+          {
+            "type": "http_latency",
+            "url": "http://localhost:8004/api/v1/auth/profile",
+            "threshold_ms": 2000,
+            "samples": 5,
+            "bearer_env": "AUTH_BEARER",
+            "note": "Smoke-test the auth service; add more endpoints as modules stabilise."
+          }
+        ]
+      },
+      "met": "unknown",
+      "checks": [
+        {
+          "check": {
+            "type": "http_latency",
+            "url": "http://localhost:8004/api/v1/auth/profile",
+            "threshold_ms": 2000,
+            "samples": 5,
+            "bearer_env": "AUTH_BEARER",
+            "note": "Smoke-test the auth service; add more endpoints as modules stabilise."
+          },
+          "status": "skip",
+          "detail": "bearer env var AUTH_BEARER not set — skipping http_latency for http://localhost:8004/api/v1/auth/profile",
+          "duration_ms": 0
+        }
+      ],
+      "summary": "UNKNOWN — target: ≤ 2 000 ms, averaged across 5 samples per key endpoint"
+    },
+    {
+      "metric": {
+        "id": "uptime-99-percent",
+        "name": "System uptime ≥ 99% during test period",
+        "target": "≥ 99% rolling 30-day",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "What is current rolling-30-day uptime per Grafana / Railway / CloudWatch?  Target ≥ 99%.",
+            "review_cadence_days": 30
+          }
+        ]
+      },
+      "met": false,
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "What is current rolling-30-day uptime per Grafana / Railway / CloudWatch?  Target ≥ 99%.",
+            "review_cadence_days": 30
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No uptime monitoring board or SLO dashboard identified. Rolling-30-day number cannot be produced today.",
+          "evidence": {
+            "verdict_key": "uptime-99-percent",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "UNMET — target: ≥ 99% rolling 30-day"
+    },
+    {
+      "metric": {
+        "id": "drafting-turnaround-reduced-70",
+        "name": "Drafting turnaround ↓ 70%",
+        "target": "70% reduction vs. the manual baseline measured at kickoff",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Measured drafting-time delta vs. baseline — numeric evidence for a benchmark contract set."
+          }
+        ]
+      },
+      "met": false,
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Measured drafting-time delta vs. baseline — numeric evidence for a benchmark contract set."
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No kickoff baseline on file. No benchmark contract set defined. Delta cannot be computed.",
+          "evidence": {
+            "verdict_key": "drafting-turnaround-reduced-70",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "UNMET — target: 70% reduction vs. the manual baseline measured at kickoff"
+    },
+    {
+      "metric": {
+        "id": "filing-resubmission-rate-sub-2",
+        "name": "Filing resubmission rate < 2%",
+        "target": "< 2% of filings require resubmission",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Compute (filings resubmitted / total filings) over last 30 days.  Need under 2%."
+          }
+        ]
+      },
+      "met": false,
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Compute (filings resubmitted / total filings) over last 30 days.  Need under 2%."
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — Filing resubmission events not tracked as a distinct metric. Rate cannot be computed.",
+          "evidence": {
+            "verdict_key": "filing-resubmission-rate-sub-2",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "UNMET — target: < 2% of filings require resubmission"
+    },
+    {
+      "metric": {
+        "id": "case-law-retrieval-sub-5s",
+        "name": "Case-law retrieval < 5 seconds",
+        "target": "< 5 000 ms for a typical case-law search",
+        "checks": [
+          {
+            "type": "http_latency",
+            "url": "http://localhost:8010/api/v1/case-law/search?q=cheque+bounce",
+            "threshold_ms": 5000,
+            "samples": 5,
+            "bearer_env": "AUTH_BEARER",
+            "note": "Hits Prism.  Will show 'skip' until AUTH_BEARER is set."
+          }
+        ]
+      },
+      "met": "unknown",
+      "checks": [
+        {
+          "check": {
+            "type": "http_latency",
+            "url": "http://localhost:8010/api/v1/case-law/search?q=cheque+bounce",
+            "threshold_ms": 5000,
+            "samples": 5,
+            "bearer_env": "AUTH_BEARER",
+            "note": "Hits Prism.  Will show 'skip' until AUTH_BEARER is set."
+          },
+          "status": "skip",
+          "detail": "bearer env var AUTH_BEARER not set — skipping http_latency for http://localhost:8010/api/v1/case-law/search?q=cheque+bounce",
+          "duration_ms": 0
+        }
+      ],
+      "summary": "UNKNOWN — target: < 5 000 ms for a typical case-law search"
+    },
+    {
+      "metric": {
+        "id": "ai-accuracy-98",
+        "name": "AI output accuracy ≥ 98%",
+        "target": "≥ 98% on a labelled eval set (drafting / review / compliance)",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Which eval set, when last run, what score per module?  Need ≥98% to be contractually acceptable.",
+            "review_cadence_days": 30
+          }
+        ]
+      },
+      "met": false,
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Which eval set, when last run, what score per module?  Need ≥98% to be contractually acceptable.",
+            "review_cadence_days": 30
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No labelled eval set exists. No per-module accuracy score. ≥98% target is uncomputable today.",
+          "evidence": {
+            "verdict_key": "ai-accuracy-98",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "UNMET — target: ≥ 98% on a labelled eval set (drafting / review / compliance)"
+    },
+    {
+      "metric": {
+        "id": "zero-critical-bugs",
+        "name": "0 critical bugs / crashes / unhandled exceptions",
+        "target": "No open P0 / P1 defects at handover",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Count of open P0 + P1 tickets in the bug tracker.  Must be zero at UAT sign-off.",
+            "review_cadence_days": 7
+          }
+        ]
+      },
+      "met": false,
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Count of open P0 + P1 tickets in the bug tracker.  Must be zero at UAT sign-off.",
+            "review_cadence_days": 7
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — No shared bug tracker inventory accessible to this verdict. Need current open-P0+P1 count from GitHub Issues / internal tracker.",
+          "evidence": {
+            "verdict_key": "zero-critical-bugs",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "UNMET — target: No open P0 / P1 defects at handover"
+    },
+    {
+      "metric": {
+        "id": "concurrent-users-1000",
+        "name": "≥ 1000 concurrent users supported (enterprise modules)",
+        "target": "Load test passes 1000 concurrent users with response ≤2s",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Load test results — tool, date, max concurrent users sustained with p95 ≤2s.",
+            "review_cadence_days": 90
+          }
+        ]
+      },
+      "met": false,
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Load test results — tool, date, max concurrent users sustained with p95 ≤2s.",
+            "review_cadence_days": 90
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No load test on file. 1000-concurrent-user target per Annexure C is unverified.",
+          "evidence": {
+            "verdict_key": "concurrent-users-1000",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "UNMET — target: Load test passes 1000 concurrent users with response ≤2s"
+    },
+    {
+      "metric": {
+        "id": "vapt-complete",
+        "name": "Penetration testing (VAPT) completed, open findings closed",
+        "target": "VAPT engagement delivered + all critical/high findings closed",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "VAPT vendor + engagement date + open-findings count by severity.",
+            "review_cadence_days": 90
+          }
+        ]
+      },
+      "met": false,
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "VAPT vendor + engagement date + open-findings count by severity.",
+            "review_cadence_days": 90
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — No VAPT engagement on file.",
+          "evidence": {
+            "verdict_key": "vapt-complete",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "UNMET — target: VAPT engagement delivered + all critical/high findings closed"
+    },
+    {
+      "metric": {
+        "id": "admin-access-handover",
+        "name": "Client has full admin access (DBs, APIs, cloud credentials)",
+        "target": "Formal access handover to Lex Origin complete",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Is Client-side on each of: MongoDB Atlas, PostgreSQL, AWS account, Railway, DNS/domain, GitHub orgs?  Documented who has what."
+          }
+        ]
+      },
+      "met": false,
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Is Client-side on each of: MongoDB Atlas, PostgreSQL, AWS account, Railway, DNS/domain, GitHub orgs?  Documented who has what."
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — LexOriginIndia GitHub org visible (repos pushed there). Other access ownership (Atlas, Railway, AWS, DNS) not inventoried.",
+          "evidence": {
+            "verdict_key": "admin-access-handover",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "UNMET — target: Formal access handover to Lex Origin complete"
+    },
+    {
+      "metric": {
+        "id": "ip-handover",
+        "name": "IPR formally assigned, source + models + datasets handed over",
+        "target": "Signed IP assignment per Clause 7 + repositories transferred",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "IP assignment signed?  Repos transferred to Client's GitHub org?  Trained-model artefacts and datasets delivered?"
+          }
+        ]
+      },
+      "met": false,
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "IP assignment signed?  Repos transferred to Client's GitHub org?  Trained-model artefacts and datasets delivered?"
+          },
+          "status": "needs_work",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] needs_work — Repos appear to be under LexOriginIndia org already (per push URLs). Formal IP assignment doc per Clause 7 not on file. No trained-model artefacts exist to transfer.",
+          "evidence": {
+            "verdict_key": "ip-handover",
+            "verdict": "needs_work",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "UNMET — target: Signed IP assignment per Clause 7 + repositories transferred"
+    },
+    {
+      "metric": {
+        "id": "documentation-complete",
+        "name": "Technical + user documentation + KT sessions",
+        "target": "Playbooks, API docs, DB schemas, admin + user guides, training delivered",
+        "checks": [
+          {
+            "type": "manual",
+            "question": "Which docs delivered?  Dated.  Training sessions complete with sign-off?"
+          }
+        ]
+      },
+      "met": false,
+      "checks": [
+        {
+          "check": {
+            "type": "manual",
+            "question": "Which docs delivered?  Dated.  Training sessions complete with sign-off?"
+          },
+          "status": "fail",
+          "detail": "[manual, Claude Opus 4.7 on 2026-10-05] fail — CLAUDE.md files exist as internal reference. Client-facing admin guide + user manual + API documentation + deployment playbook not produced. No KT session evidence.",
+          "evidence": {
+            "verdict_key": "documentation-complete",
+            "verdict": "fail",
+            "reviewed_on": "2026-10-05"
+          },
+          "duration_ms": 0
+        }
+      ],
+      "summary": "UNMET — target: Playbooks, API docs, DB schemas, admin + user guides, training delivered"
+    }
+  ],
+  "regressions": [],
+  "improvements": [
+    {
+      "feature_id": "board-meeting-minutes-generator",
+      "was": "not_started",
+      "now": "partial"
+    },
+    {
+      "feature_id": "cross-border-ip-compliance-checker",
+      "was": "not_started",
+      "now": "partial"
+    },
+    {
+      "feature_id": "api-rbi",
+      "was": "not_started",
+      "now": "partial"
+    },
+    {
+      "feature_id": "api-sebi",
+      "was": "not_started",
+      "now": "partial"
+    },
+    {
+      "feature_id": "realtime-sync",
+      "was": "not_started",
+      "now": "partial"
+    }
+  ]
+}

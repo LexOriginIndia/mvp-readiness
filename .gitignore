@@ -1,0 +1,5 @@
+node_modules/
+# reports/latest.md + latest.json are regenerated each run.
+# Keep them tracked so Client (watching the repo) always sees the
+# current state without having to run anything locally.
+# history/ is intentionally tracked so you can diff over time.

@@ -1,0 +1,23 @@
+{
+  "name": "lex-origin-readiness",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Automated readiness-check engine for the Lex Origin MVP. Reads the contract spec (Annexure A scope + Annexure C acceptance) and probes the running platform, emitting a client-shareable Markdown report + machine-readable JSON for regression tracking.",
+  "type": "module",
+  "scripts": {
+    "readiness": "tsx src/runner.ts",
+    "readiness:verbose": "tsx src/runner.ts --verbose",
+    "readiness:scope": "tsx src/runner.ts --only=scope",
+    "readiness:acceptance": "tsx src/runner.ts --only=acceptance",
+    "sync-issues": "tsx src/sync-issues.ts",
+    "merge-issues": "tsx src/merge-issues-into-spec.ts"
+  },
+  "dependencies": {
+    "yaml": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

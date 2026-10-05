@@ -1,0 +1,779 @@
+# Manual verdicts.
+#
+# Every verdict below is written by "Claude Opus 4.7" based on
+# code review and session history only.  No UI walk-through, no
+# AI output quality testing, no load testing, no external-document
+# verification.  Where the honest answer is "code is present but
+# quality is unverified" the verdict is `needs_work`, not `pass`.
+#
+# Human reviewer MUST re-walk every `needs_work` item in the UI and
+# either confirm (change to `pass`) or document the gap (keep as
+# `needs_work` with sharper evidence, or downgrade to `fail`).
+#
+# Format reminder:
+#   - feature_id: <id from annexure-a or annexure-c>
+#     question: "<copy of the manual check question — for context only>"
+#     verdict: pass | fail | needs_work
+#     evidence: "<one line — code paths, missing docs, measured number, etc.>"
+#     reviewed_by: "<name>"
+#     reviewed_on: "<YYYY-MM-DD>"
+
+verdicts:
+  # ────────────────────────────────────────────────────────────────
+  # 3.1 Core AI — mostly code-present, output quality unverified
+  # ────────────────────────────────────────────────────────────────
+
+  - feature_id: rag-pipelines
+    question: "Does the RAG pipeline retrieve and ground answers from the Indian legal corpus? Give a sample query + top-3 citations."
+    verdict: needs_work
+    evidence: "Prism service is 47 846 LOC Python with 579 RAG-term references (retrieval/embedding/chunking/vector), 220 OpenAI + 150 Anthropic client refs. Substantial implementation. Retrieval quality + Indian-corpus grounding not independently measured by an eval set."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: ai-document-drafting
+    question: "Pick a template, generate a draft via the UI, inspect the output — is it usable without major edits?"
+    verdict: needs_work
+    evidence: "Documents API is 116 912 LOC Python with 188 OpenAI + 229 Anthropic client refs. Large real AI drafting codebase. Output quality not evaluated against the ≥98% accuracy bar in Annexure C."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: ai-document-review
+    question: "Upload a sample contract — are risks and clause suggestions returned?"
+    verdict: needs_work
+    evidence: "Documents API has substantial AI client integration (188 OpenAI + 229 Anthropic refs across 116 912 LOC). No sample upload tested; risk-detection quality unverified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: ai-document-comparison
+    question: "Compare two contract versions in the UI — are redlines accurate and clause-level diffs clear?"
+    verdict: needs_work
+    evidence: "Documents API has 288 comparison/redline/diff references. Code exists at substantial scale; redline accuracy on real contract versions not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: clause-extraction
+    question: "Does clause extraction identify standard contract sections (indemnity, termination, jurisdiction, etc.)?"
+    verdict: needs_work
+    evidence: "Code hints present; benchmark against standard-clause taxonomy not run."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: plain-language-summaries
+    question: "Summaries must be understandable by non-lawyers — spot-check 3 outputs."
+    verdict: needs_work
+    evidence: "Summarize endpoint present; readability score not measured."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: citation-verification
+    question: "Submit a draft with 5 citations (3 real, 2 fabricated) — does the engine flag the fakes?"
+    verdict: needs_work
+    evidence: "Documents API has 478 citation-related references across its Python codebase. Substantial implementation. Adversarial fake-citation test never run; flagging accuracy unverified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: legal-compliance-check
+    question: "Pick one rule from each of the ten law categories — does the engine evaluate correctly for a sample document?"
+    verdict: needs_work
+    evidence: "compliance (FastAPI 8006) + compliance-calendar (14 regulator-term refs across GSTR/ITR/TDS/ROC/RBI/SEBI/MCA) both exist. Rule coverage across ALL ten contract-named categories (Civil / Corporate / Criminal / Arbitration / MCA / SEBI / RBI / Labour / IT / GST) still needs inventorying."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: ai-mail-generator
+    question: "Compose, summarize, and reply flows all work end-to-end in the UI?"
+    verdict: needs_work
+    evidence: "gemini-email module is 657 LOC and calls Google Generative Language API (gemini-pro endpoint) with a real API key. Three flows not end-to-end verified in UI."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: dedup-with-full-view
+    question: "Upload the same contract twice — is it marked duplicate, and can you still see both files on demand?"
+    verdict: needs_work
+    evidence: "Documents API has 66 deduplication references. Code present; UI 'see both copies on demand' toggle not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: examination-question-generator
+    question: "Does the module exist in the UI and produce usable questions for a sample witness statement?"
+    verdict: fail
+    evidence: "No examination-question-generator module found in authservice or Documents API; feature not implemented."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: legal-forecast
+    question: "Does the forecast use historical case data, and is its reasoning displayed to the user?"
+    verdict: needs_work
+    evidence: "ml-prediction module exists with 4 dedicated endpoints: /predictions/outcome, /predictions/duration, /predictions/success-analysis, /predictions/appeal. Case schema stores winProbability/lossProbability. Prediction accuracy on real cases + reasoning UI not independently verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: legal-adviser-assistant
+    question: "Chat interface works, retains context across messages, cites sources?"
+    verdict: needs_work
+    evidence: "Three AI assistant surfaces exist: (1) Documents API /ai-chat endpoints + AIChatService in client-fe, (2) authservice work-order-ai chat endpoint (/work-order-ai/chat), (3) onboarding-agent service. Context-retention and citation grounding not tested."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: financial-software-integration
+    question: "SAP integration — present? If not, is a replacement planned or waived?"
+    verdict: fail
+    evidence: "Zoho Books (authservice/zoho-books) and Tally (authservice/tally) are present. SAP is listed in contract (Annexure A §3.1 Financial Software Integration) but no SAP module exists in the codebase. No written waiver on file."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: litigation-strategy
+    question: "Is the AI litigation-strategy feature exposed in the UI and does it produce case-specific recommendations?"
+    verdict: needs_work
+    evidence: "ml-prediction module (1 226 LOC, 10 OpenAI refs) has /predictions/outcome, /duration, /success-analysis, /appeal — these ARE the litigation-strategy surfaces. UI exposure + recommendation quality not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: enterprise-mgmt-dashboard
+    question: "Partner-level dashboard shows all four surfaces (team / employees / clients / financials) in one place?"
+    verdict: needs_work
+    evidence: "ca-dashboard controller + 42 workspace dashboard pages exist in client-fe including: /my-business, /enterprise-org, /enterprise-providers, /enterprise-reports, /enterprise-risk, /analytics, /mis, /ca-reports, /lawyer-reports. Four-pane unified owner view (team+employees+clients+financials together) not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: voice-translator-drafting
+    question: "Record a sample voice input in Hindi — does it transcribe + translate to a draftable application?"
+    verdict: needs_work
+    evidence: "voice-translator controller present; end-to-end transcribe → translate → draft flow not tested."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: hindi-english-translator
+    question: "Hindi UI and bidirectional translation both present?"
+    verdict: needs_work
+    evidence: "Translator code hints present (grep hits for 'translate'/'voice-translator'). Full Hindi UI (i18n coverage of every page) not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  # ────────────────────────────────────────────────────────────────
+  # 3.2 Corporate Law features — mostly not implemented
+  # ────────────────────────────────────────────────────────────────
+
+  - feature_id: due-diligence-analyzer
+    question: "Upload company filings — does the analyzer extract red flags and summarize risks?"
+    verdict: needs_work
+    evidence: "docscan-ai module is 1 808 LOC with 18 OpenAI refs. Dedicated endpoints: @Post scan/contract, @Post scan/id-document, @Post scan/invoice, @Get history + :scanId. Contract-scanning serves DD. DD-specific red-flag taxonomy not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: entity-formation-assistant
+    question: "Guided incorporation flow present end-to-end, including bylaws templates?"
+    verdict: needs_work
+    evidence: "onboarding-agent service in authservice provides AI-driven guided onboarding; could be extended to incorporation. /my-business page exists in client-fe. Bylaws templates + full incorporation workflow not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: regulatory-change-tracker
+    question: "Does the platform surface new MCA/SEBI/RBI circulars with impact-on-your-clients tagging?"
+    verdict: needs_work
+    evidence: "notifications/alert-engine, ca-alerts, client-alerts (client-compliance-alerts.service.ts) all exist. Live tracker across MCA + SEBI + RBI with impact-tagging not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: board-meeting-minutes-generator
+    question: "Can a user generate compliant board meeting minutes from an agenda + attendee list?"
+    verdict: needs_work
+    evidence: "Governance page (/alias/.../governance) has full BoardMeeting type: meetingType (board/agm/egm/committee), MeetingStatus, ResolutionStatus (draft/pending_approval/passed/rejected/implemented), minutesSigned, filingRequired, attendees, agendaItems, resolutions. Current page uses mock data (hardcoded sample meetings); backend minutes-generator endpoint not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: policy-hr-handbook-generator
+    question: "Generate a sample HR handbook — does it cover standard Indian labour-law sections (POSH, PF, gratuity, leave)?"
+    verdict: fail
+    evidence: "No HR-handbook generator module found. Payroll module covers PF/ESI/gratuity accounting, but not policy drafting."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: cross-border-law-compliance-checker
+    question: "Supported jurisdictions documented? Does the engine actually check against them?"
+    verdict: needs_work
+    evidence: "fema-cma module covers Indian cross-border law — FEMA registrations (FDI / ODI / ECB / LRS / Liaison), foreign-party fields, FC-GPR filing deadlines. Partial coverage of 'cross-border' as named in contract. International (non-Indian) jurisdictions not covered."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: documents-list-generator
+    question: "Pick 3 common filings (GST registration, Pvt Ltd incorporation, MSME) — correct document list produced for each?"
+    verdict: fail
+    evidence: "No document-list generator module found."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  # ────────────────────────────────────────────────────────────────
+  # 3.3 Tax / Banking — Sandbox integration present, specialised layers missing
+  # ────────────────────────────────────────────────────────────────
+
+  - feature_id: tax-return-compliance-checker
+    question: "Upload a sample ITR — are compliance issues flagged with specific rule references?"
+    verdict: needs_work
+    evidence: "sandbox.co.in integration present for ITR filing. A rule-flagging layer with Income Tax Act section references on uploaded returns is not identified separately."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: tax-planning-assistant
+    question: "Does the assistant produce year-end tax-saving recommendations for a sample balance sheet?"
+    verdict: fail
+    evidence: "No tax-planning assistant module found."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: audit-risk-analyzer
+    question: "Risk analyzer surfaces specific anomalies (round-tripping, cash spikes, unusual journals), not just totals?"
+    verdict: needs_work
+    evidence: "audit controller + service present; anomaly-detection sophistication not inventoried."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: cross-border-tax-compliance-checker
+    question: "Which treaties/jurisdictions supported? Documented?"
+    verdict: needs_work
+    evidence: "fema-cma handles cross-border Indian tax reporting flows (FDI tax impact, ECB tax, LRS limits). Full DTAA treaty engine not identified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: cross-border-transfer-pricing-checker
+    question: "ALP methods supported (CUP, RPM, CPM, TNMM, PSM)? Benchmarking data source?"
+    verdict: fail
+    evidence: "No transfer pricing module found."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  # ────────────────────────────────────────────────────────────────
+  # 3.4 IP — some scaffolding, most features missing
+  # ────────────────────────────────────────────────────────────────
+
+  - feature_id: trademark-search-ai
+    question: "Can a user search the Indian trademark registry and get similarity scores?"
+    verdict: needs_work
+    evidence: "ip-module is 2 962 LOC with 14 OpenAI refs. Dedicated endpoints: @Post trademarks/similarity, @Post trademarks/suggest-classes, @Get trademarks + :applicationNumber + classes/all. Live registry integration + similarity-score accuracy not independently tested."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: patent-drafting-assistant
+    question: "Does the assistant draft claim 1 + dependent claims from an invention description?"
+    verdict: needs_work
+    evidence: "ip-module has @Post patents/novelty-check + @Post patents/suggest-ipc endpoints. Not a full claim-drafting assistant but has AI assistance for patent prep. Full claim-drafting ability (not just novelty/IPC) still needs verification."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: prior-art-finder
+    question: "Prior art search covers Indian + international patents? Which databases?"
+    verdict: needs_work
+    evidence: "ip-module has @Post prior-art/search + @Get prior-art/search/:searchId + @Get prior-art/history. Dedicated endpoints exist. Database coverage + result quality not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: ip-portfolio-manager
+    question: "Can a user see all their IP assets with upcoming renewal deadlines in one view?"
+    verdict: needs_work
+    evidence: "ip-module (2 962 LOC) has @Get patents + @Get trademarks + @Get patents/:applicationNumber/family + @Get statistics. Portfolio foundations present. Renewal-deadline aggregation UI not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: fair-use-analyzer
+    question: "Analyzer runs through all four fair-use factors and gives a defensible score?"
+    verdict: needs_work
+    evidence: "fair-use-analyzer module is 725 LOC with 7 OpenAI refs. Endpoints: @Post /analyze, @Get /analyses + /analyses/:id, @Get /factors, @Get /use-types, @Get /work-types. Real four-factor analysis structure. Scoring defensibility not legally reviewed."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: copyright-infringement-detector
+    question: "Does the detector scan uploaded content against known works?"
+    verdict: fail
+    evidence: "No copyright-infringement detector module found."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: ip-risk-assessment-tool
+    question: "Produces a defensible registration-chance score for a new filing?"
+    verdict: fail
+    evidence: "No IP risk-assessment tool module found."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: cross-border-ip-compliance-checker
+    question: "Which international IP regimes covered (Madrid, PCT, Berne)?"
+    verdict: needs_work
+    evidence: "ip-data.schema.ts models cross-border jurisdictions: IpJurisdiction enum includes PCT, WIPO. Jurisdiction field + unique compound index (applicationNumber + jurisdiction) on all three IP types (trademarks, patents, copyrights). Compliance-check logic across these regimes not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: licensing-agreement-drafting-assistant
+    question: "Produces usable royalty/distribution/usage-rights agreements for a sample scenario?"
+    verdict: needs_work
+    evidence: "Documents API has template-based drafting; dedicated licensing agreement templates + variable prompts not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  # ────────────────────────────────────────────────────────────────
+  # 3.5 Data Privacy — all missing
+  # ────────────────────────────────────────────────────────────────
+
+  - feature_id: data-protection-compliance-checker
+    question: "Which DPDP + GDPR articles mapped? Sample output for a privacy policy?"
+    verdict: fail
+    evidence: "No DPDP/GDPR compliance checker module found."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: breach-risk-analyzer
+    question: "Does the analyzer identify high-risk data flows in a sample architecture?"
+    verdict: fail
+    evidence: "No breach-risk analyzer module found."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: privacy-policy-generator
+    question: "Generated policy is DPDP + GDPR compliant for a sample B2C app?"
+    verdict: fail
+    evidence: "No privacy policy generator module found."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: user-rights-explainer
+    question: "Rights-explainer available in-product for end-users of a Client's app?"
+    verdict: fail
+    evidence: "No user rights explainer module found."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: cookie-policy-generator
+    question: "Scans a URL and generates a compliant cookie policy?"
+    verdict: fail
+    evidence: "No cookie policy generator module found."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  # ────────────────────────────────────────────────────────────────
+  # 3.6 Immigration — scaffolding only, most tools missing
+  # ────────────────────────────────────────────────────────────────
+
+  - feature_id: visa-eligibility-checker
+    question: "Checker supports at least India outbound + inbound visa categories?"
+    verdict: needs_work
+    evidence: "immigration module is 1 809 LOC with 26 endpoints: /cases + /forms + /appointments + /timeline + /metadata/{visa-categories,case-statuses,form-types,countries} + /uscis/processing-times + /uscis/visa-bulletin + /statistics. USCIS-focused (US immigration). India in/outbound coverage not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: immigration-forms-autofiller
+    question: "Which forms supported? Can a user export a filled form for signature?"
+    verdict: needs_work
+    evidence: "immigration module has @Post /forms + @Get /forms/:formId + @Get /metadata/form-types + @Post /cases/:caseId/forms. Forms infrastructure present; auto-fill from case data + export-for-signature flow not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: asylum-precedent-summarizer
+    question: "Summaries draw from real precedent corpus?"
+    verdict: fail
+    evidence: "No asylum precedent summarizer module found."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: residency-work-permit-tracker
+    question: "Tracks per-user permit status with deadline alerts?"
+    verdict: needs_work
+    evidence: "immigration module tracks @Get /cases + /cases/:id (status) + /appointments/upcoming + /uscis/processing-times. Permit-tracker use-case is covered by generic case tracking; deadline-alert wiring not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: immigration-pathway-navigator
+    question: "Given a profile, suggests best-fit visa pathways with timelines?"
+    verdict: fail
+    evidence: "No pathway navigator module found."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: deportation-defense-assistant
+    question: "Supports standard defense pleadings with precedent citations?"
+    verdict: fail
+    evidence: "No deportation defense assistant module found."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: naturalization-test-prep
+    question: "Includes practice questions + answer rationales for target countries?"
+    verdict: needs_work
+    evidence: "naturalization-test module is 1 706 LOC with 13 endpoints. Substantial standalone module. Question bank size + countries covered not inventoried."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: family-sponsorship-eligibility-checker
+    question: "Which jurisdictions? Correct eligibility rules?"
+    verdict: fail
+    evidence: "No family sponsorship eligibility checker module found."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: immigration-rights-explainer
+    question: "Available in-product in plain English + Hindi?"
+    verdict: fail
+    evidence: "No immigration-rights explainer module found."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: case-status-notifier
+    question: "Notifications fire on status change (not just manual check)?"
+    verdict: needs_work
+    evidence: "immigration module has @Post /cases/:id/timeline + @Get /appointments/upcoming + /uscis/visa-bulletin. Infrastructure present. Push notifications on status change (not just manual pull) not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  # ────────────────────────────────────────────────────────────────
+  # 3.7 Law Firm Owner / Enterprise — strongest area but UX unverified
+  # ────────────────────────────────────────────────────────────────
+
+  - feature_id: owner-dashboard
+    question: "Owner-level view surfaces all four axes in one page?"
+    verdict: needs_work
+    evidence: "ca-dashboard exists; four-axis unified page not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: employee-directory-workloads
+    question: "Workload column populated from real task assignment data?"
+    verdict: needs_work
+    evidence: "team-members module exists; workload-from-tasks join query not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: performance-heatmap
+    question: "Does the heatmap exist in-product and reflect real activity?"
+    verdict: fail
+    evidence: "No performance-heatmap component identified in client-fe."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: client-matter-profitability-view
+    question: "Profitability pulls from billing + timesheet, not placeholders?"
+    verdict: needs_work
+    evidence: "ca-billing + timesheet exist; /workspace/dashboard/analytics + /ca-reports pages exist. Specific profitability join query not located; may be in analytics UI."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: task-completion-vs-deadline
+    question: "View exists per team member and firm-wide?"
+    verdict: needs_work
+    evidence: "activities module records events; a completion-vs-deadline chart UI not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: smart-assignment-engine
+    question: "AI considers expertise + workload, override available in UI?"
+    verdict: needs_work
+    evidence: "work-order-ai module has AI chat for work-order creation. Case schema has assignedTo + assignmentHistory. AI-driven assignment-recommendation specifically (expertise + workload scoring) not clearly identified as a separate engine."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: owner-override-button
+    question: "Three actions wired end-to-end?"
+    verdict: needs_work
+    evidence: "Reassign (assignmentHistory) wired on Case schema; escalate + mark-urgent flows not confirmed."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: assignment-notifications-with-checklists
+    question: "On assignment, notification + task-type-specific checklist both generated?"
+    verdict: needs_work
+    evidence: "notifications module present; task-type-aware checklist auto-generation not confirmed."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: critical-escalation-alerts
+    question: "Alert fires within one business day of trigger?"
+    verdict: needs_work
+    evidence: "alert-engine present; business-day latency not measured."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: weekly-summary-reports
+    question: "Reports go out automatically on a schedule?"
+    verdict: needs_work
+    evidence: "Scheduled job system (apscheduler visible in Prism) exists; a weekly summary job for firm owners not confirmed."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: deadline-reminders
+    question: "Cadence respected per task size, not uniform?"
+    verdict: needs_work
+    evidence: "compliance-calendar + notifications present; size-aware cadence (4d small / 1-2mo big per contract) not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: risk-compliance-alerts
+    question: "Alerts fire for issues discovered after a filing is complete?"
+    verdict: needs_work
+    evidence: "Post-completion alert path not clearly identified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: productivity-insights
+    question: "Insights produced per attorney / practice area / client?"
+    verdict: needs_work
+    evidence: "/workspace/dashboard/analytics + /my-day + /my-practice pages exist. Per-attorney / per-practice-area / per-client slicing not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: governance-rules
+    question: "Rule engine supports conditional reviewer injection?"
+    verdict: needs_work
+    evidence: "/workspace/dashboard/governance/ page exists in client-fe. Rule-engine depth (conditional-reviewer-on-M&A-draft semantics) not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: workload-balancing
+    question: "Suggestions available in the assignment UI?"
+    verdict: needs_work
+    evidence: "Case assignment + team-members modules present; dedicated workload-balancing suggestion engine not identified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: firm-insights
+    question: "Multi-axis reports available?"
+    verdict: needs_work
+    evidence: "mis module + /workspace/dashboard/mis + /ca-reports + /lawyer-reports + /enterprise-reports pages all exist. Multi-axis reporting depth not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: client-profitability-reports
+    question: "Separate report distinct from matter profitability?"
+    verdict: needs_work
+    evidence: "Client-level profitability report not confirmed."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: future-risk-radar
+    question: "Forecasts shown in a dedicated view?"
+    verdict: needs_work
+    evidence: "/workspace/dashboard/enterprise-risk/ page exists; risk-matrix module + service in authservice. Forward-looking forecast content vs. current-state risk-register view not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: security-soc2-iso27001
+    question: "SOC 2 Type II audit scheduled/complete? ISO 27001 certification status? GDPR + CCPA controls documented?"
+    verdict: fail
+    evidence: "No SOC 2 or ISO 27001 certification evidence on file. Not scheduled, not in progress. GDPR + CCPA mapping not documented. This is a hard contract commitment (§3.7)."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: audit-logs-encryption-access-controls
+    question: "DB encryption at rest? TLS everywhere? All PII fields encrypted?"
+    verdict: needs_work
+    evidence: "Audit logs: user-activity-history + cross-workspace-access-log services present. JWT + role-based guards present. DB-at-rest encryption + per-column PII encryption not confirmed on the actual deployed instance (MongoDB Atlas + PostgreSQL)."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  # ────────────────────────────────────────────────────────────────
+  # 3.8 Custom AI models — not evidenced
+  # ────────────────────────────────────────────────────────────────
+
+  - feature_id: custom-models-indian-law
+    question: "Which base models + which fine-tuning datasets? Documented reproducibility?"
+    verdict: fail
+    evidence: "No fine-tuned model artefacts, training scripts, or dataset manifests located. Platform uses general LLMs (OpenAI, Anthropic) via API, not custom-trained models as contract §3.8 requires."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: continuous-learning-pipeline
+    question: "Pipeline runs on a schedule? Where are new sources picked up?"
+    verdict: fail
+    evidence: "No continuous-learning pipeline identified. Prism has sync scheduler for data ingestion but not for model retraining."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: historical-court-datasets
+    question: "Which courts ingested, with what coverage period?"
+    verdict: needs_work
+    evidence: "ecourts integration + Prism (47 846 LOC with 579 RAG terms) handles corpus ingestion. Coverage inventory per court (SC / HCs / District / Tribunals) + year range + document counts not documented."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: specialised-ai-tax-governance-modules
+    question: "Separate specialised models or shared base? Benchmarks per domain?"
+    verdict: fail
+    evidence: "No domain-specialised models or domain-benchmark results on file."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  # ────────────────────────────────────────────────────────────────
+  # 3.9 Document & Knowledge Libraries
+  # ────────────────────────────────────────────────────────────────
+
+  - feature_id: centralised-knowledge-library
+    question: "Library browsable across case law + contracts + tax rulings + circulars?"
+    verdict: needs_work
+    evidence: "Documents API (116 912 LOC) + Prism (47 846 LOC) both ingest + index content. Cross-corpus browse UI (single-search over case-law + contracts + tax rulings + circulars) not confirmed."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  # ────────────────────────────────────────────────────────────────
+  # 3.10 External APIs — mixed coverage
+  # ────────────────────────────────────────────────────────────────
+
+  - feature_id: api-supreme-high-court
+    question: "Which courts covered? Sync frequency?"
+    verdict: needs_work
+    evidence: "ecourts controller exists; covered-court inventory + sync frequency not documented."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: api-mca
+    question: "MCA integration pulls company master + filings in real time?"
+    verdict: needs_work
+    evidence: "government-apis module referenced MCA; real-time pull of company master + filings not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: api-rbi
+    question: "RBI circular feed live? Latest publication date?"
+    verdict: needs_work
+    evidence: "Dedicated RbiScraper (411 LOC) in authservice/src/government-apis/scrapers/. Pulls circulars + notifications + master directions + press releases from rbi.org.in via both HTML scraping and RSS feeds (circulars, notifications, press, FEMA). GovernmentCircular schema persists results. Live sync cadence + latest publication date not verified in deployment."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: api-income-tax-cbdt
+    question: "CBDT circulars + notifications ingested? Latest sync date?"
+    verdict: needs_work
+    evidence: "sandbox/income-tax directory exists for filing; circulars + notifications ingestion not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: api-sebi
+    question: "SEBI feed live? Pulled on a schedule?"
+    verdict: needs_work
+    evidence: "Dedicated SebiScraper (472 LOC) in authservice/src/government-apis/scrapers/. Live schedule + latest publication date not verified in deployment."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: realtime-sync
+    question: "What's the actual sync lag per source? Documented SLOs?"
+    verdict: needs_work
+    evidence: "Scheduled-job infrastructure present across many modules — government-apis (RBI + SEBI scrapers), notices/daily-digest.job.ts, document-requests/document-request-reminder.job.ts, employee-exit/jobs/exit-reminder.job.ts, mail-intake, Prism sync scheduler (apscheduler). Per-source cadence + SLO not documented."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: esign-integration
+    question: "Which providers wired, which pending?"
+    verdict: needs_work
+    evidence: "esign flow component exists in client-fe (/esign/, /sign/). Which of eMudhra / DigiSign / DocuSign is actually wired on the backend is not inventoried; contract names all three."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  # ────────────────────────────────────────────────────────────────
+  # 3.11 AI Notifications
+  # ────────────────────────────────────────────────────────────────
+
+  - feature_id: personalised-alerts
+    question: "Alerts actually filter by user's active cases/clients, not blast-to-all?"
+    verdict: needs_work
+    evidence: "user-notification-preference module present; per-user filtering logic depth not verified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: risk-deadline-detection
+    question: "Alerts carry 'relevant to your X' context, not just a raw headline?"
+    verdict: needs_work
+    evidence: "Context-tagging on alert payloads not inventoried."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  # ────────────────────────────────────────────────────────────────
+  # 3.12 Infrastructure
+  # ────────────────────────────────────────────────────────────────
+
+  - feature_id: aws-cloud-hosting
+    question: "Services deployed on AWS? Which regions? Latest deploy date?"
+    verdict: needs_work
+    evidence: "Deploy infra uses Railway (per authservice CLAUDE.md references). Contract §3.12 names AWS specifically. Either migrate or get written waiver."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: encryption
+    question: "DB-at-rest encryption on? TLS on all public endpoints? PII fields column-encrypted?"
+    verdict: needs_work
+    evidence: "TLS yes (hosted platforms terminate TLS). DB-at-rest encryption on MongoDB Atlas is default-on but needs confirmation. Column-level PII encryption not implemented."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: vapt-penetration-testing
+    question: "VAPT engagement scheduled or complete? Vendor + report date + open findings count?"
+    verdict: fail
+    evidence: "No VAPT engagement on file. Not scheduled. Hard contract commitment under §3.12 + Annexure C."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  # ────────────────────────────────────────────────────────────────
+  # Annexure C acceptance metrics
+  # ────────────────────────────────────────────────────────────────
+
+  - feature_id: uptime-99-percent
+    question: "What is current rolling-30-day uptime per Grafana / Railway / CloudWatch?  Target ≥ 99%."
+    verdict: fail
+    evidence: "No uptime monitoring board or SLO dashboard identified. Rolling-30-day number cannot be produced today."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: drafting-turnaround-reduced-70
+    question: "Measured drafting-time delta vs. baseline — numeric evidence for a benchmark contract set."
+    verdict: fail
+    evidence: "No kickoff baseline on file. No benchmark contract set defined. Delta cannot be computed."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: filing-resubmission-rate-sub-2
+    question: "Compute (filings resubmitted / total filings) over last 30 days.  Need under 2%."
+    verdict: fail
+    evidence: "Filing resubmission events not tracked as a distinct metric. Rate cannot be computed."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: ai-accuracy-98
+    question: "Which eval set, when last run, what score per module?  Need ≥98% to be contractually acceptable."
+    verdict: fail
+    evidence: "No labelled eval set exists. No per-module accuracy score. ≥98% target is uncomputable today."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: zero-critical-bugs
+    question: "Count of open P0 + P1 tickets in the bug tracker.  Must be zero at UAT sign-off."
+    verdict: needs_work
+    evidence: "No shared bug tracker inventory accessible to this verdict. Need current open-P0+P1 count from GitHub Issues / internal tracker."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: concurrent-users-1000
+    question: "Load test results — tool, date, max concurrent users sustained with p95 ≤2s."
+    verdict: fail
+    evidence: "No load test on file. 1000-concurrent-user target per Annexure C is unverified."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: vapt-complete
+    question: "VAPT vendor + engagement date + open-findings count by severity."
+    verdict: fail
+    evidence: "No VAPT engagement on file."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: admin-access-handover
+    question: "Is Client-side on each of: MongoDB Atlas, PostgreSQL, AWS account, Railway, DNS/domain, GitHub orgs?  Documented who has what."
+    verdict: needs_work
+    evidence: "LexOriginIndia GitHub org visible (repos pushed there). Other access ownership (Atlas, Railway, AWS, DNS) not inventoried."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: ip-handover
+    question: "IP assignment signed?  Repos transferred to Client's GitHub org?  Trained-model artefacts and datasets delivered?"
+    verdict: needs_work
+    evidence: "Repos appear to be under LexOriginIndia org already (per push URLs). Formal IP assignment doc per Clause 7 not on file. No trained-model artefacts exist to transfer."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"
+
+  - feature_id: documentation-complete
+    question: "Which docs delivered?  Dated.  Training sessions complete with sign-off?"
+    verdict: fail
+    evidence: "CLAUDE.md files exist as internal reference. Client-facing admin guide + user manual + API documentation + deployment playbook not produced. No KT session evidence."
+    reviewed_by: "Claude Opus 4.7"
+    reviewed_on: "2026-10-05"

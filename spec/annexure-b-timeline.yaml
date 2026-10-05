@@ -1,0 +1,70 @@
+# Annexure B — Timeline + milestones
+#
+# The engine doesn't currently gate anything on these dates — they are
+# included so a future enhancement can produce a schedule-adherence
+# view ("Phase 4 should have shipped by Jan 2026; API integrations are
+# currently N/M complete").  For now, keep in sync with
+# CONTRACT_REFERENCE.md §2 so there's a single source of truth.
+
+- id: phase-1-foundation
+  name: "Phase 1 — Foundation"
+  target_month_end: "2025-10"
+  deliverable: "Env setup, infra, Git + CI/CD, DB schemas (templates/docs/clauses/integrations), initial DMS integration + upload APIs"
+  completes_features:
+    - db-schemas
+    - aws-cloud-hosting
+    - document-management
+    - role-based-access
+
+- id: phase-2-core-ai-drafting
+  name: "Phase 2 — Core AI Drafting"
+  target_month_end: "2025-11"
+  deliverable: "Standard template drafting + bespoke RAG+LLM drafting engine, DOCX/PDF export, drafting APIs + frontend"
+  completes_features:
+    - rag-pipelines
+    - ai-document-drafting
+    - plain-language-summaries
+
+- id: phase-3-custom-ai-models
+  name: "Phase 3 — Custom AI Models"
+  target_month_end: "2025-12"
+  deliverable: "Indian-law/tax/judgment-trained models, Document & Knowledge Library, clause classification + risk tagging"
+  completes_features:
+    - custom-models-indian-law
+    - continuous-learning-pipeline
+    - historical-court-datasets
+    - specialised-ai-tax-governance-modules
+    - centralised-knowledge-library
+    - dedup-version-tracking
+    - clause-extraction
+
+- id: phase-4-api-integrations
+  name: "Phase 4 — API Integrations"
+  target_month_end: "2026-01"
+  deliverable: "MCA, RBI, GST, SEBI, Courts (SC/HC/Tribunals) — real-time ingestion + normalisation, auto-updating repos"
+  completes_features:
+    - api-supreme-high-court
+    - api-mca
+    - api-rbi
+    - api-gst
+    - api-income-tax-cbdt
+    - api-sebi
+    - realtime-sync
+
+- id: phase-5-ai-notifications
+  name: "Phase 5 — AI Notifications"
+  target_month_end: "2026-02"
+  deliverable: "Notification Engine, personalised alert delivery, accuracy/timeliness testing"
+  completes_features:
+    - notification-engine-regulatory
+    - personalised-alerts
+    - risk-deadline-detection
+
+- id: phase-6-qa-uat-handover
+  name: "Phase 6 — QA, UAT, Handover"
+  target_month_end: "2026-03"
+  deliverable: "End-to-end integration, QA + security audits + compliance validation, UAT, final handover"
+  completes_features:
+    - vapt-penetration-testing
+    - audit-logging
+    - encryption
