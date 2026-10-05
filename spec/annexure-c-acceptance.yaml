@@ -1,106 +1,124 @@
-# Annexure C — Acceptance metrics (the hard numbers)
-#
-# Each metric has a target from the signed contract.  The engine runs
-# the attached check(s) and marks the metric Met / Unmet / Unknown.
-# Manual checks require a current verdict in manual-verdicts.yaml.
-#
-# ⚠ Unlike the scope features in annexure-a, every one of these
-# metrics must be MET before the MVP can be considered delivered per
-# the contract.  "Partial" is not an option here.
-
 - id: avg-response-time-2s
-  name: "Average response time ≤ 2 seconds on key modules"
-  target: "≤ 2 000 ms, averaged across 5 samples per key endpoint"
+  name: Average response time ≤ 2 seconds on key modules
+  target: ≤ 2 000 ms, averaged across 5 samples per key endpoint
   checks:
     - type: http_latency
       url: http://localhost:8004/api/v1/auth/profile
       threshold_ms: 2000
       samples: 5
       bearer_env: AUTH_BEARER
-      note: "Smoke-test the auth service; add more endpoints as modules stabilise."
-
+      note: Smoke-test the auth service; add more endpoints as modules stabilise.
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#92
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: uptime-99-percent
-  name: "System uptime ≥ 99% during test period"
-  target: "≥ 99% rolling 30-day"
+  name: System uptime ≥ 99% during test period
+  target: ≥ 99% rolling 30-day
   checks:
     - type: manual
-      question: "What is current rolling-30-day uptime per Grafana / Railway / CloudWatch?  Target ≥ 99%."
+      question: What is current rolling-30-day uptime per Grafana / Railway / CloudWatch?  Target ≥ 99%.
       review_cadence_days: 30
-
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#93
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: drafting-turnaround-reduced-70
-  name: "Drafting turnaround ↓ 70%"
-  target: "70% reduction vs. the manual baseline measured at kickoff"
+  name: Drafting turnaround ↓ 70%
+  target: 70% reduction vs. the manual baseline measured at kickoff
   checks:
     - type: manual
-      question: "Measured drafting-time delta vs. baseline — numeric evidence for a benchmark contract set."
-
+      question: Measured drafting-time delta vs. baseline — numeric evidence for a benchmark contract set.
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#94
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: filing-resubmission-rate-sub-2
-  name: "Filing resubmission rate < 2%"
-  target: "< 2% of filings require resubmission"
+  name: Filing resubmission rate < 2%
+  target: < 2% of filings require resubmission
   checks:
     - type: manual
-      question: "Compute (filings resubmitted / total filings) over last 30 days.  Need under 2%."
-
+      question: Compute (filings resubmitted / total filings) over last 30 days.  Need under 2%.
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#95
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: case-law-retrieval-sub-5s
-  name: "Case-law retrieval < 5 seconds"
-  target: "< 5 000 ms for a typical case-law search"
+  name: Case-law retrieval < 5 seconds
+  target: < 5 000 ms for a typical case-law search
   checks:
     - type: http_latency
       url: http://localhost:8010/api/v1/case-law/search?q=cheque+bounce
       threshold_ms: 5000
       samples: 5
       bearer_env: AUTH_BEARER
-      note: "Hits Prism.  Will show 'skip' until AUTH_BEARER is set."
-
+      note: Hits Prism.  Will show 'skip' until AUTH_BEARER is set.
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#96
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: ai-accuracy-98
-  name: "AI output accuracy ≥ 98%"
-  target: "≥ 98% on a labelled eval set (drafting / review / compliance)"
+  name: AI output accuracy ≥ 98%
+  target: ≥ 98% on a labelled eval set (drafting / review / compliance)
   checks:
     - type: manual
-      question: "Which eval set, when last run, what score per module?  Need ≥98% to be contractually acceptable."
+      question: Which eval set, when last run, what score per module?  Need ≥98% to be contractually
+        acceptable.
       review_cadence_days: 30
-
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#97
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: zero-critical-bugs
-  name: "0 critical bugs / crashes / unhandled exceptions"
-  target: "No open P0 / P1 defects at handover"
+  name: 0 critical bugs / crashes / unhandled exceptions
+  target: No open P0 / P1 defects at handover
   checks:
     - type: manual
-      question: "Count of open P0 + P1 tickets in the bug tracker.  Must be zero at UAT sign-off."
+      question: Count of open P0 + P1 tickets in the bug tracker.  Must be zero at UAT sign-off.
       review_cadence_days: 7
-
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#98
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: concurrent-users-1000
-  name: "≥ 1000 concurrent users supported (enterprise modules)"
-  target: "Load test passes 1000 concurrent users with response ≤2s"
+  name: ≥ 1000 concurrent users supported (enterprise modules)
+  target: Load test passes 1000 concurrent users with response ≤2s
   checks:
     - type: manual
-      question: "Load test results — tool, date, max concurrent users sustained with p95 ≤2s."
+      question: Load test results — tool, date, max concurrent users sustained with p95 ≤2s.
       review_cadence_days: 90
-
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#99
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: vapt-complete
-  name: "Penetration testing (VAPT) completed, open findings closed"
-  target: "VAPT engagement delivered + all critical/high findings closed"
+  name: Penetration testing (VAPT) completed, open findings closed
+  target: VAPT engagement delivered + all critical/high findings closed
   checks:
     - type: manual
-      question: "VAPT vendor + engagement date + open-findings count by severity."
+      question: VAPT vendor + engagement date + open-findings count by severity.
       review_cadence_days: 90
-
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#100
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: admin-access-handover
-  name: "Client has full admin access (DBs, APIs, cloud credentials)"
-  target: "Formal access handover to Lex Origin complete"
+  name: Client has full admin access (DBs, APIs, cloud credentials)
+  target: Formal access handover to Lex Origin complete
   checks:
     - type: manual
-      question: "Is Client-side on each of: MongoDB Atlas, PostgreSQL, AWS account, Railway, DNS/domain, GitHub orgs?  Documented who has what."
-
+      question: "Is Client-side on each of: MongoDB Atlas, PostgreSQL, AWS account, Railway, DNS/domain,
+        GitHub orgs?  Documented who has what."
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#101
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: ip-handover
-  name: "IPR formally assigned, source + models + datasets handed over"
-  target: "Signed IP assignment per Clause 7 + repositories transferred"
+  name: IPR formally assigned, source + models + datasets handed over
+  target: Signed IP assignment per Clause 7 + repositories transferred
   checks:
     - type: manual
-      question: "IP assignment signed?  Repos transferred to Client's GitHub org?  Trained-model artefacts and datasets delivered?"
-
+      question: IP assignment signed?  Repos transferred to Client's GitHub org?  Trained-model artefacts
+        and datasets delivered?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#102
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: documentation-complete
-  name: "Technical + user documentation + KT sessions"
-  target: "Playbooks, API docs, DB schemas, admin + user guides, training delivered"
+  name: Technical + user documentation + KT sessions
+  target: Playbooks, API docs, DB schemas, admin + user guides, training delivered
   checks:
     - type: manual
-      question: "Which docs delivered?  Dated.  Training sessions complete with sign-off?"
+      question: Which docs delivered?  Dated.  Training sessions complete with sign-off?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#103
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.

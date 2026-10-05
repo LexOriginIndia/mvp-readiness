@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T12:52:38.023Z",
+  "generated_at": "2026-10-05T18:19:55.445Z",
   "spec_versions": {
     "scope": "annexure-a-scope.yaml",
     "acceptance": "annexure-c-acceptance.yaml",
@@ -15,8 +15,8 @@
   "acceptance_summary": {
     "total": 12,
     "met": 0,
-    "unmet": 10,
-    "unknown": 2
+    "unmet": 12,
+    "unknown": 0
   },
   "features": [
     {
@@ -42,6 +42,11 @@
             "type": "manual",
             "question": "Does the RAG pipeline retrieve and ground answers from the Indian legal corpus? Give a sample query + top-3 citations.",
             "review_cadence_days": 30
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#1",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -70,7 +75,7 @@
           "evidence": {
             "matches": 43
           },
-          "duration_ms": 15
+          "duration_ms": 90
         },
         {
           "check": {
@@ -86,9 +91,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#1",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#1 OPEN: [3.1] RAG pipelines (retrieval-augmented generation)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.1] RAG pipelines (retrieval-augmented generation)"
+          },
+          "duration_ms": 559
         }
       ],
-      "summary": "PARTIAL — 2 pass, 1 needs-work"
+      "summary": "PARTIAL — 2 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -109,6 +129,11 @@
           {
             "type": "manual",
             "question": "Pick a template, generate a draft via the UI, inspect the output — is it usable without major edits?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#2",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -135,7 +160,7 @@
           "evidence": {
             "matches": 33
           },
-          "duration_ms": 498
+          "duration_ms": 712
         },
         {
           "check": {
@@ -150,9 +175,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#2",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#2 OPEN: [3.1] AI-powered document drafting",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.1] AI-powered document drafting"
+          },
+          "duration_ms": 451
         }
       ],
-      "summary": "PARTIAL — 2 pass, 1 needs-work"
+      "summary": "PARTIAL — 2 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -169,6 +209,11 @@
           {
             "type": "manual",
             "question": "Upload a sample contract — are risks and clause suggestions returned?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#3",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -186,7 +231,7 @@
           "evidence": {
             "matches": 2
           },
-          "duration_ms": 491
+          "duration_ms": 579
         },
         {
           "check": {
@@ -201,9 +246,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#3",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#3 OPEN: [3.1] AI document review (issue spotting, risk detection, clause suggestions, SWOT)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.1] AI document review (issue spotting, risk detection, clause suggestions, SWOT)"
+          },
+          "duration_ms": 456
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -220,6 +280,11 @@
           {
             "type": "manual",
             "question": "Compare two contract versions in the UI — are redlines accurate and clause-level diffs clear?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#4",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -237,7 +302,7 @@
           "evidence": {
             "matches": 2
           },
-          "duration_ms": 112
+          "duration_ms": 538
         },
         {
           "check": {
@@ -252,9 +317,19 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#4",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "github issue LexOriginIndia/mvp-readiness#4 fetch failed: 503",
+          "duration_ms": 4295
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -271,6 +346,11 @@
           {
             "type": "manual",
             "question": "Does clause extraction identify standard contract sections (indemnity, termination, jurisdiction, etc.)?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#5",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -288,7 +368,7 @@
           "evidence": {
             "matches": 2
           },
-          "duration_ms": 469
+          "duration_ms": 556
         },
         {
           "check": {
@@ -303,9 +383,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#5",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#5 OPEN: [3.1] Clause extraction + semantic difference engine",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.1] Clause extraction + semantic difference engine"
+          },
+          "duration_ms": 500
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -322,6 +417,11 @@
           {
             "type": "manual",
             "question": "Summaries must be understandable by non-lawyers — spot-check 3 outputs."
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#6",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -339,7 +439,7 @@
           "evidence": {
             "matches": 59
           },
-          "duration_ms": 457
+          "duration_ms": 539
         },
         {
           "check": {
@@ -354,9 +454,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#6",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#6 OPEN: [3.1] Plain-language summaries of contracts, legal, financial docs",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.1] Plain-language summaries of contracts, legal, financial docs"
+          },
+          "duration_ms": 546
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -373,6 +488,11 @@
           {
             "type": "manual",
             "question": "Submit a draft with 5 citations (3 real, 2 fabricated) — does the engine flag the fakes?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#7",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -390,7 +510,7 @@
           "evidence": {
             "matches": 2
           },
-          "duration_ms": 10
+          "duration_ms": 15
         },
         {
           "check": {
@@ -405,9 +525,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#7",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#7 OPEN: [3.1] Citation verification — auto-validate legal references",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.1] Citation verification — auto-validate legal references"
+          },
+          "duration_ms": 437
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -428,6 +563,11 @@
           {
             "type": "manual",
             "question": "Pick one rule from each of the ten law categories — does the engine evaluate correctly for a sample document?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#8",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -454,7 +594,7 @@
           "evidence": {
             "matches": 34
           },
-          "duration_ms": 9
+          "duration_ms": 70
         },
         {
           "check": {
@@ -469,9 +609,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#8",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#8 OPEN: [3.1] Automated compliance check (Civil, Corporate, Criminal, Arbitration, MCA, SEBI, RBI, Labour, IT, GST)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.1] Automated compliance check (Civil, Corporate, Criminal, Arbitration, MCA, SEBI, RBI, Labour, IT, GST)"
+          },
+          "duration_ms": 399
         }
       ],
-      "summary": "PARTIAL — 2 pass, 1 needs-work"
+      "summary": "PARTIAL — 2 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -488,6 +643,11 @@
           {
             "type": "manual",
             "question": "Compose, summarize, and reply flows all work end-to-end in the UI?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#9",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -505,7 +665,7 @@
           "evidence": {
             "matches": 6
           },
-          "duration_ms": 83
+          "duration_ms": 524
         },
         {
           "check": {
@@ -520,9 +680,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#9",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#9 OPEN: [3.1] AI mail generator, summarizer, reply maker (optional Gemini add-on)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.1] AI mail generator, summarizer, reply maker (optional Gemini add-on)"
+          },
+          "duration_ms": 457
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -539,6 +714,11 @@
           {
             "type": "manual",
             "question": "Upload the same contract twice — is it marked duplicate, and can you still see both files on demand?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#10",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -556,7 +736,7 @@
           "evidence": {
             "matches": 3
           },
-          "duration_ms": 453
+          "duration_ms": 548
         },
         {
           "check": {
@@ -571,9 +751,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#10",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#10 OPEN: [3.1] Duplicate-document elimination with full-file views on request",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.1] Duplicate-document elimination with full-file views on request"
+          },
+          "duration_ms": 516
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -584,6 +779,11 @@
           {
             "type": "manual",
             "question": "Does the module exist in the UI and produce usable questions for a sample witness statement?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#11",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -602,9 +802,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#11",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#11 OPEN: [3.1] Examination / cross / re-examination question generator",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.1] Examination / cross / re-examination question generator"
+          },
+          "duration_ms": 515
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -621,6 +836,11 @@
           {
             "type": "manual",
             "question": "Does the forecast use historical case data, and is its reasoning displayed to the user?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#12",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -638,7 +858,7 @@
           "evidence": {
             "matches": 3
           },
-          "duration_ms": 82
+          "duration_ms": 132
         },
         {
           "check": {
@@ -653,9 +873,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#12",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#12 OPEN: [3.1] Legal forecast — predict case favor/not-favor",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.1] Legal forecast — predict case favor/not-favor"
+          },
+          "duration_ms": 484
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -676,6 +911,11 @@
           {
             "type": "manual",
             "question": "Chat interface works, retains context across messages, cites sources?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#13",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -693,7 +933,7 @@
           "evidence": {
             "matches": 13
           },
-          "duration_ms": 459
+          "duration_ms": 557
         },
         {
           "check": {
@@ -717,9 +957,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#13",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#13 OPEN: [3.1] Legal adviser assistant (conversational)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.1] Legal adviser assistant (conversational)"
+          },
+          "duration_ms": 466
         }
       ],
-      "summary": "PARTIAL — 2 pass, 1 needs-work"
+      "summary": "PARTIAL — 2 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -738,6 +993,11 @@
           {
             "type": "manual",
             "question": "SAP integration — present? If not, is a replacement planned or waived?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#14",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -773,10 +1033,25 @@
             "verdict": "fail",
             "reviewed_on": "2026-10-05"
           },
-          "duration_ms": 0
+          "duration_ms": 1
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#14",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#14 OPEN: [3.1] Financial-software integration — Zoho Books, SAP, Tally",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.1] Financial-software integration — Zoho Books, SAP, Tally"
+          },
+          "duration_ms": 450
         }
       ],
-      "summary": "PARTIAL — 2 pass, 1 fail"
+      "summary": "PARTIAL — 2 pass, 2 fail"
     },
     {
       "feature": {
@@ -819,7 +1094,7 @@
           "evidence": {
             "matches": 1
           },
-          "duration_ms": 1
+          "duration_ms": 0
         }
       ],
       "summary": "DONE — 2 pass"
@@ -833,6 +1108,11 @@
           {
             "type": "manual",
             "question": "Is the AI litigation-strategy feature exposed in the UI and does it produce case-specific recommendations?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#15",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -851,9 +1131,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#15",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#15 OPEN: [3.1] Litigation strategy (AI case analysis)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.1] Litigation strategy (AI case analysis)"
+          },
+          "duration_ms": 497
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -872,6 +1167,11 @@
           {
             "type": "manual",
             "question": "Partner-level dashboard shows all four surfaces (team / employees / clients / financials) in one place?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#16",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -908,9 +1208,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#16",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#16 OPEN: [3.1] Team, employees, clients, financials dashboard for enterprise",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.1] Team, employees, clients, financials dashboard for enterprise"
+          },
+          "duration_ms": 486
         }
       ],
-      "summary": "PARTIAL — 2 pass, 1 needs-work"
+      "summary": "PARTIAL — 2 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -990,6 +1305,11 @@
           {
             "type": "manual",
             "question": "Record a sample voice input in Hindi — does it transcribe + translate to a draftable application?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#17",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1017,9 +1337,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#17",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#17 OPEN: [3.1] Voice translator for drafting application/appeals",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.1] Voice translator for drafting application/appeals"
+          },
+          "duration_ms": 409
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -1036,6 +1371,11 @@
           {
             "type": "manual",
             "question": "Hindi UI and bidirectional translation both present?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#18",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1053,7 +1393,7 @@
           "evidence": {
             "matches": 18
           },
-          "duration_ms": 86
+          "duration_ms": 118
         },
         {
           "check": {
@@ -1068,9 +1408,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#18",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#18 OPEN: [3.1] Translator — English + Hindi (local languages)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.1] Translator — English + Hindi (local languages)"
+          },
+          "duration_ms": 477
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -1132,7 +1487,7 @@
           },
           "status": "pass",
           "detail": "authservice/src/work-order-flow/work-order-flow.controller.ts exists (expected exists)",
-          "duration_ms": 0
+          "duration_ms": 1
         }
       ],
       "summary": "DONE — 2 pass"
@@ -1146,6 +1501,11 @@
           {
             "type": "manual",
             "question": "Upload company filings — does the analyzer extract red flags and summarize risks?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#19",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1164,9 +1524,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#19",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#19 OPEN: [3.2] Due diligence analyzer (M&A docs, risk extraction)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.2] Due diligence analyzer (M&A docs, risk extraction)"
+          },
+          "duration_ms": 430
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -1177,6 +1552,11 @@
           {
             "type": "manual",
             "question": "Guided incorporation flow present end-to-end, including bylaws templates?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#20",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1195,9 +1575,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#20",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#20 OPEN: [3.2] Entity formation & governance assistant (incorporation, bylaws)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.2] Entity formation & governance assistant (incorporation, bylaws)"
+          },
+          "duration_ms": 511
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -1208,6 +1603,11 @@
           {
             "type": "manual",
             "question": "Does the platform surface new MCA/SEBI/RBI circulars with impact-on-your-clients tagging?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#21",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1226,9 +1626,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#21",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#21 OPEN: [3.2] Regulatory change tracker",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.2] Regulatory change tracker"
+          },
+          "duration_ms": 395
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -1239,6 +1654,11 @@
           {
             "type": "manual",
             "question": "Can a user generate compliant board meeting minutes from an agenda + attendee list?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#22",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1257,9 +1677,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#22",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#22 OPEN: [3.2] Board meeting minutes generator",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.2] Board meeting minutes generator"
+          },
+          "duration_ms": 408
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -1270,6 +1705,11 @@
           {
             "type": "manual",
             "question": "Generate a sample HR handbook — does it cover standard Indian labour-law sections (POSH, PF, gratuity, leave)?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#23",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1288,9 +1728,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#23",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#23 OPEN: [3.2] Policy & HR handbook generator",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.2] Policy & HR handbook generator"
+          },
+          "duration_ms": 427
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -1301,6 +1756,11 @@
           {
             "type": "manual",
             "question": "Supported jurisdictions documented? Does the engine actually check against them?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#24",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1319,9 +1779,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#24",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#24 OPEN: [3.2] Cross-border law compliance checker",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.2] Cross-border law compliance checker"
+          },
+          "duration_ms": 430
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -1332,6 +1807,11 @@
           {
             "type": "manual",
             "question": "Pick 3 common filings (GST registration, Pvt Ltd incorporation, MSME) — correct document list produced for each?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#25",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1350,9 +1830,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#25",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#25 OPEN: [3.2] List-of-documents generator (for licenses, entity opening, work completion)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.2] List-of-documents generator (for licenses, entity opening, work completion)"
+          },
+          "duration_ms": 408
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -1368,6 +1863,11 @@
           {
             "type": "manual",
             "question": "Upload a sample ITR — are compliance issues flagged with specific rule references?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#26",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1396,9 +1896,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#26",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#26 OPEN: [3.3] Tax return compliance checker",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.3] Tax return compliance checker"
+          },
+          "duration_ms": 490
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -1409,6 +1924,11 @@
           {
             "type": "manual",
             "question": "Does the assistant produce year-end tax-saving recommendations for a sample balance sheet?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#27",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1427,9 +1947,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#27",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#27 OPEN: [3.3] Tax planning assistant (corporates)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.3] Tax planning assistant (corporates)"
+          },
+          "duration_ms": 490
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -1444,6 +1979,11 @@
           {
             "type": "manual",
             "question": "Risk analyzer surfaces specific anomalies (round-tripping, cash spikes, unusual journals), not just totals?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#28",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1471,9 +2011,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#28",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#28 OPEN: [3.3] Audit risk analyzer",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.3] Audit risk analyzer"
+          },
+          "duration_ms": 416
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -1484,6 +2039,11 @@
           {
             "type": "manual",
             "question": "Which treaties/jurisdictions supported? Documented?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#29",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1502,9 +2062,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#29",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#29 OPEN: [3.3] Cross-border tax compliance checker",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.3] Cross-border tax compliance checker"
+          },
+          "duration_ms": 421
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -1515,6 +2090,11 @@
           {
             "type": "manual",
             "question": "ALP methods supported (CUP, RPM, CPM, TNMM, PSM)? Benchmarking data source?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#30",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1533,9 +2113,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#30",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#30 OPEN: [3.3] Cross-border transfer pricing checker",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.3] Cross-border transfer pricing checker"
+          },
+          "duration_ms": 414
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -1550,6 +2145,11 @@
           {
             "type": "manual",
             "question": "Can a user search the Indian trademark registry and get similarity scores?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#31",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1577,9 +2177,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#31",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#31 OPEN: [3.4] Trademark Search AI (conflict detection)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.4] Trademark Search AI (conflict detection)"
+          },
+          "duration_ms": 421
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -1590,6 +2205,11 @@
           {
             "type": "manual",
             "question": "Does the assistant draft claim 1 + dependent claims from an invention description?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#32",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1608,9 +2228,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#32",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#32 OPEN: [3.4] Patent drafting assistant (claim language)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.4] Patent drafting assistant (claim language)"
+          },
+          "duration_ms": 407
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -1621,6 +2256,11 @@
           {
             "type": "manual",
             "question": "Prior art search covers Indian + international patents? Which databases?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#33",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1639,9 +2279,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#33",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#33 OPEN: [3.4] Prior art finder",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.4] Prior art finder"
+          },
+          "duration_ms": 414
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -1652,6 +2307,11 @@
           {
             "type": "manual",
             "question": "Can a user see all their IP assets with upcoming renewal deadlines in one view?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#34",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1670,9 +2330,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#34",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#34 OPEN: [3.4] IP portfolio manager (deadlines, renewals, filings)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.4] IP portfolio manager (deadlines, renewals, filings)"
+          },
+          "duration_ms": 496
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -1687,6 +2362,11 @@
           {
             "type": "manual",
             "question": "Analyzer runs through all four fair-use factors and gives a defensible score?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#35",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1699,7 +2379,7 @@
           },
           "status": "pass",
           "detail": "authservice/src/fair-use-analyzer exists (expected exists)",
-          "duration_ms": 0
+          "duration_ms": 1
         },
         {
           "check": {
@@ -1714,9 +2394,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#35",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#35 OPEN: [3.4] Fair use analyzer",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.4] Fair use analyzer"
+          },
+          "duration_ms": 434
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -1727,6 +2422,11 @@
           {
             "type": "manual",
             "question": "Does the detector scan uploaded content against known works?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#36",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1745,9 +2445,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#36",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#36 OPEN: [3.4] Copyright infringement detector",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.4] Copyright infringement detector"
+          },
+          "duration_ms": 421
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -1758,6 +2473,11 @@
           {
             "type": "manual",
             "question": "Produces a defensible registration-chance score for a new filing?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#37",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1776,9 +2496,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#37",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#37 OPEN: [3.4] IP risk assessment tool",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.4] IP risk assessment tool"
+          },
+          "duration_ms": 421
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -1789,6 +2524,11 @@
           {
             "type": "manual",
             "question": "Which international IP regimes covered (Madrid, PCT, Berne)?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#38",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1807,9 +2547,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#38",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#38 OPEN: [3.4] Cross-border IP compliance checker",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.4] Cross-border IP compliance checker"
+          },
+          "duration_ms": 465
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -1820,6 +2575,11 @@
           {
             "type": "manual",
             "question": "Produces usable royalty/distribution/usage-rights agreements for a sample scenario?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#39",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1838,9 +2598,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#39",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#39 OPEN: [3.4] Licensing agreement drafting assistant",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.4] Licensing agreement drafting assistant"
+          },
+          "duration_ms": 457
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -1851,6 +2626,11 @@
           {
             "type": "manual",
             "question": "Which DPDP + GDPR articles mapped? Sample output for a privacy policy?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#40",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1869,9 +2649,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#40",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#40 OPEN: [3.5] Data protection compliance checker (DPDP, GDPR)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.5] Data protection compliance checker (DPDP, GDPR)"
+          },
+          "duration_ms": 468
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -1882,6 +2677,11 @@
           {
             "type": "manual",
             "question": "Does the analyzer identify high-risk data flows in a sample architecture?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#41",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1900,9 +2700,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#41",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#41 OPEN: [3.5] Breach risk analyzer",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.5] Breach risk analyzer"
+          },
+          "duration_ms": 442
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -1913,6 +2728,11 @@
           {
             "type": "manual",
             "question": "Generated policy is DPDP + GDPR compliant for a sample B2C app?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#42",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1931,9 +2751,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#42",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#42 OPEN: [3.5] Privacy policy generator",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.5] Privacy policy generator"
+          },
+          "duration_ms": 449
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -1944,6 +2779,11 @@
           {
             "type": "manual",
             "question": "Rights-explainer available in-product for end-users of a Client's app?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#43",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1962,9 +2802,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#43",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#43 OPEN: [3.5] User rights explainer (plain language)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.5] User rights explainer (plain language)"
+          },
+          "duration_ms": 539
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -1975,6 +2830,11 @@
           {
             "type": "manual",
             "question": "Scans a URL and generates a compliant cookie policy?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#44",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -1993,9 +2853,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#44",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#44 OPEN: [3.5] Cookie policy generator",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.5] Cookie policy generator"
+          },
+          "duration_ms": 418
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -2010,6 +2885,11 @@
           {
             "type": "manual",
             "question": "Checker supports at least India outbound + inbound visa categories?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#45",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2037,9 +2917,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#45",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#45 OPEN: [3.6] Visa eligibility checker",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.6] Visa eligibility checker"
+          },
+          "duration_ms": 453
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2050,6 +2945,11 @@
           {
             "type": "manual",
             "question": "Which forms supported? Can a user export a filled form for signature?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#46",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2068,9 +2968,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#46",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#46 OPEN: [3.6] Immigration forms auto-filler",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.6] Immigration forms auto-filler"
+          },
+          "duration_ms": 458
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2081,6 +2996,11 @@
           {
             "type": "manual",
             "question": "Summaries draw from real precedent corpus?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#47",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2099,9 +3019,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#47",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#47 OPEN: [3.6] Asylum case precedent summarizer",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.6] Asylum case precedent summarizer"
+          },
+          "duration_ms": 511
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -2112,6 +3047,11 @@
           {
             "type": "manual",
             "question": "Tracks per-user permit status with deadline alerts?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#48",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2130,9 +3070,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#48",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#48 OPEN: [3.6] Residency + work permit tracker",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.6] Residency + work permit tracker"
+          },
+          "duration_ms": 924
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2143,6 +3098,11 @@
           {
             "type": "manual",
             "question": "Given a profile, suggests best-fit visa pathways with timelines?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#49",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2160,10 +3120,25 @@
             "verdict": "fail",
             "reviewed_on": "2026-10-05"
           },
-          "duration_ms": 0
+          "duration_ms": 1
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#49",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#49 OPEN: [3.6] Immigration pathway navigator",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.6] Immigration pathway navigator"
+          },
+          "duration_ms": 428
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -2174,6 +3149,11 @@
           {
             "type": "manual",
             "question": "Supports standard defense pleadings with precedent citations?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#50",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2192,9 +3172,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#50",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#50 OPEN: [3.6] Deportation defense assistant",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.6] Deportation defense assistant"
+          },
+          "duration_ms": 494
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -2209,6 +3204,11 @@
           {
             "type": "manual",
             "question": "Includes practice questions + answer rationales for target countries?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#51",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2236,9 +3236,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#51",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#51 OPEN: [3.6] Naturalization test prep tool",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.6] Naturalization test prep tool"
+          },
+          "duration_ms": 411
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2249,6 +3264,11 @@
           {
             "type": "manual",
             "question": "Which jurisdictions? Correct eligibility rules?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#52",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2267,9 +3287,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#52",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#52 OPEN: [3.6] Family sponsorship eligibility checker",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.6] Family sponsorship eligibility checker"
+          },
+          "duration_ms": 425
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -2280,6 +3315,11 @@
           {
             "type": "manual",
             "question": "Available in-product in plain English + Hindi?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#53",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2298,9 +3338,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#53",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#53 OPEN: [3.6] Plain-language immigration rights explainer",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.6] Plain-language immigration rights explainer"
+          },
+          "duration_ms": 494
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -2311,6 +3366,11 @@
           {
             "type": "manual",
             "question": "Notifications fire on status change (not just manual check)?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#54",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2328,10 +3388,25 @@
             "verdict": "needs_work",
             "reviewed_on": "2026-10-05"
           },
-          "duration_ms": 0
+          "duration_ms": 1
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#54",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#54 OPEN: [3.6] Immigration case-status notifier (forms, hearings, appeals)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.6] Immigration case-status notifier (forms, hearings, appeals)"
+          },
+          "duration_ms": 407
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2370,7 +3445,7 @@
           },
           "status": "pass",
           "detail": "authservice/src/common/guards/practice-type.guard.ts exists (expected exists)",
-          "duration_ms": 0
+          "duration_ms": 1
         },
         {
           "check": {
@@ -2393,7 +3468,7 @@
           "evidence": {
             "matches": 1
           },
-          "duration_ms": 1
+          "duration_ms": 0
         },
         {
           "check": {
@@ -2425,6 +3500,11 @@
           {
             "type": "manual",
             "question": "Owner-level view surfaces all four axes in one page?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#55",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2452,9 +3532,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#55",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#55 OPEN: [3.7] Owner dashboard — clients, matters, employees, task status",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Owner dashboard — clients, matters, employees, task status"
+          },
+          "duration_ms": 529
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2469,6 +3564,11 @@
           {
             "type": "manual",
             "question": "Workload column populated from real task assignment data?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#56",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2496,9 +3596,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#56",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#56 OPEN: [3.7] Employee directory with workloads + performance",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Employee directory with workloads + performance"
+          },
+          "duration_ms": 497
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2509,6 +3624,11 @@
           {
             "type": "manual",
             "question": "Does the heatmap exist in-product and reflect real activity?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#57",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2527,9 +3647,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#57",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#57 OPEN: [3.7] Performance heatmap (R / Y / G productivity)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Performance heatmap (R / Y / G productivity)"
+          },
+          "duration_ms": 488
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -2540,6 +3675,11 @@
           {
             "type": "manual",
             "question": "Profitability pulls from billing + timesheet, not placeholders?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#58",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2558,9 +3698,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#58",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#58 OPEN: [3.7] Client & matter profitability view",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Client & matter profitability view"
+          },
+          "duration_ms": 534
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2575,6 +3730,11 @@
           {
             "type": "manual",
             "question": "View exists per team member and firm-wide?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#59",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2602,9 +3762,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#59",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#59 OPEN: [3.7] Task completion % vs. deadline",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Task completion % vs. deadline"
+          },
+          "duration_ms": 442
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2615,6 +3790,11 @@
           {
             "type": "manual",
             "question": "AI considers expertise + workload, override available in UI?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#60",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2633,9 +3813,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#60",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#60 OPEN: [3.7] Smart assignment engine (AI recommends, manual override)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Smart assignment engine (AI recommends, manual override)"
+          },
+          "duration_ms": 422
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2646,6 +3841,11 @@
           {
             "type": "manual",
             "question": "Three actions wired end-to-end?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#61",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2664,9 +3864,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#61",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#61 OPEN: [3.7] Owner override button (reassign / escalate / mark urgent)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Owner override button (reassign / escalate / mark urgent)"
+          },
+          "duration_ms": 411
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2681,6 +3896,11 @@
           {
             "type": "manual",
             "question": "On assignment, notification + task-type-specific checklist both generated?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#62",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2708,9 +3928,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#62",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#62 OPEN: [3.7] Instant assignment notifications with auto checklists",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Instant assignment notifications with auto checklists"
+          },
+          "duration_ms": 422
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2721,6 +3956,11 @@
           {
             "type": "manual",
             "question": "Alert fires within one business day of trigger?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#63",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2739,9 +3979,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#63",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#63 OPEN: [3.7] Critical escalation alerts (missed deadlines, resignations)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Critical escalation alerts (missed deadlines, resignations)"
+          },
+          "duration_ms": 1421
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2752,6 +4007,11 @@
           {
             "type": "manual",
             "question": "Reports go out automatically on a schedule?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#64",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2770,9 +4030,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#64",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#64 OPEN: [3.7] Weekly summary reports",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Weekly summary reports"
+          },
+          "duration_ms": 436
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2783,6 +4058,11 @@
           {
             "type": "manual",
             "question": "Cadence respected per task size, not uniform?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#65",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2801,9 +4081,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#65",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#65 OPEN: [3.7] Deadline reminders (4d small, 1-2mo big)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Deadline reminders (4d small, 1-2mo big)"
+          },
+          "duration_ms": 543
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2814,6 +4109,11 @@
           {
             "type": "manual",
             "question": "Alerts fire for issues discovered after a filing is complete?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#66",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2832,9 +4132,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#66",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#66 OPEN: [3.7] Risk & compliance alerts (post-completion detection)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Risk & compliance alerts (post-completion detection)"
+          },
+          "duration_ms": 512
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2871,6 +4186,11 @@
           {
             "type": "manual",
             "question": "Insights produced per attorney / practice area / client?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#67",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2889,9 +4209,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#67",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#67 OPEN: [3.7] Productivity insights",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Productivity insights"
+          },
+          "duration_ms": 518
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2902,6 +4237,11 @@
           {
             "type": "manual",
             "question": "Rule engine supports conditional reviewer injection?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#68",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2920,9 +4260,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#68",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#68 OPEN: [3.7] Governance rules (e.g., partner review for M&A drafts)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Governance rules (e.g., partner review for M&A drafts)"
+          },
+          "duration_ms": 502
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2933,6 +4288,11 @@
           {
             "type": "manual",
             "question": "Suggestions available in the assignment UI?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#69",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2951,9 +4311,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#69",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#69 OPEN: [3.7] Automatic workload balancing suggestions",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Automatic workload balancing suggestions"
+          },
+          "duration_ms": 414
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2964,6 +4339,11 @@
           {
             "type": "manual",
             "question": "Multi-axis reports available?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#70",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -2982,9 +4362,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#70",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#70 OPEN: [3.7] Firm insights (productivity by attorney / practice / client)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Firm insights (productivity by attorney / practice / client)"
+          },
+          "duration_ms": 521
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -2995,6 +4390,11 @@
           {
             "type": "manual",
             "question": "Separate report distinct from matter profitability?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#71",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3013,9 +4413,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#71",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#71 OPEN: [3.7] Client profitability reports",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Client profitability reports"
+          },
+          "duration_ms": 499
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -3026,6 +4441,11 @@
           {
             "type": "manual",
             "question": "Forecasts shown in a dedicated view?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#72",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3043,10 +4463,25 @@
             "verdict": "needs_work",
             "reviewed_on": "2026-10-05"
           },
-          "duration_ms": 0
+          "duration_ms": 1
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#72",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#72 OPEN: [3.7] Future risk radar (regulatory changes, deadlines, disputes)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Future risk radar (regulatory changes, deadlines, disputes)"
+          },
+          "duration_ms": 518
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -3058,6 +4493,11 @@
             "type": "manual",
             "question": "SOC 2 Type II audit scheduled/complete? ISO 27001 certification status? GDPR + CCPA controls documented?",
             "review_cadence_days": 90
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#73",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3077,9 +4517,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#73",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#73 OPEN: [3.7] Security: SOC 2 Type II, ISO 27001, GDPR, CCPA alignment",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Security: SOC 2 Type II, ISO 27001, GDPR, CCPA alignment"
+          },
+          "duration_ms": 508
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -3099,6 +4554,11 @@
             "type": "manual",
             "question": "DB encryption at rest? TLS everywhere? All PII fields encrypted?",
             "review_cadence_days": 90
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#74",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3136,9 +4596,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#74",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#74 OPEN: [3.7] Audit logs, data encryption, access controls",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.7] Audit logs, data encryption, access controls"
+          },
+          "duration_ms": 510
         }
       ],
-      "summary": "PARTIAL — 2 pass, 1 needs-work"
+      "summary": "PARTIAL — 2 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -3149,6 +4624,11 @@
           {
             "type": "manual",
             "question": "Which base models + which fine-tuning datasets? Documented reproducibility?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#75",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3167,9 +4647,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#75",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#75 OPEN: [3.8] Custom ML models fine-tuned on Indian law / tax / regulatory",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.8] Custom ML models fine-tuned on Indian law / tax / regulatory"
+          },
+          "duration_ms": 382
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -3180,6 +4675,11 @@
           {
             "type": "manual",
             "question": "Pipeline runs on a schedule? Where are new sources picked up?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#76",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3198,9 +4698,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#76",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#76 OPEN: [3.8] Continuous-learning pipeline (incremental ingestion)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.8] Continuous-learning pipeline (incremental ingestion)"
+          },
+          "duration_ms": 410
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -3211,6 +4726,11 @@
           {
             "type": "manual",
             "question": "Which courts ingested, with what coverage period?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#77",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3229,9 +4749,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#77",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#77 OPEN: [3.8] Historical datasets — Supreme Court, High Court, District Court, Tribunals",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.8] Historical datasets — Supreme Court, High Court, District Court, Tribunals"
+          },
+          "duration_ms": 390
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -3242,6 +4777,11 @@
           {
             "type": "manual",
             "question": "Separate specialised models or shared base? Benchmarks per domain?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#78",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3260,9 +4800,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#78",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#78 OPEN: [3.8] Specialised modules — Tax/GST/RBI, Corporate governance/MCA/SEBI",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.8] Specialised modules — Tax/GST/RBI, Corporate governance/MCA/SEBI"
+          },
+          "duration_ms": 437
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     },
     {
       "feature": {
@@ -3277,6 +4832,11 @@
           {
             "type": "manual",
             "question": "Library browsable across case law + contracts + tax rulings + circulars?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#79",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3304,9 +4864,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#79",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#79 OPEN: [3.9] Centralised document & knowledge library",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.9] Centralised document & knowledge library"
+          },
+          "duration_ms": 409
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -3336,7 +4911,7 @@
           "evidence": {
             "matches": 60
           },
-          "duration_ms": 453
+          "duration_ms": 527
         }
       ],
       "summary": "DONE — 1 pass"
@@ -3354,6 +4929,11 @@
           {
             "type": "manual",
             "question": "Which courts covered? Sync frequency?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#80",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3381,9 +4961,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#80",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#80 OPEN: [3.10] SC + High Court APIs (case updates, judgments)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.10] SC + High Court APIs (case updates, judgments)"
+          },
+          "duration_ms": 525
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -3400,6 +4995,11 @@
           {
             "type": "manual",
             "question": "MCA integration pulls company master + filings in real time?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#81",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3417,7 +5017,7 @@
           "evidence": {
             "matches": 7
           },
-          "duration_ms": 1
+          "duration_ms": 2
         },
         {
           "check": {
@@ -3432,9 +5032,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#81",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#81 OPEN: [3.10] MCA (filings, compliance updates)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.10] MCA (filings, compliance updates)"
+          },
+          "duration_ms": 386
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -3445,6 +5060,11 @@
           {
             "type": "manual",
             "question": "RBI circular feed live? Latest publication date?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#82",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3463,9 +5083,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#82",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#82 OPEN: [3.10] RBI (circulars, guidelines)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.10] RBI (circulars, guidelines)"
+          },
+          "duration_ms": 430
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -3506,6 +5141,11 @@
           {
             "type": "manual",
             "question": "CBDT circulars + notifications ingested? Latest sync date?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#83",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3533,9 +5173,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#83",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#83 OPEN: [3.10] Income Tax / CBDT",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.10] Income Tax / CBDT"
+          },
+          "duration_ms": 401
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -3546,6 +5201,11 @@
           {
             "type": "manual",
             "question": "SEBI feed live? Pulled on a schedule?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#84",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3564,9 +5224,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#84",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#84 OPEN: [3.10] SEBI (regulatory circulars)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.10] SEBI (regulatory circulars)"
+          },
+          "duration_ms": 374
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -3577,6 +5252,11 @@
           {
             "type": "manual",
             "question": "What's the actual sync lag per source? Documented SLOs?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#85",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3595,9 +5275,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#85",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#85 OPEN: [3.10] Real-time / near-real-time synchronisation across all above sources",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.10] Real-time / near-real-time synchronisation across all above sources"
+          },
+          "duration_ms": 439
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -3612,6 +5307,11 @@
           {
             "type": "manual",
             "question": "Which providers wired, which pending?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#86",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3639,9 +5339,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#86",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#86 OPEN: [3.10] E-sign providers — eMudhra, DigiSign, DocuSign",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.10] E-sign providers — eMudhra, DigiSign, DocuSign"
+          },
+          "duration_ms": 523
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -3695,6 +5410,11 @@
           {
             "type": "manual",
             "question": "Alerts actually filter by user's active cases/clients, not blast-to-all?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#87",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3722,9 +5442,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#87",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#87 OPEN: [3.11] Personalised alerts per user (lawyer / CA / enterprise)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.11] Personalised alerts per user (lawyer / CA / enterprise)"
+          },
+          "duration_ms": 500
         }
       ],
-      "summary": "PARTIAL — 1 pass, 1 needs-work"
+      "summary": "PARTIAL — 1 pass, 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -3735,6 +5470,11 @@
           {
             "type": "manual",
             "question": "Alerts carry 'relevant to your X' context, not just a raw headline?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#88",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3753,9 +5493,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#88",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#88 OPEN: [3.11] Risk / deadline / law-change detection with actionable summaries",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.11] Risk / deadline / law-change detection with actionable summaries"
+          },
+          "duration_ms": 526
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -3766,6 +5521,11 @@
           {
             "type": "manual",
             "question": "Services deployed on AWS? Which regions? Latest deploy date?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#89",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3784,9 +5544,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#89",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#89 OPEN: [3.12] AWS cloud hosting",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.12] AWS cloud hosting"
+          },
+          "duration_ms": 497
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -3813,7 +5588,7 @@
           },
           "status": "pass",
           "detail": "authservice/src/schemas/user.schema.ts exists (expected exists)",
-          "duration_ms": 0
+          "duration_ms": 1
         },
         {
           "check": {
@@ -3883,6 +5658,11 @@
             "type": "manual",
             "question": "DB-at-rest encryption on? TLS on all public endpoints? PII fields column-encrypted?",
             "review_cadence_days": 90
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#90",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3902,9 +5682,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#90",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#90 OPEN: [3.12] Encryption (at rest + in transit)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.12] Encryption (at rest + in transit)"
+          },
+          "duration_ms": 423
         }
       ],
-      "summary": "PARTIAL — 1 needs-work"
+      "summary": "PARTIAL — 1 fail, 1 needs-work"
     },
     {
       "feature": {
@@ -3955,6 +5750,11 @@
             "type": "manual",
             "question": "VAPT engagement scheduled or complete? Vendor + report date + open findings count?",
             "review_cadence_days": 90
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#91",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -3974,9 +5774,24 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#91",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#91 OPEN: [3.12] Penetration testing (VAPT) — external + internal",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[3.12] Penetration testing (VAPT) — external + internal"
+          },
+          "duration_ms": 418
         }
       ],
-      "summary": "NOT STARTED — 1 fail"
+      "summary": "NOT STARTED — 2 fail"
     }
   ],
   "acceptance": [
@@ -3993,10 +5808,15 @@
             "samples": 5,
             "bearer_env": "AUTH_BEARER",
             "note": "Smoke-test the auth service; add more endpoints as modules stabilise."
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#92",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
-      "met": "unknown",
+      "met": false,
       "checks": [
         {
           "check": {
@@ -4010,9 +5830,24 @@
           "status": "skip",
           "detail": "bearer env var AUTH_BEARER not set — skipping http_latency for http://localhost:8004/api/v1/auth/profile",
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#92",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#92 OPEN: [Annexure C] Average response time ≤ 2 seconds on key modules",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[Annexure C] Average response time ≤ 2 seconds on key modules"
+          },
+          "duration_ms": 419
         }
       ],
-      "summary": "UNKNOWN — target: ≤ 2 000 ms, averaged across 5 samples per key endpoint"
+      "summary": "UNMET — target: ≤ 2 000 ms, averaged across 5 samples per key endpoint"
     },
     {
       "metric": {
@@ -4024,6 +5859,11 @@
             "type": "manual",
             "question": "What is current rolling-30-day uptime per Grafana / Railway / CloudWatch?  Target ≥ 99%.",
             "review_cadence_days": 30
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#93",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -4043,6 +5883,21 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#93",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#93 OPEN: [Annexure C] System uptime ≥ 99% during test period",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[Annexure C] System uptime ≥ 99% during test period"
+          },
+          "duration_ms": 407
         }
       ],
       "summary": "UNMET — target: ≥ 99% rolling 30-day"
@@ -4056,6 +5911,11 @@
           {
             "type": "manual",
             "question": "Measured drafting-time delta vs. baseline — numeric evidence for a benchmark contract set."
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#94",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -4074,6 +5934,21 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#94",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#94 OPEN: [Annexure C] Drafting turnaround ↓ 70%",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[Annexure C] Drafting turnaround ↓ 70%"
+          },
+          "duration_ms": 424
         }
       ],
       "summary": "UNMET — target: 70% reduction vs. the manual baseline measured at kickoff"
@@ -4087,6 +5962,11 @@
           {
             "type": "manual",
             "question": "Compute (filings resubmitted / total filings) over last 30 days.  Need under 2%."
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#95",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -4105,6 +5985,21 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#95",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#95 OPEN: [Annexure C] Filing resubmission rate < 2%",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[Annexure C] Filing resubmission rate < 2%"
+          },
+          "duration_ms": 401
         }
       ],
       "summary": "UNMET — target: < 2% of filings require resubmission"
@@ -4122,10 +6017,15 @@
             "samples": 5,
             "bearer_env": "AUTH_BEARER",
             "note": "Hits Prism.  Will show 'skip' until AUTH_BEARER is set."
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#96",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
-      "met": "unknown",
+      "met": false,
       "checks": [
         {
           "check": {
@@ -4139,9 +6039,24 @@
           "status": "skip",
           "detail": "bearer env var AUTH_BEARER not set — skipping http_latency for http://localhost:8010/api/v1/case-law/search?q=cheque+bounce",
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#96",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#96 OPEN: [Annexure C] Case-law retrieval < 5 seconds",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[Annexure C] Case-law retrieval < 5 seconds"
+          },
+          "duration_ms": 431
         }
       ],
-      "summary": "UNKNOWN — target: < 5 000 ms for a typical case-law search"
+      "summary": "UNMET — target: < 5 000 ms for a typical case-law search"
     },
     {
       "metric": {
@@ -4153,6 +6068,11 @@
             "type": "manual",
             "question": "Which eval set, when last run, what score per module?  Need ≥98% to be contractually acceptable.",
             "review_cadence_days": 30
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#97",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -4172,6 +6092,21 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#97",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#97 OPEN: [Annexure C] AI output accuracy ≥ 98%",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[Annexure C] AI output accuracy ≥ 98%"
+          },
+          "duration_ms": 385
         }
       ],
       "summary": "UNMET — target: ≥ 98% on a labelled eval set (drafting / review / compliance)"
@@ -4186,6 +6121,11 @@
             "type": "manual",
             "question": "Count of open P0 + P1 tickets in the bug tracker.  Must be zero at UAT sign-off.",
             "review_cadence_days": 7
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#98",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -4205,6 +6145,21 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#98",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#98 OPEN: [Annexure C] 0 critical bugs / crashes / unhandled exceptions",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[Annexure C] 0 critical bugs / crashes / unhandled exceptions"
+          },
+          "duration_ms": 420
         }
       ],
       "summary": "UNMET — target: No open P0 / P1 defects at handover"
@@ -4219,6 +6174,11 @@
             "type": "manual",
             "question": "Load test results — tool, date, max concurrent users sustained with p95 ≤2s.",
             "review_cadence_days": 90
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#99",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -4238,6 +6198,21 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#99",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#99 OPEN: [Annexure C] ≥ 1000 concurrent users supported (enterprise modules)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[Annexure C] ≥ 1000 concurrent users supported (enterprise modules)"
+          },
+          "duration_ms": 412
         }
       ],
       "summary": "UNMET — target: Load test passes 1000 concurrent users with response ≤2s"
@@ -4252,6 +6227,11 @@
             "type": "manual",
             "question": "VAPT vendor + engagement date + open-findings count by severity.",
             "review_cadence_days": 90
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#100",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -4271,6 +6251,21 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#100",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#100 OPEN: [Annexure C] Penetration testing (VAPT) completed, open findings closed",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[Annexure C] Penetration testing (VAPT) completed, open findings closed"
+          },
+          "duration_ms": 478
         }
       ],
       "summary": "UNMET — target: VAPT engagement delivered + all critical/high findings closed"
@@ -4284,6 +6279,11 @@
           {
             "type": "manual",
             "question": "Is Client-side on each of: MongoDB Atlas, PostgreSQL, AWS account, Railway, DNS/domain, GitHub orgs?  Documented who has what."
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#101",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -4302,6 +6302,21 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#101",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#101 OPEN: [Annexure C] Client has full admin access (DBs, APIs, cloud credentials)",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[Annexure C] Client has full admin access (DBs, APIs, cloud credentials)"
+          },
+          "duration_ms": 442
         }
       ],
       "summary": "UNMET — target: Formal access handover to Lex Origin complete"
@@ -4315,6 +6330,11 @@
           {
             "type": "manual",
             "question": "IP assignment signed?  Repos transferred to Client's GitHub org?  Trained-model artefacts and datasets delivered?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#102",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -4333,6 +6353,21 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#102",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#102 OPEN: [Annexure C] IPR formally assigned, source + models + datasets handed over",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[Annexure C] IPR formally assigned, source + models + datasets handed over"
+          },
+          "duration_ms": 479
         }
       ],
       "summary": "UNMET — target: Signed IP assignment per Clause 7 + repositories transferred"
@@ -4346,6 +6381,11 @@
           {
             "type": "manual",
             "question": "Which docs delivered?  Dated.  Training sessions complete with sign-off?"
+          },
+          {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#103",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
           }
         ]
       },
@@ -4364,37 +6404,26 @@
             "reviewed_on": "2026-10-05"
           },
           "duration_ms": 0
+        },
+        {
+          "check": {
+            "type": "github_issue",
+            "issue": "LexOriginIndia/mvp-readiness#103",
+            "note": "Auto-added by merge-issues. Close the issue to flip this feature to Done."
+          },
+          "status": "fail",
+          "detail": "issue LexOriginIndia/mvp-readiness#103 OPEN: [Annexure C] Technical + user documentation + KT sessions",
+          "evidence": {
+            "state": "open",
+            "closed_at": null,
+            "title": "[Annexure C] Technical + user documentation + KT sessions"
+          },
+          "duration_ms": 413
         }
       ],
       "summary": "UNMET — target: Playbooks, API docs, DB schemas, admin + user guides, training delivered"
     }
   ],
   "regressions": [],
-  "improvements": [
-    {
-      "feature_id": "board-meeting-minutes-generator",
-      "was": "not_started",
-      "now": "partial"
-    },
-    {
-      "feature_id": "cross-border-ip-compliance-checker",
-      "was": "not_started",
-      "now": "partial"
-    },
-    {
-      "feature_id": "api-rbi",
-      "was": "not_started",
-      "now": "partial"
-    },
-    {
-      "feature_id": "api-sebi",
-      "was": "not_started",
-      "now": "partial"
-    },
-    {
-      "feature_id": "realtime-sync",
-      "was": "not_started",
-      "now": "partial"
-    }
-  ]
+  "improvements": []
 }

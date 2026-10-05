@@ -1,193 +1,202 @@
-# Annexure A — Scope of Work
-#
-# One feature per entry.  Each is checked via one or more primitives
-# from src/primitives.ts (file_exists, grep, http_status, http_latency,
-# manual).  Grep patterns favor stable anchors — controller class
-# names, @Controller decorators, specific component file paths — over
-# brittle wording.
-#
-# ⚠ Spec is a living document.  When you ship something new, add
-# checks here so the readiness run picks it up automatically.  When a
-# check is wrong, fix the check — don't paper over it with
-# status_override unless the item is genuinely un-automatable.
-#
-# Status is DERIVED from checks:
-#   all pass + no manual pending = done
-#   mix of pass/fail = partial
-#   all fail (no pass) = not_started
-#   only manual pending = unknown
-#
-# Section ids mirror CONTRACT_REFERENCE.md §3.
-
-# ══════════════════════════════════════════════════════════════════
-# 3.1 Core AI Development
-# ══════════════════════════════════════════════════════════════════
-
 - id: rag-pipelines
-  name: "RAG pipelines (retrieval-augmented generation)"
-  annexure: "3.1 Core AI Development"
+  name: RAG pipelines (retrieval-augmented generation)
+  annexure: 3.1 Core AI Development
   required_for_mvp: true
   checks:
     - type: file_exists
       path: prism-service/app/main.py
-      note: "Prism service is the RAG + search backend"
+      note: Prism service is the RAG + search backend
     - type: grep
       path: prism-service/app
-      pattern: "(retrieval|embedding|chunk|vector)"
+      pattern: (retrieval|embedding|chunk|vector)
       min_matches: 3
-      note: "Must have retrieval + embedding + chunking code"
+      note: Must have retrieval + embedding + chunking code
     - type: manual
-      question: "Does the RAG pipeline retrieve and ground answers from the Indian legal corpus? Give a sample query + top-3 citations."
+      question: Does the RAG pipeline retrieve and ground answers from the Indian legal corpus? Give a
+        sample query + top-3 citations.
       review_cadence_days: 30
-
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#1
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: ai-document-drafting
-  name: "AI-powered document drafting"
-  annexure: "3.1 Core AI Development"
+  name: AI-powered document drafting
+  annexure: 3.1 Core AI Development
   checks:
     - type: file_exists
       path: lexai-be/admin/documents-lib-api/app/main.py
     - type: grep
       path: lexai-be/admin/documents-lib-api/app
-      pattern: "(ai_draft|draft_document|generate_document|drafting)"
+      pattern: (ai_draft|draft_document|generate_document|drafting)
       min_matches: 2
     - type: manual
-      question: "Pick a template, generate a draft via the UI, inspect the output — is it usable without major edits?"
-
+      question: Pick a template, generate a draft via the UI, inspect the output — is it usable without
+        major edits?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#2
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: ai-document-review
-  name: "AI document review (issue spotting, risk detection, clause suggestions, SWOT)"
-  annexure: "3.1 Core AI Development"
+  name: AI document review (issue spotting, risk detection, clause suggestions, SWOT)
+  annexure: 3.1 Core AI Development
   checks:
     - type: grep
       path: lexai-be/admin/documents-lib-api/app
-      pattern: "(review_document|analyze_clauses|risk_detection|issue_spotting|swot)"
+      pattern: (review_document|analyze_clauses|risk_detection|issue_spotting|swot)
       min_matches: 1
     - type: manual
-      question: "Upload a sample contract — are risks and clause suggestions returned?"
-
+      question: Upload a sample contract — are risks and clause suggestions returned?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#3
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: ai-document-comparison
-  name: "Contract comparison — redlining, side-by-side, clause-change tracking"
-  annexure: "3.1 Core AI Development"
+  name: Contract comparison — redlining, side-by-side, clause-change tracking
+  annexure: 3.1 Core AI Development
   checks:
     - type: grep
       path: lexai-client-fe/src
-      pattern: "(compareDocuments|contract_compare|redline|diff.*document)"
+      pattern: (compareDocuments|contract_compare|redline|diff.*document)
       min_matches: 1
     - type: manual
-      question: "Compare two contract versions in the UI — are redlines accurate and clause-level diffs clear?"
-
+      question: Compare two contract versions in the UI — are redlines accurate and clause-level diffs clear?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#4
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: clause-extraction
-  name: "Clause extraction + semantic difference engine"
-  annexure: "3.1 Core AI Development"
+  name: Clause extraction + semantic difference engine
+  annexure: 3.1 Core AI Development
   checks:
     - type: grep
       path: lexai-be/admin/documents-lib-api/app
-      pattern: "(extract_clause|clause_extraction|semantic_diff)"
+      pattern: (extract_clause|clause_extraction|semantic_diff)
       min_matches: 1
     - type: manual
-      question: "Does clause extraction identify standard contract sections (indemnity, termination, jurisdiction, etc.)?"
-
+      question: Does clause extraction identify standard contract sections (indemnity, termination,
+        jurisdiction, etc.)?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#5
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: plain-language-summaries
-  name: "Plain-language summaries of contracts, legal, financial docs"
-  annexure: "3.1 Core AI Development"
+  name: Plain-language summaries of contracts, legal, financial docs
+  annexure: 3.1 Core AI Development
   checks:
     - type: grep
       path: lexai-be/admin/documents-lib-api/app
-      pattern: "(summarize|summary)"
+      pattern: (summarize|summary)
       min_matches: 1
     - type: manual
-      question: "Summaries must be understandable by non-lawyers — spot-check 3 outputs."
-
+      question: Summaries must be understandable by non-lawyers — spot-check 3 outputs.
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#6
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: citation-verification
-  name: "Citation verification — auto-validate legal references"
-  annexure: "3.1 Core AI Development"
+  name: Citation verification — auto-validate legal references
+  annexure: 3.1 Core AI Development
   checks:
     - type: grep
       path: prism-service/app
-      pattern: "(verify_citation|citation_validation|validate_reference)"
+      pattern: (verify_citation|citation_validation|validate_reference)
       min_matches: 1
     - type: manual
-      question: "Submit a draft with 5 citations (3 real, 2 fabricated) — does the engine flag the fakes?"
-
+      question: Submit a draft with 5 citations (3 real, 2 fabricated) — does the engine flag the fakes?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#7
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: legal-compliance-check
-  name: "Automated compliance check (Civil, Corporate, Criminal, Arbitration, MCA, SEBI, RBI, Labour, IT, GST)"
-  annexure: "3.1 Core AI Development"
+  name: Automated compliance check (Civil, Corporate, Criminal, Arbitration, MCA, SEBI, RBI, Labour,
+    IT, GST)
+  annexure: 3.1 Core AI Development
   checks:
     - type: file_exists
       path: lexai-be/admin/compliance
     - type: grep
       path: lexai-be/admin/compliance
-      pattern: "(compliance_rule|rule_engine)"
+      pattern: (compliance_rule|rule_engine)
       min_matches: 1
     - type: manual
-      question: "Pick one rule from each of the ten law categories — does the engine evaluate correctly for a sample document?"
-
+      question: Pick one rule from each of the ten law categories — does the engine evaluate correctly for
+        a sample document?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#8
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: ai-mail-generator
-  name: "AI mail generator, summarizer, reply maker (optional Gemini add-on)"
-  annexure: "3.1 Core AI Development"
+  name: AI mail generator, summarizer, reply maker (optional Gemini add-on)
+  annexure: 3.1 Core AI Development
   checks:
     - type: grep
       path: authservice/src
-      pattern: "(gemini-email|GeminiEmail|generateEmailReply)"
+      pattern: (gemini-email|GeminiEmail|generateEmailReply)
       min_matches: 1
     - type: manual
-      question: "Compose, summarize, and reply flows all work end-to-end in the UI?"
-
+      question: Compose, summarize, and reply flows all work end-to-end in the UI?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#9
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: dedup-with-full-view
-  name: "Duplicate-document elimination with full-file views on request"
-  annexure: "3.1 Core AI Development"
+  name: Duplicate-document elimination with full-file views on request
+  annexure: 3.1 Core AI Development
   checks:
     - type: grep
       path: lexai-be/admin/documents-lib-api/app
-      pattern: "(deduplicat|duplicate_check|dedup)"
+      pattern: (deduplicat|duplicate_check|dedup)
       min_matches: 1
     - type: manual
-      question: "Upload the same contract twice — is it marked duplicate, and can you still see both files on demand?"
-
+      question: Upload the same contract twice — is it marked duplicate, and can you still see both files
+        on demand?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#10
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: examination-question-generator
-  name: "Examination / cross / re-examination question generator"
-  annexure: "3.1 Core AI Development"
+  name: Examination / cross / re-examination question generator
+  annexure: 3.1 Core AI Development
   checks:
     - type: manual
-      question: "Does the module exist in the UI and produce usable questions for a sample witness statement?"
-
+      question: Does the module exist in the UI and produce usable questions for a sample witness statement?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#11
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: legal-forecast
-  name: "Legal forecast — predict case favor/not-favor"
-  annexure: "3.1 Core AI Development"
+  name: Legal forecast — predict case favor/not-favor
+  annexure: 3.1 Core AI Development
   checks:
     - type: grep
       path: authservice/src
-      pattern: "(winProbability|lossProbability|legal_forecast|case_prediction)"
+      pattern: (winProbability|lossProbability|legal_forecast|case_prediction)
       min_matches: 1
     - type: manual
-      question: "Does the forecast use historical case data, and is its reasoning displayed to the user?"
-
+      question: Does the forecast use historical case data, and is its reasoning displayed to the user?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#12
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: legal-adviser-assistant
-  name: "Legal adviser assistant (conversational)"
-  annexure: "3.1 Core AI Development"
+  name: Legal adviser assistant (conversational)
+  annexure: 3.1 Core AI Development
   checks:
     - type: grep
       path: lexai-be/admin/documents-lib-api/app
-      pattern: "ai[-_]?chat|AIChatService"
+      pattern: ai[-_]?chat|AIChatService
       min_matches: 1
     - type: file_exists
       path: lexai-client-fe/src/services/aiChatService.ts
     - type: manual
-      question: "Chat interface works, retains context across messages, cites sources?"
-
+      question: Chat interface works, retains context across messages, cites sources?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#13
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: financial-software-integration
-  name: "Financial-software integration — Zoho Books, SAP, Tally"
-  annexure: "3.1 Core AI Development"
+  name: Financial-software integration — Zoho Books, SAP, Tally
+  annexure: 3.1 Core AI Development
   checks:
     - type: file_exists
       path: authservice/src/zoho-books/zoho-books.controller.ts
     - type: file_exists
       path: authservice/src/tally/tally.controller.ts
     - type: manual
-      question: "SAP integration — present? If not, is a replacement planned or waived?"
-
+      question: SAP integration — present? If not, is a replacement planned or waived?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#14
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: case-management-infrastructure
-  name: "Case management infrastructure"
-  annexure: "3.1 Core AI Development"
+  name: Case management infrastructure
+  annexure: 3.1 Core AI Development
   checks:
     - type: file_exists
       path: authservice/src/cases/case/case.controller.ts
@@ -195,369 +204,426 @@
       path: authservice/src/cases/case/case.controller.ts
       pattern: "@RequirePracticeType"
       must_exist: true
-
 - id: litigation-strategy
-  name: "Litigation strategy (AI case analysis)"
-  annexure: "3.1 Core AI Development"
+  name: Litigation strategy (AI case analysis)
+  annexure: 3.1 Core AI Development
   checks:
     - type: manual
-      question: "Is the AI litigation-strategy feature exposed in the UI and does it produce case-specific recommendations?"
-
+      question: Is the AI litigation-strategy feature exposed in the UI and does it produce case-specific
+        recommendations?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#15
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: enterprise-mgmt-dashboard
-  name: "Team, employees, clients, financials dashboard for enterprise"
-  annexure: "3.1 Core AI Development"
+  name: Team, employees, clients, financials dashboard for enterprise
+  annexure: 3.1 Core AI Development
   checks:
     - type: file_exists
       path: authservice/src/ca-dashboard/ca-dashboard.controller.ts
     - type: file_exists
       path: lexai-client-fe/src/app/workspace/dashboard
     - type: manual
-      question: "Partner-level dashboard shows all four surfaces (team / employees / clients / financials) in one place?"
-
+      question: Partner-level dashboard shows all four surfaces (team / employees / clients / financials)
+        in one place?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#16
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: billing-time-tracking
-  name: "Automated billing + time tracking"
-  annexure: "3.1 Core AI Development"
+  name: Automated billing + time tracking
+  annexure: 3.1 Core AI Development
   checks:
     - type: file_exists
       path: authservice/src/ca-billing/ca-billing.controller.ts
     - type: file_exists
       path: authservice/src/timesheet/timesheet.controller.ts
-
 - id: document-management
-  name: "Document management"
-  annexure: "3.1 Core AI Development"
+  name: Document management
+  annexure: 3.1 Core AI Development
   checks:
     - type: file_exists
       path: lexai-be/admin/documents-lib-api/app/main.py
-
 - id: voice-translator-drafting
-  name: "Voice translator for drafting application/appeals"
-  annexure: "3.1 Core AI Development"
+  name: Voice translator for drafting application/appeals
+  annexure: 3.1 Core AI Development
   checks:
     - type: file_exists
       path: authservice/src/voice-translator/voice-translator.controller.ts
     - type: manual
-      question: "Record a sample voice input in Hindi — does it transcribe + translate to a draftable application?"
-
+      question: Record a sample voice input in Hindi — does it transcribe + translate to a draftable
+        application?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#17
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: hindi-english-translator
-  name: "Translator — English + Hindi (local languages)"
-  annexure: "3.1 Core AI Development"
+  name: Translator — English + Hindi (local languages)
+  annexure: 3.1 Core AI Development
   checks:
     - type: grep
       path: authservice/src
-      pattern: "(hindi|translate|voice-translator)"
+      pattern: (hindi|translate|voice-translator)
       min_matches: 1
     - type: manual
-      question: "Hindi UI and bidirectional translation both present?"
-
+      question: Hindi UI and bidirectional translation both present?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#18
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: client-management
-  name: "Client management (CRM for a legal/CA practice)"
-  annexure: "3.1 Core AI Development"
+  name: Client management (CRM for a legal/CA practice)
+  annexure: 3.1 Core AI Development
   checks:
     - type: file_exists
       path: authservice/src/clients/clients.controller.ts
-
 - id: compliance-filing-workflow-generator
-  name: "Compliance + filing workflow generator"
-  annexure: "3.1 Core AI Development"
+  name: Compliance + filing workflow generator
+  annexure: 3.1 Core AI Development
   checks:
     - type: file_exists
       path: authservice/src/compliance-calendar/compliance-calendar.controller.ts
     - type: file_exists
       path: authservice/src/work-order-flow/work-order-flow.controller.ts
-
-# ══════════════════════════════════════════════════════════════════
-# 3.2 Corporate Law features
-# ══════════════════════════════════════════════════════════════════
-
 - id: due-diligence-analyzer
-  name: "Due diligence analyzer (M&A docs, risk extraction)"
-  annexure: "3.2 Corporate Law features"
+  name: Due diligence analyzer (M&A docs, risk extraction)
+  annexure: 3.2 Corporate Law features
   checks:
     - type: manual
-      question: "Upload company filings — does the analyzer extract red flags and summarize risks?"
-
+      question: Upload company filings — does the analyzer extract red flags and summarize risks?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#19
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: entity-formation-assistant
-  name: "Entity formation & governance assistant (incorporation, bylaws)"
-  annexure: "3.2 Corporate Law features"
+  name: Entity formation & governance assistant (incorporation, bylaws)
+  annexure: 3.2 Corporate Law features
   checks:
     - type: manual
-      question: "Guided incorporation flow present end-to-end, including bylaws templates?"
-
+      question: Guided incorporation flow present end-to-end, including bylaws templates?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#20
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: regulatory-change-tracker
-  name: "Regulatory change tracker"
-  annexure: "3.2 Corporate Law features"
+  name: Regulatory change tracker
+  annexure: 3.2 Corporate Law features
   checks:
     - type: manual
-      question: "Does the platform surface new MCA/SEBI/RBI circulars with impact-on-your-clients tagging?"
-
+      question: Does the platform surface new MCA/SEBI/RBI circulars with impact-on-your-clients tagging?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#21
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: board-meeting-minutes-generator
-  name: "Board meeting minutes generator"
-  annexure: "3.2 Corporate Law features"
+  name: Board meeting minutes generator
+  annexure: 3.2 Corporate Law features
   checks:
     - type: manual
-      question: "Can a user generate compliant board meeting minutes from an agenda + attendee list?"
-
+      question: Can a user generate compliant board meeting minutes from an agenda + attendee list?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#22
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: policy-hr-handbook-generator
-  name: "Policy & HR handbook generator"
-  annexure: "3.2 Corporate Law features"
+  name: Policy & HR handbook generator
+  annexure: 3.2 Corporate Law features
   checks:
     - type: manual
-      question: "Generate a sample HR handbook — does it cover standard Indian labour-law sections (POSH, PF, gratuity, leave)?"
-
+      question: Generate a sample HR handbook — does it cover standard Indian labour-law sections (POSH,
+        PF, gratuity, leave)?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#23
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: cross-border-law-compliance-checker
-  name: "Cross-border law compliance checker"
-  annexure: "3.2 Corporate Law features"
+  name: Cross-border law compliance checker
+  annexure: 3.2 Corporate Law features
   checks:
     - type: manual
-      question: "Supported jurisdictions documented? Does the engine actually check against them?"
-
+      question: Supported jurisdictions documented? Does the engine actually check against them?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#24
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: documents-list-generator
-  name: "List-of-documents generator (for licenses, entity opening, work completion)"
-  annexure: "3.2 Corporate Law features"
+  name: List-of-documents generator (for licenses, entity opening, work completion)
+  annexure: 3.2 Corporate Law features
   checks:
     - type: manual
-      question: "Pick 3 common filings (GST registration, Pvt Ltd incorporation, MSME) — correct document list produced for each?"
-
-# ══════════════════════════════════════════════════════════════════
-# 3.3 Tax / Banking Law features
-# ══════════════════════════════════════════════════════════════════
-
+      question: Pick 3 common filings (GST registration, Pvt Ltd incorporation, MSME) — correct document
+        list produced for each?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#25
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: tax-return-compliance-checker
-  name: "Tax return compliance checker"
-  annexure: "3.3 Tax / Banking Law features"
+  name: Tax return compliance checker
+  annexure: 3.3 Tax / Banking Law features
   checks:
     - type: file_exists
       path: authservice/src/sandbox/sandbox.controller.ts
-      note: "Sandbox.co.in integration powers GST/ITR/TDS"
+      note: Sandbox.co.in integration powers GST/ITR/TDS
     - type: manual
-      question: "Upload a sample ITR — are compliance issues flagged with specific rule references?"
-
+      question: Upload a sample ITR — are compliance issues flagged with specific rule references?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#26
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: tax-planning-assistant
-  name: "Tax planning assistant (corporates)"
-  annexure: "3.3 Tax / Banking Law features"
+  name: Tax planning assistant (corporates)
+  annexure: 3.3 Tax / Banking Law features
   checks:
     - type: manual
-      question: "Does the assistant produce year-end tax-saving recommendations for a sample balance sheet?"
-
+      question: Does the assistant produce year-end tax-saving recommendations for a sample balance sheet?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#27
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: audit-risk-analyzer
-  name: "Audit risk analyzer"
-  annexure: "3.3 Tax / Banking Law features"
+  name: Audit risk analyzer
+  annexure: 3.3 Tax / Banking Law features
   checks:
     - type: file_exists
       path: authservice/src/audit/audit.controller.ts
     - type: manual
-      question: "Risk analyzer surfaces specific anomalies (round-tripping, cash spikes, unusual journals), not just totals?"
-
+      question: Risk analyzer surfaces specific anomalies (round-tripping, cash spikes, unusual journals),
+        not just totals?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#28
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: cross-border-tax-compliance-checker
-  name: "Cross-border tax compliance checker"
-  annexure: "3.3 Tax / Banking Law features"
+  name: Cross-border tax compliance checker
+  annexure: 3.3 Tax / Banking Law features
   checks:
     - type: manual
-      question: "Which treaties/jurisdictions supported? Documented?"
-
+      question: Which treaties/jurisdictions supported? Documented?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#29
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: cross-border-transfer-pricing-checker
-  name: "Cross-border transfer pricing checker"
-  annexure: "3.3 Tax / Banking Law features"
+  name: Cross-border transfer pricing checker
+  annexure: 3.3 Tax / Banking Law features
   checks:
     - type: manual
-      question: "ALP methods supported (CUP, RPM, CPM, TNMM, PSM)? Benchmarking data source?"
-
-# ══════════════════════════════════════════════════════════════════
-# 3.4 Intellectual Property features
-# ══════════════════════════════════════════════════════════════════
-
+      question: ALP methods supported (CUP, RPM, CPM, TNMM, PSM)? Benchmarking data source?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#30
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: trademark-search-ai
-  name: "Trademark Search AI (conflict detection)"
-  annexure: "3.4 Intellectual Property"
+  name: Trademark Search AI (conflict detection)
+  annexure: 3.4 Intellectual Property
   checks:
     - type: file_exists
       path: authservice/src/ip-module
     - type: manual
-      question: "Can a user search the Indian trademark registry and get similarity scores?"
-
+      question: Can a user search the Indian trademark registry and get similarity scores?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#31
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: patent-drafting-assistant
-  name: "Patent drafting assistant (claim language)"
-  annexure: "3.4 Intellectual Property"
+  name: Patent drafting assistant (claim language)
+  annexure: 3.4 Intellectual Property
   checks:
     - type: manual
-      question: "Does the assistant draft claim 1 + dependent claims from an invention description?"
-
+      question: Does the assistant draft claim 1 + dependent claims from an invention description?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#32
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: prior-art-finder
-  name: "Prior art finder"
-  annexure: "3.4 Intellectual Property"
+  name: Prior art finder
+  annexure: 3.4 Intellectual Property
   checks:
     - type: manual
-      question: "Prior art search covers Indian + international patents? Which databases?"
-
+      question: Prior art search covers Indian + international patents? Which databases?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#33
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: ip-portfolio-manager
-  name: "IP portfolio manager (deadlines, renewals, filings)"
-  annexure: "3.4 Intellectual Property"
+  name: IP portfolio manager (deadlines, renewals, filings)
+  annexure: 3.4 Intellectual Property
   checks:
     - type: manual
-      question: "Can a user see all their IP assets with upcoming renewal deadlines in one view?"
-
+      question: Can a user see all their IP assets with upcoming renewal deadlines in one view?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#34
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: fair-use-analyzer
-  name: "Fair use analyzer"
-  annexure: "3.4 Intellectual Property"
+  name: Fair use analyzer
+  annexure: 3.4 Intellectual Property
   checks:
     - type: file_exists
       path: authservice/src/fair-use-analyzer
     - type: manual
-      question: "Analyzer runs through all four fair-use factors and gives a defensible score?"
-
+      question: Analyzer runs through all four fair-use factors and gives a defensible score?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#35
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: copyright-infringement-detector
-  name: "Copyright infringement detector"
-  annexure: "3.4 Intellectual Property"
+  name: Copyright infringement detector
+  annexure: 3.4 Intellectual Property
   checks:
     - type: manual
-      question: "Does the detector scan uploaded content against known works?"
-
+      question: Does the detector scan uploaded content against known works?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#36
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: ip-risk-assessment-tool
-  name: "IP risk assessment tool"
-  annexure: "3.4 Intellectual Property"
+  name: IP risk assessment tool
+  annexure: 3.4 Intellectual Property
   checks:
     - type: manual
-      question: "Produces a defensible registration-chance score for a new filing?"
-
+      question: Produces a defensible registration-chance score for a new filing?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#37
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: cross-border-ip-compliance-checker
-  name: "Cross-border IP compliance checker"
-  annexure: "3.4 Intellectual Property"
+  name: Cross-border IP compliance checker
+  annexure: 3.4 Intellectual Property
   checks:
     - type: manual
-      question: "Which international IP regimes covered (Madrid, PCT, Berne)?"
-
+      question: Which international IP regimes covered (Madrid, PCT, Berne)?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#38
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: licensing-agreement-drafting-assistant
-  name: "Licensing agreement drafting assistant"
-  annexure: "3.4 Intellectual Property"
+  name: Licensing agreement drafting assistant
+  annexure: 3.4 Intellectual Property
   checks:
     - type: manual
-      question: "Produces usable royalty/distribution/usage-rights agreements for a sample scenario?"
-
-# ══════════════════════════════════════════════════════════════════
-# 3.5 Data Privacy / Cybersecurity
-# ══════════════════════════════════════════════════════════════════
-
+      question: Produces usable royalty/distribution/usage-rights agreements for a sample scenario?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#39
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: data-protection-compliance-checker
-  name: "Data protection compliance checker (DPDP, GDPR)"
-  annexure: "3.5 Data Privacy / Cybersecurity"
+  name: Data protection compliance checker (DPDP, GDPR)
+  annexure: 3.5 Data Privacy / Cybersecurity
   checks:
     - type: manual
-      question: "Which DPDP + GDPR articles mapped? Sample output for a privacy policy?"
-
+      question: Which DPDP + GDPR articles mapped? Sample output for a privacy policy?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#40
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: breach-risk-analyzer
-  name: "Breach risk analyzer"
-  annexure: "3.5 Data Privacy / Cybersecurity"
+  name: Breach risk analyzer
+  annexure: 3.5 Data Privacy / Cybersecurity
   checks:
     - type: manual
-      question: "Does the analyzer identify high-risk data flows in a sample architecture?"
-
+      question: Does the analyzer identify high-risk data flows in a sample architecture?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#41
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: privacy-policy-generator
-  name: "Privacy policy generator"
-  annexure: "3.5 Data Privacy / Cybersecurity"
+  name: Privacy policy generator
+  annexure: 3.5 Data Privacy / Cybersecurity
   checks:
     - type: manual
-      question: "Generated policy is DPDP + GDPR compliant for a sample B2C app?"
-
+      question: Generated policy is DPDP + GDPR compliant for a sample B2C app?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#42
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: user-rights-explainer
-  name: "User rights explainer (plain language)"
-  annexure: "3.5 Data Privacy / Cybersecurity"
+  name: User rights explainer (plain language)
+  annexure: 3.5 Data Privacy / Cybersecurity
   checks:
     - type: manual
-      question: "Rights-explainer available in-product for end-users of a Client's app?"
-
+      question: Rights-explainer available in-product for end-users of a Client's app?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#43
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: cookie-policy-generator
-  name: "Cookie policy generator"
-  annexure: "3.5 Data Privacy / Cybersecurity"
+  name: Cookie policy generator
+  annexure: 3.5 Data Privacy / Cybersecurity
   checks:
     - type: manual
-      question: "Scans a URL and generates a compliant cookie policy?"
-
-# ══════════════════════════════════════════════════════════════════
-# 3.6 Immigration Law
-# ══════════════════════════════════════════════════════════════════
-
+      question: Scans a URL and generates a compliant cookie policy?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#44
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: visa-eligibility-checker
-  name: "Visa eligibility checker"
-  annexure: "3.6 Immigration Law"
+  name: Visa eligibility checker
+  annexure: 3.6 Immigration Law
   checks:
     - type: file_exists
       path: authservice/src/immigration
     - type: manual
-      question: "Checker supports at least India outbound + inbound visa categories?"
-
+      question: Checker supports at least India outbound + inbound visa categories?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#45
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: immigration-forms-autofiller
-  name: "Immigration forms auto-filler"
-  annexure: "3.6 Immigration Law"
+  name: Immigration forms auto-filler
+  annexure: 3.6 Immigration Law
   checks:
     - type: manual
-      question: "Which forms supported? Can a user export a filled form for signature?"
-
+      question: Which forms supported? Can a user export a filled form for signature?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#46
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: asylum-precedent-summarizer
-  name: "Asylum case precedent summarizer"
-  annexure: "3.6 Immigration Law"
+  name: Asylum case precedent summarizer
+  annexure: 3.6 Immigration Law
   checks:
     - type: manual
-      question: "Summaries draw from real precedent corpus?"
-
+      question: Summaries draw from real precedent corpus?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#47
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: residency-work-permit-tracker
-  name: "Residency + work permit tracker"
-  annexure: "3.6 Immigration Law"
+  name: Residency + work permit tracker
+  annexure: 3.6 Immigration Law
   checks:
     - type: manual
-      question: "Tracks per-user permit status with deadline alerts?"
-
+      question: Tracks per-user permit status with deadline alerts?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#48
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: immigration-pathway-navigator
-  name: "Immigration pathway navigator"
-  annexure: "3.6 Immigration Law"
+  name: Immigration pathway navigator
+  annexure: 3.6 Immigration Law
   checks:
     - type: manual
-      question: "Given a profile, suggests best-fit visa pathways with timelines?"
-
+      question: Given a profile, suggests best-fit visa pathways with timelines?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#49
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: deportation-defense-assistant
-  name: "Deportation defense assistant"
-  annexure: "3.6 Immigration Law"
+  name: Deportation defense assistant
+  annexure: 3.6 Immigration Law
   checks:
     - type: manual
-      question: "Supports standard defense pleadings with precedent citations?"
-
+      question: Supports standard defense pleadings with precedent citations?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#50
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: naturalization-test-prep
-  name: "Naturalization test prep tool"
-  annexure: "3.6 Immigration Law"
+  name: Naturalization test prep tool
+  annexure: 3.6 Immigration Law
   checks:
     - type: file_exists
       path: authservice/src/naturalization-test
     - type: manual
-      question: "Includes practice questions + answer rationales for target countries?"
-
+      question: Includes practice questions + answer rationales for target countries?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#51
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: family-sponsorship-eligibility-checker
-  name: "Family sponsorship eligibility checker"
-  annexure: "3.6 Immigration Law"
+  name: Family sponsorship eligibility checker
+  annexure: 3.6 Immigration Law
   checks:
     - type: manual
-      question: "Which jurisdictions? Correct eligibility rules?"
-
+      question: Which jurisdictions? Correct eligibility rules?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#52
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: immigration-rights-explainer
-  name: "Plain-language immigration rights explainer"
-  annexure: "3.6 Immigration Law"
+  name: Plain-language immigration rights explainer
+  annexure: 3.6 Immigration Law
   checks:
     - type: manual
-      question: "Available in-product in plain English + Hindi?"
-
+      question: Available in-product in plain English + Hindi?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#53
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: case-status-notifier
-  name: "Immigration case-status notifier (forms, hearings, appeals)"
-  annexure: "3.6 Immigration Law"
+  name: Immigration case-status notifier (forms, hearings, appeals)
+  annexure: 3.6 Immigration Law
   checks:
     - type: manual
-      question: "Notifications fire on status change (not just manual check)?"
-
-# ══════════════════════════════════════════════════════════════════
-# 3.7 Law Firm Owner — Enterprise
-# ══════════════════════════════════════════════════════════════════
-
+      question: Notifications fire on status change (not just manual check)?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#54
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: workspace-practice-type-gate
-  name: "Workspace service type (Legal / Accounting / Both) + enforcement"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Workspace service type (Legal / Accounting / Both) + enforcement
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: file_exists
       path: authservice/src/common/guards/practice-type.guard.ts
@@ -571,373 +637,421 @@
       path: authservice/src/cases/case/case.controller.ts
       pattern: "@RequirePracticeType"
       must_exist: true
-
 - id: owner-dashboard
-  name: "Owner dashboard — clients, matters, employees, task status"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Owner dashboard — clients, matters, employees, task status
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: file_exists
       path: authservice/src/ca-dashboard/ca-dashboard.controller.ts
     - type: manual
-      question: "Owner-level view surfaces all four axes in one page?"
-
+      question: Owner-level view surfaces all four axes in one page?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#55
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: employee-directory-workloads
-  name: "Employee directory with workloads + performance"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Employee directory with workloads + performance
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: file_exists
       path: authservice/src/team-members
     - type: manual
-      question: "Workload column populated from real task assignment data?"
-
+      question: Workload column populated from real task assignment data?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#56
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: performance-heatmap
-  name: "Performance heatmap (R / Y / G productivity)"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Performance heatmap (R / Y / G productivity)
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: manual
-      question: "Does the heatmap exist in-product and reflect real activity?"
-
+      question: Does the heatmap exist in-product and reflect real activity?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#57
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: client-matter-profitability-view
-  name: "Client & matter profitability view"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Client & matter profitability view
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: manual
-      question: "Profitability pulls from billing + timesheet, not placeholders?"
-
+      question: Profitability pulls from billing + timesheet, not placeholders?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#58
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: task-completion-vs-deadline
-  name: "Task completion % vs. deadline"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Task completion % vs. deadline
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: file_exists
       path: authservice/src/common/activities
     - type: manual
-      question: "View exists per team member and firm-wide?"
-
+      question: View exists per team member and firm-wide?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#59
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: smart-assignment-engine
-  name: "Smart assignment engine (AI recommends, manual override)"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Smart assignment engine (AI recommends, manual override)
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: manual
-      question: "AI considers expertise + workload, override available in UI?"
-
+      question: AI considers expertise + workload, override available in UI?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#60
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: owner-override-button
-  name: "Owner override button (reassign / escalate / mark urgent)"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Owner override button (reassign / escalate / mark urgent)
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: manual
-      question: "Three actions wired end-to-end?"
-
+      question: Three actions wired end-to-end?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#61
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: assignment-notifications-with-checklists
-  name: "Instant assignment notifications with auto checklists"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Instant assignment notifications with auto checklists
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: file_exists
       path: authservice/src/notifications
     - type: manual
-      question: "On assignment, notification + task-type-specific checklist both generated?"
-
+      question: On assignment, notification + task-type-specific checklist both generated?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#62
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: critical-escalation-alerts
-  name: "Critical escalation alerts (missed deadlines, resignations)"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Critical escalation alerts (missed deadlines, resignations)
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: manual
-      question: "Alert fires within one business day of trigger?"
-
+      question: Alert fires within one business day of trigger?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#63
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: weekly-summary-reports
-  name: "Weekly summary reports"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Weekly summary reports
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: manual
-      question: "Reports go out automatically on a schedule?"
-
+      question: Reports go out automatically on a schedule?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#64
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: deadline-reminders
-  name: "Deadline reminders (4d small, 1-2mo big)"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Deadline reminders (4d small, 1-2mo big)
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: manual
-      question: "Cadence respected per task size, not uniform?"
-
+      question: Cadence respected per task size, not uniform?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#65
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: risk-compliance-alerts
-  name: "Risk & compliance alerts (post-completion detection)"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Risk & compliance alerts (post-completion detection)
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: manual
-      question: "Alerts fire for issues discovered after a filing is complete?"
-
+      question: Alerts fire for issues discovered after a filing is complete?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#66
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: billable-vs-nonbillable-tracking
-  name: "Billable vs. non-billable hour tracking"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Billable vs. non-billable hour tracking
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: file_exists
       path: authservice/src/timesheet/timesheet.controller.ts
-
 - id: productivity-insights
-  name: "Productivity insights"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Productivity insights
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: manual
-      question: "Insights produced per attorney / practice area / client?"
-
+      question: Insights produced per attorney / practice area / client?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#67
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: governance-rules
-  name: "Governance rules (e.g., partner review for M&A drafts)"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Governance rules (e.g., partner review for M&A drafts)
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: manual
-      question: "Rule engine supports conditional reviewer injection?"
-
+      question: Rule engine supports conditional reviewer injection?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#68
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: workload-balancing
-  name: "Automatic workload balancing suggestions"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Automatic workload balancing suggestions
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: manual
-      question: "Suggestions available in the assignment UI?"
-
+      question: Suggestions available in the assignment UI?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#69
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: firm-insights
-  name: "Firm insights (productivity by attorney / practice / client)"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Firm insights (productivity by attorney / practice / client)
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: manual
-      question: "Multi-axis reports available?"
-
+      question: Multi-axis reports available?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#70
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: client-profitability-reports
-  name: "Client profitability reports"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Client profitability reports
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: manual
-      question: "Separate report distinct from matter profitability?"
-
+      question: Separate report distinct from matter profitability?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#71
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: future-risk-radar
-  name: "Future risk radar (regulatory changes, deadlines, disputes)"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Future risk radar (regulatory changes, deadlines, disputes)
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: manual
-      question: "Forecasts shown in a dedicated view?"
-
+      question: Forecasts shown in a dedicated view?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#72
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: security-soc2-iso27001
   name: "Security: SOC 2 Type II, ISO 27001, GDPR, CCPA alignment"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: manual
-      question: "SOC 2 Type II audit scheduled/complete? ISO 27001 certification status? GDPR + CCPA controls documented?"
+      question: SOC 2 Type II audit scheduled/complete? ISO 27001 certification status? GDPR + CCPA
+        controls documented?
       review_cadence_days: 90
-
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#73
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: audit-logs-encryption-access-controls
-  name: "Audit logs, data encryption, access controls"
-  annexure: "3.7 Law Firm Owner — Enterprise"
+  name: Audit logs, data encryption, access controls
+  annexure: 3.7 Law Firm Owner — Enterprise
   checks:
     - type: file_exists
       path: authservice/src/user-activity-history
     - type: file_exists
       path: authservice/src/auth/guards/auth.guards.ts
     - type: manual
-      question: "DB encryption at rest? TLS everywhere? All PII fields encrypted?"
+      question: DB encryption at rest? TLS everywhere? All PII fields encrypted?
       review_cadence_days: 90
-
-# ══════════════════════════════════════════════════════════════════
-# 3.8 Custom-trained AI models
-# ══════════════════════════════════════════════════════════════════
-
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#74
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: custom-models-indian-law
-  name: "Custom ML models fine-tuned on Indian law / tax / regulatory"
-  annexure: "3.8 Custom-Trained AI Models"
+  name: Custom ML models fine-tuned on Indian law / tax / regulatory
+  annexure: 3.8 Custom-Trained AI Models
   checks:
     - type: manual
-      question: "Which base models + which fine-tuning datasets? Documented reproducibility?"
-
+      question: Which base models + which fine-tuning datasets? Documented reproducibility?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#75
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: continuous-learning-pipeline
-  name: "Continuous-learning pipeline (incremental ingestion)"
-  annexure: "3.8 Custom-Trained AI Models"
+  name: Continuous-learning pipeline (incremental ingestion)
+  annexure: 3.8 Custom-Trained AI Models
   checks:
     - type: manual
-      question: "Pipeline runs on a schedule? Where are new sources picked up?"
-
+      question: Pipeline runs on a schedule? Where are new sources picked up?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#76
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: historical-court-datasets
-  name: "Historical datasets — Supreme Court, High Court, District Court, Tribunals"
-  annexure: "3.8 Custom-Trained AI Models"
+  name: Historical datasets — Supreme Court, High Court, District Court, Tribunals
+  annexure: 3.8 Custom-Trained AI Models
   checks:
     - type: manual
-      question: "Which courts ingested, with what coverage period?"
-
+      question: Which courts ingested, with what coverage period?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#77
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: specialised-ai-tax-governance-modules
-  name: "Specialised modules — Tax/GST/RBI, Corporate governance/MCA/SEBI"
-  annexure: "3.8 Custom-Trained AI Models"
+  name: Specialised modules — Tax/GST/RBI, Corporate governance/MCA/SEBI
+  annexure: 3.8 Custom-Trained AI Models
   checks:
     - type: manual
-      question: "Separate specialised models or shared base? Benchmarks per domain?"
-
-# ══════════════════════════════════════════════════════════════════
-# 3.9 Document & Knowledge Libraries
-# ══════════════════════════════════════════════════════════════════
-
+      question: Separate specialised models or shared base? Benchmarks per domain?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#78
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: centralised-knowledge-library
-  name: "Centralised document & knowledge library"
-  annexure: "3.9 Document & Knowledge Libraries"
+  name: Centralised document & knowledge library
+  annexure: 3.9 Document & Knowledge Libraries
   checks:
     - type: file_exists
       path: lexai-be/admin/documents-lib-api/app/main.py
     - type: manual
-      question: "Library browsable across case law + contracts + tax rulings + circulars?"
-
+      question: Library browsable across case law + contracts + tax rulings + circulars?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#79
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: dedup-version-tracking
-  name: "De-duplication, version tracking, automated categorisation"
-  annexure: "3.9 Document & Knowledge Libraries"
+  name: De-duplication, version tracking, automated categorisation
+  annexure: 3.9 Document & Knowledge Libraries
   checks:
     - type: grep
       path: lexai-be/admin/documents-lib-api/app
-      pattern: "(version|dedup|categorize|categorise)"
+      pattern: (version|dedup|categorize|categorise)
       min_matches: 2
-
-# ══════════════════════════════════════════════════════════════════
-# 3.10 External APIs
-# ══════════════════════════════════════════════════════════════════
-
 - id: api-supreme-high-court
-  name: "SC + High Court APIs (case updates, judgments)"
-  annexure: "3.10 External APIs / Sources"
+  name: SC + High Court APIs (case updates, judgments)
+  annexure: 3.10 External APIs / Sources
   checks:
     - type: file_exists
       path: authservice/src/ecourts/ecourts.controller.ts
     - type: manual
-      question: "Which courts covered? Sync frequency?"
-
+      question: Which courts covered? Sync frequency?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#80
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: api-mca
-  name: "MCA (filings, compliance updates)"
-  annexure: "3.10 External APIs / Sources"
+  name: MCA (filings, compliance updates)
+  annexure: 3.10 External APIs / Sources
   checks:
     - type: grep
       path: authservice/src/government-apis
-      pattern: "(MCA|mca)"
+      pattern: (MCA|mca)
       min_matches: 1
     - type: manual
-      question: "MCA integration pulls company master + filings in real time?"
-
+      question: MCA integration pulls company master + filings in real time?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#81
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: api-rbi
-  name: "RBI (circulars, guidelines)"
-  annexure: "3.10 External APIs / Sources"
+  name: RBI (circulars, guidelines)
+  annexure: 3.10 External APIs / Sources
   checks:
     - type: manual
-      question: "RBI circular feed live? Latest publication date?"
-
+      question: RBI circular feed live? Latest publication date?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#82
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: api-gst
-  name: "GST Portal (notifications, filings)"
-  annexure: "3.10 External APIs / Sources"
+  name: GST Portal (notifications, filings)
+  annexure: 3.10 External APIs / Sources
   checks:
     - type: file_exists
       path: authservice/src/sandbox/sandbox.controller.ts
-
 - id: api-income-tax-cbdt
-  name: "Income Tax / CBDT"
-  annexure: "3.10 External APIs / Sources"
+  name: Income Tax / CBDT
+  annexure: 3.10 External APIs / Sources
   checks:
     - type: file_exists
       path: authservice/src/sandbox/income-tax
     - type: manual
-      question: "CBDT circulars + notifications ingested? Latest sync date?"
-
+      question: CBDT circulars + notifications ingested? Latest sync date?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#83
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: api-sebi
-  name: "SEBI (regulatory circulars)"
-  annexure: "3.10 External APIs / Sources"
+  name: SEBI (regulatory circulars)
+  annexure: 3.10 External APIs / Sources
   checks:
     - type: manual
-      question: "SEBI feed live? Pulled on a schedule?"
-
+      question: SEBI feed live? Pulled on a schedule?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#84
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: realtime-sync
-  name: "Real-time / near-real-time synchronisation across all above sources"
-  annexure: "3.10 External APIs / Sources"
+  name: Real-time / near-real-time synchronisation across all above sources
+  annexure: 3.10 External APIs / Sources
   checks:
     - type: manual
-      question: "What's the actual sync lag per source? Documented SLOs?"
-
+      question: What's the actual sync lag per source? Documented SLOs?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#85
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: esign-integration
-  name: "E-sign providers — eMudhra, DigiSign, DocuSign"
-  annexure: "3.10 External APIs / Sources"
+  name: E-sign providers — eMudhra, DigiSign, DocuSign
+  annexure: 3.10 External APIs / Sources
   checks:
     - type: file_exists
       path: lexai-client-fe/src/app/esign
     - type: manual
-      question: "Which providers wired, which pending?"
-
-# ══════════════════════════════════════════════════════════════════
-# 3.11 AI-driven Notifications & Insights
-# ══════════════════════════════════════════════════════════════════
-
+      question: Which providers wired, which pending?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#86
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: notification-engine-regulatory
-  name: "Notification engine — regulatory/legal updates across APIs"
-  annexure: "3.11 AI-driven Notifications & Insights"
+  name: Notification engine — regulatory/legal updates across APIs
+  annexure: 3.11 AI-driven Notifications & Insights
   checks:
     - type: file_exists
       path: authservice/src/notifications
     - type: file_exists
       path: authservice/src/notifications/alert-engine
-
 - id: personalised-alerts
-  name: "Personalised alerts per user (lawyer / CA / enterprise)"
-  annexure: "3.11 AI-driven Notifications & Insights"
+  name: Personalised alerts per user (lawyer / CA / enterprise)
+  annexure: 3.11 AI-driven Notifications & Insights
   checks:
     - type: file_exists
       path: authservice/src/notifications/user-notification-preference
     - type: manual
-      question: "Alerts actually filter by user's active cases/clients, not blast-to-all?"
-
+      question: Alerts actually filter by user's active cases/clients, not blast-to-all?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#87
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: risk-deadline-detection
-  name: "Risk / deadline / law-change detection with actionable summaries"
-  annexure: "3.11 AI-driven Notifications & Insights"
+  name: Risk / deadline / law-change detection with actionable summaries
+  annexure: 3.11 AI-driven Notifications & Insights
   checks:
     - type: manual
-      question: "Alerts carry 'relevant to your X' context, not just a raw headline?"
-
-# ══════════════════════════════════════════════════════════════════
-# 3.12 Infrastructure
-# ══════════════════════════════════════════════════════════════════
-
+      question: Alerts carry 'relevant to your X' context, not just a raw headline?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#88
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: aws-cloud-hosting
-  name: "AWS cloud hosting"
-  annexure: "3.12 Infrastructure"
+  name: AWS cloud hosting
+  annexure: 3.12 Infrastructure
   checks:
     - type: manual
-      question: "Services deployed on AWS? Which regions? Latest deploy date?"
-
+      question: Services deployed on AWS? Which regions? Latest deploy date?
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#89
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: db-schemas
-  name: "DB schemas — users, docs, templates"
-  annexure: "3.12 Infrastructure"
+  name: DB schemas — users, docs, templates
+  annexure: 3.12 Infrastructure
   checks:
     - type: file_exists
       path: authservice/src/schemas/user.schema.ts
     - type: file_exists
       path: authservice/src/schemas/workspace.schema.ts
-
 - id: role-based-access
-  name: "Role-based access control"
-  annexure: "3.12 Infrastructure"
+  name: Role-based access control
+  annexure: 3.12 Infrastructure
   checks:
     - type: file_exists
       path: authservice/src/roles/guards/roles.guard.ts
     - type: grep
       path: authservice/src/auth/guards/auth.guards.ts
-      pattern: "SuperAdminGuard|JwtAuthGuard"
+      pattern: SuperAdminGuard|JwtAuthGuard
       must_exist: true
-
 - id: encryption
-  name: "Encryption (at rest + in transit)"
-  annexure: "3.12 Infrastructure"
+  name: Encryption (at rest + in transit)
+  annexure: 3.12 Infrastructure
   checks:
     - type: manual
-      question: "DB-at-rest encryption on? TLS on all public endpoints? PII fields column-encrypted?"
+      question: DB-at-rest encryption on? TLS on all public endpoints? PII fields column-encrypted?
       review_cadence_days: 90
-
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#90
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
 - id: audit-logging
-  name: "Audit logging"
-  annexure: "3.12 Infrastructure"
+  name: Audit logging
+  annexure: 3.12 Infrastructure
   checks:
     - type: file_exists
       path: authservice/src/common/activities/activities.controller.ts
     - type: file_exists
       path: authservice/src/auditor-appointment/cross-workspace-access-log.service.ts
-
 - id: vapt-penetration-testing
-  name: "Penetration testing (VAPT) — external + internal"
-  annexure: "3.12 Infrastructure"
+  name: Penetration testing (VAPT) — external + internal
+  annexure: 3.12 Infrastructure
   checks:
     - type: manual
-      question: "VAPT engagement scheduled or complete? Vendor + report date + open findings count?"
+      question: VAPT engagement scheduled or complete? Vendor + report date + open findings count?
       review_cadence_days: 90
+    - type: github_issue
+      issue: LexOriginIndia/mvp-readiness#91
+      note: Auto-added by merge-issues. Close the issue to flip this feature to Done.
