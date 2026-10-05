@@ -23,6 +23,9 @@
 - name: kind:task
   color: "FEF2C0"
   description: Actual coding work with a Done condition (default for mvp-readiness tracker issues)
+- name: kind:acceptance-metric
+  color: "F9D0C4"
+  description: Annexure C quantitative acceptance criterion (latency, accuracy, uptime, handover)
 
 - name: surface:user-facing
   color: "006B75"
