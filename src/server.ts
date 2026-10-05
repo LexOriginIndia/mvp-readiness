@@ -173,7 +173,7 @@ function layout(title: string, bodyHtml: string, summary: ReportSummary | null):
        Left column (contract) is sticky-scrollable so you can scan the
        report on the right while any §-reference link scrolls the left. */
     main.split { max-width: 1600px; display: grid; grid-template-columns: minmax(340px, 1fr) minmax(0, 1.4fr); gap: 24px; align-items: start; }
-    main.split > .cards { grid-column: 1 / -1; }
+    main.split > .cards, main.split > .filters { grid-column: 1 / -1; }
     main.split > aside, main.split > article { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; }
     main.split > aside { position: sticky; top: 72px; max-height: calc(100vh - 96px); overflow-y: auto; }
     main.split > aside h1 { font-size: 18px; }
@@ -256,6 +256,25 @@ function layout(title: string, bodyHtml: string, summary: ReportSummary | null):
     .modal .what-missing strong { color: var(--not); }
     .modal .what-missing.ok { background: rgba(46,160,67,0.08); border-color: var(--done); }
     .modal .what-missing.ok strong { color: var(--done); }
+    /* Status filter chips */
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 20px; align-items: center; }
+    .filters .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; margin-right: 4px; }
+    .filter-chip { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 999px; cursor: pointer; font: inherit; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
+    .filter-chip:hover { border-color: var(--accent); }
+    .filter-chip .count { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+    .filter-chip .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .filter-chip .dot.done { background: var(--done); }
+    .filter-chip .dot.partial { background: var(--partial); }
+    .filter-chip .dot.not { background: var(--not); }
+    .filter-chip .dot.unk { background: var(--unk); }
+    .filter-chip[data-active="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .filter-chip[data-active="true"] .count { color: rgba(255,255,255,0.75); }
+    @media (prefers-color-scheme: light) {
+      .filter-chip[data-active="true"] { color: #fff; }
+    }
+    /* Rows + section tables hidden by filter */
+    article tr.filter-hidden { display: none; }
+    article .section-hidden { display: none; }
   </style>
 </head>
 <body>
@@ -285,6 +304,14 @@ function layout(title: string, bodyHtml: string, summary: ReportSummary | null):
       <div class="card unk"><div class="label">Unknown</div><div class="value">${scope.unknown}</div><div class="sub">no checks defined</div></div>
       <div class="card"><div class="label">Done rate</div><div class="value">${pct}%</div><div class="progress"><div class="fill" style="width:${pct}%"></div></div></div>
       <div class="card done"><div class="label">Acceptance met</div><div class="value">${accept!.met}</div><div class="sub">of ${accept!.total} criteria</div></div>
+    </div>
+    <div class="filters" id="status-filters" role="group" aria-label="Filter report by status">
+      <span class="label">Filter:</span>
+      <button type="button" class="filter-chip" data-filter="all" data-active="true">All <span class="count">${scope.total}</span></button>
+      <button type="button" class="filter-chip" data-filter="done" data-active="false"><span class="dot done"></span>Done <span class="count">${scope.done}</span></button>
+      <button type="button" class="filter-chip" data-filter="partial" data-active="false"><span class="dot partial"></span>Partial <span class="count">${scope.partial}</span></button>
+      <button type="button" class="filter-chip" data-filter="not_started" data-active="false"><span class="dot not"></span>Not started <span class="count">${scope.not_started}</span></button>
+      ${scope.unknown ? `<button type="button" class="filter-chip" data-filter="unknown" data-active="false"><span class="dot unk"></span>Unknown <span class="count">${scope.unknown}</span></button>` : ``}
     </div>
     ${bodyHtml}
   </main>`
@@ -341,7 +368,39 @@ function layout(title: string, bodyHtml: string, summary: ReportSummary | null):
           cells[2].setAttribute('tabindex', '0');
           cells[2].setAttribute('data-feature-id', feat.feature.id);
           cells[2].title = 'Click to see what passed / failed';
+          // Tag the row for status filtering too.
+          tr.setAttribute('data-status', feat.status);
         });
+      });
+
+      // --- Status filter chips ---------------------------------------------
+      // "All" shows everything; any other chip hides rows whose data-status
+      // doesn't match. Tables whose rows are all hidden get hidden too, as
+      // does any section heading immediately preceding them.
+      function applyFilter(filter) {
+        document.querySelectorAll('#status-filters .filter-chip').forEach((b) => {
+          b.setAttribute('data-active', b.getAttribute('data-filter') === filter ? 'true' : 'false');
+        });
+        document.querySelectorAll('article table').forEach((table) => {
+          const rows = table.querySelectorAll('tbody tr[data-status]');
+          if (!rows.length) return; // not a feature table (e.g. acceptance table)
+          let shown = 0;
+          rows.forEach((tr) => {
+            const match = filter === 'all' || tr.getAttribute('data-status') === filter;
+            tr.classList.toggle('filter-hidden', !match);
+            if (match) shown++;
+          });
+          table.classList.toggle('section-hidden', shown === 0);
+          // Also hide the heading right before this table if it exists and
+          // the table is empty — keeps the UI tidy when a section has no
+          // matching rows.
+          let prev = table.previousElementSibling;
+          while (prev && !/^H[1-6]$/.test(prev.tagName)) prev = prev.previousElementSibling;
+          if (prev) prev.classList.toggle('section-hidden', shown === 0);
+        });
+      }
+      document.querySelectorAll('#status-filters .filter-chip').forEach((btn) => {
+        btn.addEventListener('click', () => applyFilter(btn.getAttribute('data-filter')));
       });
 
       // Event delegation on the article so re-renders don't break it.
