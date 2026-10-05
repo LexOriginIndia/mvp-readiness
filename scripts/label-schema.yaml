@@ -1,0 +1,45 @@
+# Canonical label set for issue classification across every LexOrigin repo
+# that the readiness tracker touches. The sync-dev-docs script runs
+# `gh label create --force` for each entry on every repo in its REPOS list,
+# so a deleted or missing label is restored on the next sync.
+#
+# Three axes, kebab-case prefixes:
+#   kind:*    — what sort of artifact the issue is
+#   surface:* — who sees the gap
+#   scope:*   — whether it belongs to the signed SDA
+#
+# Colors are 6-digit hex (no leading #). Picked to be readable in both
+# GitHub's light and dark themes.
+
+- name: kind:use-case
+  color: "0E8A16"
+  description: Scenario / workflow description — maps to features, not itself a task
+- name: kind:feature-spec
+  color: "5319E7"
+  description: Specification for a feature or subsystem to be built
+- name: kind:reference-doc
+  color: "BFD4F2"
+  description: Architecture / design document — read-only, nothing to build
+- name: kind:task
+  color: "FEF2C0"
+  description: Actual coding work with a Done condition (default for mvp-readiness tracker issues)
+
+- name: surface:user-facing
+  color: "006B75"
+  description: Something the end user (lawyer / CA / founder) sees or interacts with
+- name: surface:backend-service
+  color: "FBCA04"
+  description: Internal API, auth, data layer — not directly user-visible
+- name: surface:integration
+  color: "D4C5F9"
+  description: Third-party system (Tally, GST portal, DigiSign, eCourts, …)
+- name: surface:infrastructure
+  color: "C5DEF5"
+  description: Hosting, deployment, observability, security, scaling
+
+- name: scope:in-contract
+  color: "0E8A16"
+  description: In the signed SDA Annexure A (default — label kept for querying)
+- name: scope:out-of-contract
+  color: "B60205"
+  description: Not in the signed SDA Annexure A — needs scope conversation

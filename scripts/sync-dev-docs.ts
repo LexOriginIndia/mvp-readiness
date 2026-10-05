@@ -15,6 +15,10 @@
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync, statSync, rmSync } from "node:fs";
 import { join, resolve, dirname, relative } from "node:path";
 import { execSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
+import { parse as parseYaml } from "yaml";
+
+const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 
 const ROOT = process.env.LEX_ORIGIN_ROOT ?? "C:/Lex Origin";
 const DEV_DOCS = join(ROOT, "developers-docs");
@@ -29,6 +33,48 @@ const REPOS: Repo[] = [
   { key: "authservice",     localPath: join(ROOT, "authservice"),     ghRepo: "LexOriginIndia/authservice" },
   { key: "lexai-client-fe", localPath: join(ROOT, "lexai-client-fe"), ghRepo: "LexOriginIndia/lexai-client-fe" },
 ];
+
+// The canonical label set — same file is the source of truth across every
+// repo in REPOS. Re-provisioned on every sync so a deleted label gets
+// restored.
+const LABEL_SCHEMA = join(SCRIPT_DIR, "label-schema.yaml");
+
+interface Label { name: string; color: string; description: string }
+
+function loadLabels(): Label[] {
+  if (!existsSync(LABEL_SCHEMA)) return [];
+  try {
+    const raw = parseYaml(readFileSync(LABEL_SCHEMA, "utf8"));
+    return Array.isArray(raw) ? raw as Label[] : [];
+  } catch (err) {
+    console.warn(`! failed to parse ${LABEL_SCHEMA}: ${(err as Error).message}`);
+    return [];
+  }
+}
+
+function ensureLabels(repo: Repo, labels: Label[]): { created: number; failed: number } {
+  let created = 0, failed = 0;
+  for (const l of labels) {
+    // --force makes gh update an existing label in place (color / description)
+    // or create it if missing. Idempotent on repeated runs.
+    const cmd = [
+      "gh", "label", "create",
+      JSON.stringify(l.name),
+      "--repo", repo.ghRepo,
+      "--color", l.color,
+      "--description", JSON.stringify(l.description),
+      "--force",
+    ].join(" ");
+    try {
+      execSync(cmd, { stdio: ["ignore", "pipe", "pipe"] });
+      created++;
+    } catch (err) {
+      failed++;
+      console.warn(`  ! gh label create failed for "${l.name}" on ${repo.ghRepo}: ${(err as Error).message.split("\n")[0]}`);
+    }
+  }
+  return { created, failed };
+}
 
 const IGNORE_DIRS = new Set(["node_modules", ".next", ".git", "dist", "build", ".turbo", "coverage"]);
 
@@ -153,8 +199,18 @@ function syncIssues(repo: Repo): number {
 
 function main() {
   if (!existsSync(DEV_DOCS)) mkdirSync(DEV_DOCS, { recursive: true });
+  const labels = loadLabels();
+  if (!labels.length) {
+    console.warn(`! no labels loaded from ${LABEL_SCHEMA} — label provisioning skipped`);
+  } else {
+    console.log(`loaded ${labels.length} labels from scripts/label-schema.yaml`);
+  }
   for (const repo of REPOS) {
     console.log(`\n== ${repo.key} ==`);
+    if (labels.length) {
+      const { created, failed } = ensureLabels(repo, labels);
+      console.log(`  labels:   ${created} ensured${failed ? ` (${failed} failed)` : ""} on ${repo.ghRepo}`);
+    }
     if (!existsSync(repo.localPath)) {
       console.warn(`! local checkout missing: ${repo.localPath} — skipping markdown copy`);
     } else {
