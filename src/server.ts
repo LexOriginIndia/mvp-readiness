@@ -98,20 +98,26 @@ function anchorContractSections(html: string): string {
  */
 function linkContractRefs(html: string): string {
   let out = html;
+  // Inject id="rs-N" on the heading tag itself (so the scroll-sync code
+  // can find the right-side counterpart) — only if the heading has no id.
+  const addId = (openTag: string, tag: string, id: string): string =>
+    /\bid="/.test(openTag) ? openTag : openTag.replace(`<${tag}`, `<${tag} id="${id}"`);
+
   // "N.N <text>" at the start of h2/h3/h4 and inside table cells
   out = out.replace(
-    /(<(?:h[1-6])[^>]*>)(\s*)(\d+)\.(\d+)(\s+[^<]+<\/h[1-6]>)/g,
-    (_m, open, pre, a, b, rest) =>
-      `${open}${pre}<a href="#s-${a}-${b}">${a}.${b}</a>${rest.replace(
-        /^\s*/,
-        " ",
-      )}`,
+    /(<(h[1-6])[^>]*>)(\s*)(\d+)\.(\d+)(\s+[^<]+<\/h[1-6]>)/g,
+    (_m, open, tag, pre, a, b, rest) => {
+      const newOpen = addId(open, tag, `rs-${a}-${b}`);
+      return `${newOpen}${pre}<a href="#s-${a}-${b}">${a}.${b}</a>${rest.replace(/^\s*/, " ")}`;
+    },
   );
   // "N. <text>" at the start of h2/h3
   out = out.replace(
-    /(<(?:h[23])[^>]*>)(\s*)(\d+)\.(\s+[^<]+<\/h[23]>)/g,
-    (_m, open, pre, n, rest) =>
-      `${open}${pre}<a href="#s-${n}">${n}.</a>${rest.replace(/^\s*/, " ")}`,
+    /(<(h[23])[^>]*>)(\s*)(\d+)\.(\s+[^<]+<\/h[23]>)/g,
+    (_m, open, tag, pre, n, rest) => {
+      const newOpen = addId(open, tag, `rs-${n}`);
+      return `${newOpen}${pre}<a href="#s-${n}">${n}.</a>${rest.replace(/^\s*/, " ")}`;
+    },
   );
   // "Annexure A/B/C" anywhere — map to the right contract section
   const annex: Record<string, string> = { A: "s-3", B: "s-2", C: "s-4" };
@@ -177,7 +183,7 @@ function layout(title: string, bodyHtml: string, summary: ReportSummary | null):
       background: rgba(138,180,255,0.14); outline: 2px solid var(--accent); border-radius: 4px; padding: 2px 6px; margin-left: -6px;
     }
     main.split > aside table { font-size: 12px; }
-    @media (max-width: 1024px) {
+    @media (max-width: 899px) {
       main.split { grid-template-columns: 1fr; }
       main.split > aside { position: static; max-height: none; }
     }
@@ -440,6 +446,85 @@ function layout(title: string, bodyHtml: string, summary: ReportSummary | null):
       document.getElementById('modal-bg').classList.remove('open');
       document.body.style.overflow = '';
     }
+
+    // --- Two-way scroll sync (contract ↔ report) --------------------------
+    // When the user scrolls one column, scroll the other to the matching
+    // section. Headings on the left have ids "s-N" / "s-N-N" (injected by
+    // anchorContractSections); headings on the right have ids "rs-N" /
+    // "rs-N-N" (injected by linkContractRefs). The number after the prefix
+    // is the shared key.
+    (function setupScrollSync() {
+      const aside = document.querySelector('main.split > aside');
+      const article = document.querySelector('main.split > article');
+      if (!aside || !article) return;
+
+      const leftHeadings = Array.from(aside.querySelectorAll('h2[id^="s-"], h3[id^="s-"]'));
+      const rightHeadings = Array.from(article.querySelectorAll('h2[id^="rs-"], h3[id^="rs-"]'));
+      if (!leftHeadings.length || !rightHeadings.length) return;
+
+      // key → DOM element on each side
+      const leftByKey = new Map(leftHeadings.map((h) => [h.id.replace(/^s-/, ''), h]));
+      const rightByKey = new Map(rightHeadings.map((h) => [h.id.replace(/^rs-/, ''), h]));
+
+      // Suppress reciprocal sync for a short window after any programmatic
+      // scroll, so left→right→left doesn't ping-pong.
+      let suppressUntil = 0;
+
+      function topmost(headings, container) {
+        // "active" heading = the last heading whose top sits above a line
+        // just below the sticky header / aside top edge.
+        const topLine = container === window ? 90 : (aside.getBoundingClientRect().top + 20);
+        let active = headings[0];
+        for (const h of headings) {
+          const top = h.getBoundingClientRect().top;
+          if (top <= topLine + 2) active = h;
+          else break;
+        }
+        return active;
+      }
+
+      function syncRightToLeft() {
+        if (Date.now() < suppressUntil) return;
+        const active = topmost(rightHeadings, window);
+        if (!active) return;
+        const target = leftByKey.get(active.id.replace(/^rs-/, ''));
+        if (!target) return;
+        suppressUntil = Date.now() + 350;
+        const asideTop = aside.getBoundingClientRect().top;
+        const targetTop = target.getBoundingClientRect().top;
+        aside.scrollTop += (targetTop - asideTop) - 10;
+      }
+
+      function syncLeftToRight() {
+        if (Date.now() < suppressUntil) return;
+        const active = topmost(leftHeadings, aside);
+        if (!active) return;
+        const target = rightByKey.get(active.id.replace(/^s-/, ''));
+        if (!target) return;
+        suppressUntil = Date.now() + 350;
+        const y = target.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top: y, behavior: 'instant' });
+      }
+
+      // Only run the sync when both columns are actually side-by-side
+      // (aside is sticky + scrollable). On narrow viewports the layout
+      // stacks and the aside scrolls with the page.
+      function isSideBySide() {
+        return getComputedStyle(aside).position === 'sticky';
+      }
+
+      let f1 = 0, f2 = 0;
+      window.addEventListener('scroll', () => {
+        if (!isSideBySide()) return;
+        if (f1) cancelAnimationFrame(f1);
+        f1 = requestAnimationFrame(syncRightToLeft);
+      }, { passive: true });
+      aside.addEventListener('scroll', () => {
+        if (!isSideBySide()) return;
+        if (f2) cancelAnimationFrame(f2);
+        f2 = requestAnimationFrame(syncLeftToRight);
+      }, { passive: true });
+    })();
   </script>
 </body>
 </html>`;
