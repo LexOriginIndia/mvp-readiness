@@ -25,13 +25,18 @@ const DEV_DOCS = join(ROOT, "developers-docs");
 
 interface Repo {
   key: string;        // folder slug under developers-docs/
-  localPath: string;  // absolute checkout path
+  localPath: string;  // absolute checkout path (ignored if pullContent=false)
   ghRepo: string;     // owner/name for gh CLI
+  pullContent?: boolean; // when false, only provision labels — skip md + issues
 }
 
 const REPOS: Repo[] = [
   { key: "authservice",     localPath: join(ROOT, "authservice"),     ghRepo: "LexOriginIndia/authservice" },
   { key: "lexai-client-fe", localPath: join(ROOT, "lexai-client-fe"), ghRepo: "LexOriginIndia/lexai-client-fe" },
+  // mvp-readiness is this repo. We don't pull its own markdown back into
+  // developers-docs/, but it gets the canonical label set so the 103
+  // feature issues can carry the kind/surface/scope taxonomy.
+  { key: "mvp-readiness",   localPath: join(ROOT, "readiness"),       ghRepo: "LexOriginIndia/mvp-readiness", pullContent: false },
 ];
 
 // The canonical label set — same file is the source of truth across every
@@ -211,6 +216,7 @@ function main() {
       const { created, failed } = ensureLabels(repo, labels);
       console.log(`  labels:   ${created} ensured${failed ? ` (${failed} failed)` : ""} on ${repo.ghRepo}`);
     }
+    if (repo.pullContent === false) continue; // labels-only repo
     if (!existsSync(repo.localPath)) {
       console.warn(`! local checkout missing: ${repo.localPath} — skipping markdown copy`);
     } else {

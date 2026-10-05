@@ -1,0 +1,912 @@
+{
+  "rag-pipelines": {
+    "issue": 1,
+    "name": "RAG pipelines (retrieval-augmented generation)",
+    "annexure": "3.1 Core AI Development",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "ai-document-drafting": {
+    "issue": 2,
+    "name": "AI-powered document drafting",
+    "annexure": "3.1 Core AI Development",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "ai-document-review": {
+    "issue": 3,
+    "name": "AI document review (issue spotting, risk detection, clause suggestions, SWOT)",
+    "annexure": "3.1 Core AI Development",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "ai-document-comparison": {
+    "issue": 4,
+    "name": "Contract comparison — redlining, side-by-side, clause-change tracking",
+    "annexure": "3.1 Core AI Development",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "clause-extraction": {
+    "issue": 5,
+    "name": "Clause extraction + semantic difference engine",
+    "annexure": "3.1 Core AI Development",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "plain-language-summaries": {
+    "issue": 6,
+    "name": "Plain-language summaries of contracts, legal, financial docs",
+    "annexure": "3.1 Core AI Development",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "citation-verification": {
+    "issue": 7,
+    "name": "Citation verification — auto-validate legal references",
+    "annexure": "3.1 Core AI Development",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "legal-compliance-check": {
+    "issue": 8,
+    "name": "Automated compliance check (Civil, Corporate, Criminal, Arbitration, MCA, SEBI, RBI, Labour, IT, GST)",
+    "annexure": "3.1 Core AI Development",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "ai-mail-generator": {
+    "issue": 9,
+    "name": "AI mail generator, summarizer, reply maker (optional Gemini add-on)",
+    "annexure": "3.1 Core AI Development",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "dedup-with-full-view": {
+    "issue": 10,
+    "name": "Duplicate-document elimination with full-file views on request",
+    "annexure": "3.1 Core AI Development",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "examination-question-generator": {
+    "issue": 11,
+    "name": "Examination / cross / re-examination question generator",
+    "annexure": "3.1 Core AI Development",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "legal-forecast": {
+    "issue": 12,
+    "name": "Legal forecast — predict case favor/not-favor",
+    "annexure": "3.1 Core AI Development",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "legal-adviser-assistant": {
+    "issue": 13,
+    "name": "Legal adviser assistant (conversational)",
+    "annexure": "3.1 Core AI Development",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "financial-software-integration": {
+    "issue": 14,
+    "name": "Financial-software integration — Zoho Books, SAP, Tally",
+    "annexure": "3.1 Core AI Development",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "litigation-strategy": {
+    "issue": 15,
+    "name": "Litigation strategy (AI case analysis)",
+    "annexure": "3.1 Core AI Development",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "enterprise-mgmt-dashboard": {
+    "issue": 16,
+    "name": "Team, employees, clients, financials dashboard for enterprise",
+    "annexure": "3.1 Core AI Development",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "voice-translator-drafting": {
+    "issue": 17,
+    "name": "Voice translator for drafting application/appeals",
+    "annexure": "3.1 Core AI Development",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "hindi-english-translator": {
+    "issue": 18,
+    "name": "Translator — English + Hindi (local languages)",
+    "annexure": "3.1 Core AI Development",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "due-diligence-analyzer": {
+    "issue": 19,
+    "name": "Due diligence analyzer (M&A docs, risk extraction)",
+    "annexure": "3.2 Corporate Law features",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "entity-formation-assistant": {
+    "issue": 20,
+    "name": "Entity formation & governance assistant (incorporation, bylaws)",
+    "annexure": "3.2 Corporate Law features",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "regulatory-change-tracker": {
+    "issue": 21,
+    "name": "Regulatory change tracker",
+    "annexure": "3.2 Corporate Law features",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "board-meeting-minutes-generator": {
+    "issue": 22,
+    "name": "Board meeting minutes generator",
+    "annexure": "3.2 Corporate Law features",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "policy-hr-handbook-generator": {
+    "issue": 23,
+    "name": "Policy & HR handbook generator",
+    "annexure": "3.2 Corporate Law features",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "cross-border-law-compliance-checker": {
+    "issue": 24,
+    "name": "Cross-border law compliance checker",
+    "annexure": "3.2 Corporate Law features",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "documents-list-generator": {
+    "issue": 25,
+    "name": "List-of-documents generator (for licenses, entity opening, work completion)",
+    "annexure": "3.2 Corporate Law features",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "tax-return-compliance-checker": {
+    "issue": 26,
+    "name": "Tax return compliance checker",
+    "annexure": "3.3 Tax / Banking Law features",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "tax-planning-assistant": {
+    "issue": 27,
+    "name": "Tax planning assistant (corporates)",
+    "annexure": "3.3 Tax / Banking Law features",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "audit-risk-analyzer": {
+    "issue": 28,
+    "name": "Audit risk analyzer",
+    "annexure": "3.3 Tax / Banking Law features",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "cross-border-tax-compliance-checker": {
+    "issue": 29,
+    "name": "Cross-border tax compliance checker",
+    "annexure": "3.3 Tax / Banking Law features",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "cross-border-transfer-pricing-checker": {
+    "issue": 30,
+    "name": "Cross-border transfer pricing checker",
+    "annexure": "3.3 Tax / Banking Law features",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "trademark-search-ai": {
+    "issue": 31,
+    "name": "Trademark Search AI (conflict detection)",
+    "annexure": "3.4 Intellectual Property",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "patent-drafting-assistant": {
+    "issue": 32,
+    "name": "Patent drafting assistant (claim language)",
+    "annexure": "3.4 Intellectual Property",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "prior-art-finder": {
+    "issue": 33,
+    "name": "Prior art finder",
+    "annexure": "3.4 Intellectual Property",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "ip-portfolio-manager": {
+    "issue": 34,
+    "name": "IP portfolio manager (deadlines, renewals, filings)",
+    "annexure": "3.4 Intellectual Property",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "fair-use-analyzer": {
+    "issue": 35,
+    "name": "Fair use analyzer",
+    "annexure": "3.4 Intellectual Property",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "copyright-infringement-detector": {
+    "issue": 36,
+    "name": "Copyright infringement detector",
+    "annexure": "3.4 Intellectual Property",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "ip-risk-assessment-tool": {
+    "issue": 37,
+    "name": "IP risk assessment tool",
+    "annexure": "3.4 Intellectual Property",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "cross-border-ip-compliance-checker": {
+    "issue": 38,
+    "name": "Cross-border IP compliance checker",
+    "annexure": "3.4 Intellectual Property",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "licensing-agreement-drafting-assistant": {
+    "issue": 39,
+    "name": "Licensing agreement drafting assistant",
+    "annexure": "3.4 Intellectual Property",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "data-protection-compliance-checker": {
+    "issue": 40,
+    "name": "Data protection compliance checker (DPDP, GDPR)",
+    "annexure": "3.5 Data Privacy / Cybersecurity",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "breach-risk-analyzer": {
+    "issue": 41,
+    "name": "Breach risk analyzer",
+    "annexure": "3.5 Data Privacy / Cybersecurity",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "privacy-policy-generator": {
+    "issue": 42,
+    "name": "Privacy policy generator",
+    "annexure": "3.5 Data Privacy / Cybersecurity",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "user-rights-explainer": {
+    "issue": 43,
+    "name": "User rights explainer (plain language)",
+    "annexure": "3.5 Data Privacy / Cybersecurity",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "cookie-policy-generator": {
+    "issue": 44,
+    "name": "Cookie policy generator",
+    "annexure": "3.5 Data Privacy / Cybersecurity",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "visa-eligibility-checker": {
+    "issue": 45,
+    "name": "Visa eligibility checker",
+    "annexure": "3.6 Immigration Law",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "immigration-forms-autofiller": {
+    "issue": 46,
+    "name": "Immigration forms auto-filler",
+    "annexure": "3.6 Immigration Law",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "asylum-precedent-summarizer": {
+    "issue": 47,
+    "name": "Asylum case precedent summarizer",
+    "annexure": "3.6 Immigration Law",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "residency-work-permit-tracker": {
+    "issue": 48,
+    "name": "Residency + work permit tracker",
+    "annexure": "3.6 Immigration Law",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "immigration-pathway-navigator": {
+    "issue": 49,
+    "name": "Immigration pathway navigator",
+    "annexure": "3.6 Immigration Law",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "deportation-defense-assistant": {
+    "issue": 50,
+    "name": "Deportation defense assistant",
+    "annexure": "3.6 Immigration Law",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "naturalization-test-prep": {
+    "issue": 51,
+    "name": "Naturalization test prep tool",
+    "annexure": "3.6 Immigration Law",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "family-sponsorship-eligibility-checker": {
+    "issue": 52,
+    "name": "Family sponsorship eligibility checker",
+    "annexure": "3.6 Immigration Law",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "immigration-rights-explainer": {
+    "issue": 53,
+    "name": "Plain-language immigration rights explainer",
+    "annexure": "3.6 Immigration Law",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "case-status-notifier": {
+    "issue": 54,
+    "name": "Immigration case-status notifier (forms, hearings, appeals)",
+    "annexure": "3.6 Immigration Law",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "owner-dashboard": {
+    "issue": 55,
+    "name": "Owner dashboard — clients, matters, employees, task status",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "employee-directory-workloads": {
+    "issue": 56,
+    "name": "Employee directory with workloads + performance",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "performance-heatmap": {
+    "issue": 57,
+    "name": "Performance heatmap (R / Y / G productivity)",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "client-matter-profitability-view": {
+    "issue": 58,
+    "name": "Client & matter profitability view",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "task-completion-vs-deadline": {
+    "issue": 59,
+    "name": "Task completion % vs. deadline",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "smart-assignment-engine": {
+    "issue": 60,
+    "name": "Smart assignment engine (AI recommends, manual override)",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "owner-override-button": {
+    "issue": 61,
+    "name": "Owner override button (reassign / escalate / mark urgent)",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "assignment-notifications-with-checklists": {
+    "issue": 62,
+    "name": "Instant assignment notifications with auto checklists",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "critical-escalation-alerts": {
+    "issue": 63,
+    "name": "Critical escalation alerts (missed deadlines, resignations)",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "weekly-summary-reports": {
+    "issue": 64,
+    "name": "Weekly summary reports",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "deadline-reminders": {
+    "issue": 65,
+    "name": "Deadline reminders (4d small, 1-2mo big)",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "risk-compliance-alerts": {
+    "issue": 66,
+    "name": "Risk & compliance alerts (post-completion detection)",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "productivity-insights": {
+    "issue": 67,
+    "name": "Productivity insights",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "governance-rules": {
+    "issue": 68,
+    "name": "Governance rules (e.g., partner review for M&A drafts)",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "workload-balancing": {
+    "issue": 69,
+    "name": "Automatic workload balancing suggestions",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "firm-insights": {
+    "issue": 70,
+    "name": "Firm insights (productivity by attorney / practice / client)",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "client-profitability-reports": {
+    "issue": 71,
+    "name": "Client profitability reports",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "future-risk-radar": {
+    "issue": 72,
+    "name": "Future risk radar (regulatory changes, deadlines, disputes)",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "security-soc2-iso27001": {
+    "issue": 73,
+    "name": "Security: SOC 2 Type II, ISO 27001, GDPR, CCPA alignment",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:infrastructure",
+      "scope:in-contract"
+    ]
+  },
+  "audit-logs-encryption-access-controls": {
+    "issue": 74,
+    "name": "Audit logs, data encryption, access controls",
+    "annexure": "3.7 Law Firm Owner — Enterprise",
+    "labels": [
+      "kind:task",
+      "surface:infrastructure",
+      "scope:in-contract"
+    ]
+  },
+  "custom-models-indian-law": {
+    "issue": 75,
+    "name": "Custom ML models fine-tuned on Indian law / tax / regulatory",
+    "annexure": "3.8 Custom-Trained AI Models",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "continuous-learning-pipeline": {
+    "issue": 76,
+    "name": "Continuous-learning pipeline (incremental ingestion)",
+    "annexure": "3.8 Custom-Trained AI Models",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "historical-court-datasets": {
+    "issue": 77,
+    "name": "Historical datasets — Supreme Court, High Court, District Court, Tribunals",
+    "annexure": "3.8 Custom-Trained AI Models",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "specialised-ai-tax-governance-modules": {
+    "issue": 78,
+    "name": "Specialised modules — Tax/GST/RBI, Corporate governance/MCA/SEBI",
+    "annexure": "3.8 Custom-Trained AI Models",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "centralised-knowledge-library": {
+    "issue": 79,
+    "name": "Centralised document & knowledge library",
+    "annexure": "3.9 Document & Knowledge Libraries",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "api-supreme-high-court": {
+    "issue": 80,
+    "name": "SC + High Court APIs (case updates, judgments)",
+    "annexure": "3.10 External APIs / Sources",
+    "labels": [
+      "kind:task",
+      "surface:integration",
+      "scope:in-contract"
+    ]
+  },
+  "api-mca": {
+    "issue": 81,
+    "name": "MCA (filings, compliance updates)",
+    "annexure": "3.10 External APIs / Sources",
+    "labels": [
+      "kind:task",
+      "surface:integration",
+      "scope:in-contract"
+    ]
+  },
+  "api-rbi": {
+    "issue": 82,
+    "name": "RBI (circulars, guidelines)",
+    "annexure": "3.10 External APIs / Sources",
+    "labels": [
+      "kind:task",
+      "surface:integration",
+      "scope:in-contract"
+    ]
+  },
+  "api-income-tax-cbdt": {
+    "issue": 83,
+    "name": "Income Tax / CBDT",
+    "annexure": "3.10 External APIs / Sources",
+    "labels": [
+      "kind:task",
+      "surface:integration",
+      "scope:in-contract"
+    ]
+  },
+  "api-sebi": {
+    "issue": 84,
+    "name": "SEBI (regulatory circulars)",
+    "annexure": "3.10 External APIs / Sources",
+    "labels": [
+      "kind:task",
+      "surface:integration",
+      "scope:in-contract"
+    ]
+  },
+  "realtime-sync": {
+    "issue": 85,
+    "name": "Real-time / near-real-time synchronisation across all above sources",
+    "annexure": "3.10 External APIs / Sources",
+    "labels": [
+      "kind:task",
+      "surface:integration",
+      "scope:in-contract"
+    ]
+  },
+  "esign-integration": {
+    "issue": 86,
+    "name": "E-sign providers — eMudhra, DigiSign, DocuSign",
+    "annexure": "3.10 External APIs / Sources",
+    "labels": [
+      "kind:task",
+      "surface:integration",
+      "scope:in-contract"
+    ]
+  },
+  "personalised-alerts": {
+    "issue": 87,
+    "name": "Personalised alerts per user (lawyer / CA / enterprise)",
+    "annexure": "3.11 AI-driven Notifications & Insights",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "risk-deadline-detection": {
+    "issue": 88,
+    "name": "Risk / deadline / law-change detection with actionable summaries",
+    "annexure": "3.11 AI-driven Notifications & Insights",
+    "labels": [
+      "kind:task",
+      "surface:user-facing",
+      "scope:in-contract"
+    ]
+  },
+  "aws-cloud-hosting": {
+    "issue": 89,
+    "name": "AWS cloud hosting",
+    "annexure": "3.12 Infrastructure",
+    "labels": [
+      "kind:task",
+      "surface:infrastructure",
+      "scope:in-contract"
+    ]
+  },
+  "encryption": {
+    "issue": 90,
+    "name": "Encryption (at rest + in transit)",
+    "annexure": "3.12 Infrastructure",
+    "labels": [
+      "kind:task",
+      "surface:infrastructure",
+      "scope:in-contract"
+    ]
+  },
+  "vapt-penetration-testing": {
+    "issue": 91,
+    "name": "Penetration testing (VAPT) — external + internal",
+    "annexure": "3.12 Infrastructure",
+    "labels": [
+      "kind:task",
+      "surface:infrastructure",
+      "scope:in-contract"
+    ]
+  }
+}
