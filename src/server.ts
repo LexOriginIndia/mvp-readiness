@@ -17,16 +17,24 @@
 
 import { createServer } from "node:http";
 import { readFileSync, readdirSync, existsSync, statSync } from "node:fs";
-import { join, resolve, relative, sep } from "node:path";
+import { join, resolve, relative, sep, dirname } from "node:path";
 import { spawn } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { marked } from "marked";
 
-const ROOT = process.env.LEX_ORIGIN_ROOT ?? "C:/Lex Origin";
-const RD = join(ROOT, "readiness");
+// RD = the readiness repo root (where this file sits two levels up — src/).
+// Works both on the contractor's laptop (C:/Lex Origin/readiness) and on
+// Vercel / any Linux host where the repo is the deploy root.
+const RD = process.env.READINESS_DIR
+  ?? resolve(dirname(fileURLToPath(import.meta.url)), "..");
+// ROOT = the parent of readiness/. On the laptop this is C:/Lex Origin and
+// holds the Developer Docs tree + the source repos. On Vercel it's just the
+// parent of the deploy, which has nothing — DEV_DOCS gracefully 404s.
+const ROOT = process.env.LEX_ORIGIN_ROOT ?? resolve(RD, "..");
 const REPORTS = join(RD, "reports");
 const HISTORY = join(REPORTS, "history");
-const DEV_DOCS = join(ROOT, "developers-docs");
-const PORT = Number(process.env.READINESS_PORT ?? 8020);
+const DEV_DOCS = process.env.DEV_DOCS_DIR ?? join(ROOT, "developers-docs");
+const PORT = Number(process.env.READINESS_PORT ?? process.env.PORT ?? 8020);
 
 const REPO_URL = "https://github.com/LexOriginIndia/mvp-readiness";
 
@@ -1160,8 +1168,13 @@ async function runEngine(): Promise<{ ok: boolean; log: string }> {
   });
 }
 
-const server = createServer(async (req, res) => {
-  const url = new URL(req.url ?? "/", `http://${req.headers.host}`);
+/**
+ * Request handler, exported so Vercel's @vercel/node runtime can wrap it
+ * as a serverless function. Locally the bottom of this file binds the
+ * same handler to an HTTP server on PORT.
+ */
+export default async function handler(req: any, res: any) {
+  const url = new URL(req.url ?? "/", `http://${req.headers.host ?? "localhost"}`);
   const path = url.pathname.replace(/\/+$/, "") || "/";
   try {
     if (path === "/" || path === "/readiness") {
@@ -1257,8 +1270,14 @@ const server = createServer(async (req, res) => {
     res.writeHead(500, { "content-type": "text/html; charset=utf-8" });
     res.end(layout("Error", `<h1>Server error</h1><p>${escapeHtml((err as Error).message)}</p>`, null));
   }
-});
+}
 
-server.listen(PORT, () => {
-  console.log(`Readiness UI → http://localhost:${PORT}/readiness`);
-});
+// On Vercel the handler above is invoked per request by @vercel/node —
+// no long-lived listen() wanted. Everywhere else (local dev, Railway,
+// Docker, etc.) start a real HTTP server.
+if (!process.env.VERCEL) {
+  const server = createServer(handler);
+  server.listen(PORT, () => {
+    console.log(`Readiness UI → http://localhost:${PORT}/readiness`);
+  });
+}

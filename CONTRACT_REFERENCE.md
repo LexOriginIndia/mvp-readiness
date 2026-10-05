@@ -5,14 +5,14 @@ delivery, or acceptance question.** Treat it as the single source of
 truth for what we committed to deliver and against what standard it is
 measured.
 
-Source document: `Company Docs/Final NDA Arjun-Lex.docx` — the signed
-"Software Development & Confidentiality Agreement" between
-**Lex Origin Consulting Private Limited** (Client) and **Arjun Kumar**
-(Contractor), executed **25 September 2025** at New Delhi.
+Source document: the signed "Software Development & Confidentiality
+Agreement" between **Lex Origin Consulting Private Limited** (Client)
+and the Contractor. The signed PDF/DOCX is the authoritative source.
 
-Personal identifiers (PAN, Aadhaar, home address, bank account) are
-intentionally omitted from this file — refer to the signed PDF/DOCX if
-they are ever needed.
+Personal identifiers (PAN, Aadhaar, home address, bank account) and
+commercially sensitive terms (monetary values, exact kickoff date,
+individual-level contact details) are intentionally omitted from this
+public reference. Refer to the signed PDF/DOCX for anything redacted.
 
 ---
 
@@ -20,9 +20,9 @@ they are ever needed.
 
 | Term | Value |
 |---|---|
-| Total contract value | ₹50,00,000 (fifty lakh), inclusive of all taxes and duties |
-| Payment structure | 6 equal monthly instalments of ₹8,33,333 on the 7th of each month, TDS deducted |
-| Development duration | **6 months from 25 Sep 2025** → originally due **~25 Mar 2026** |
+| Total contract value | *(redacted — see signed SDA)* |
+| Payment structure | 6 equal monthly instalments on a fixed day of each month, TDS deducted |
+| Development duration | **6 months from kickoff** (originally scheduled to complete at the end of Month 6) |
 | Post-delivery coverage | **2 years** maintenance & support included in the contract value |
 | Governing law | India, exclusive jurisdiction of New Delhi courts |
 | Non-solicitation period | 12 months after agreement completion |
@@ -38,17 +38,17 @@ Contractor bears the cost of extra resources needed to catch up.
 
 | Phase | Target month | Deliverable |
 |---|---|---|
-| 1. Foundation | Month 1 (Oct 2025) | Env setup, infra, Git + CI/CD, DB schemas (templates / docs / clauses / integrations), initial DMS integration + upload APIs |
-| 2. Core AI Drafting | Month 2 (Nov 2025) | Standard template drafting + bespoke RAG+LLM drafting engine, DOCX/PDF export, drafting APIs + frontend |
-| 3. Custom AI Models | Month 3 (Dec 2025) | Indian-law/tax/judgment-trained models, Document & Knowledge Library, clause classification + risk tagging |
-| 4. API Integrations | Month 4 (Jan 2026) | MCA, RBI, GST, SEBI, Courts (SC/HC/Tribunals) — real-time ingestion + normalisation, auto-updating repos |
-| 5. AI Notifications | Month 5 (Feb 2026) | Notification Engine, personalised alert delivery, accuracy/timeliness testing |
-| 6. QA, UAT, Handover | Month 6 (Mar 2026) | End-to-end integration, QA + security audits + compliance validation, UAT, final handover |
+| 1. Foundation | Month 1 | Env setup, infra, Git + CI/CD, DB schemas (templates / docs / clauses / integrations), initial DMS integration + upload APIs |
+| 2. Core AI Drafting | Month 2 | Standard template drafting + bespoke RAG+LLM drafting engine, DOCX/PDF export, drafting APIs + frontend |
+| 3. Custom AI Models | Month 3 | Indian-law/tax/judgment-trained models, Document & Knowledge Library, clause classification + risk tagging |
+| 4. API Integrations | Month 4 | MCA, RBI, GST, SEBI, Courts (SC/HC/Tribunals) — real-time ingestion + normalisation, auto-updating repos |
+| 5. AI Notifications | Month 5 | Notification Engine, personalised alert delivery, accuracy/timeliness testing |
+| 6. QA, UAT, Handover | Month 6 | End-to-end integration, QA + security audits + compliance validation, UAT, final handover |
 
-**Today's date vs. plan** — the original 6-month window closed in
-Mar 2026; everything beyond that is overrun relative to Annexure B.
-Use the acceptance checklist in §4 to describe status honestly rather
-than measuring from a shifted timeline.
+**Current state vs. plan** — the original 6-month window has closed;
+everything beyond Month 6 is overrun relative to Annexure B. Use the
+acceptance checklist in §4 to describe status honestly rather than
+measuring from a shifted timeline.
 
 ---
 
