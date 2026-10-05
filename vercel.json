@@ -3,7 +3,16 @@
   "builds": [
     {
       "src": "src/server.ts",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "reports/**",
+          "spec/**",
+          "*.md",
+          "manual-verdicts.yaml",
+          "issue-map.json"
+        ]
+      }
     }
   ],
   "routes": [
