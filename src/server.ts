@@ -25,6 +25,7 @@ const ROOT = process.env.LEX_ORIGIN_ROOT ?? "C:/Lex Origin";
 const RD = join(ROOT, "readiness");
 const REPORTS = join(RD, "reports");
 const HISTORY = join(REPORTS, "history");
+const DEV_DOCS = join(ROOT, "developers-docs");
 const PORT = Number(process.env.READINESS_PORT ?? 8020);
 
 const REPO_URL = "https://github.com/LexOriginIndia/mvp-readiness";
@@ -46,16 +47,19 @@ function loadSummary(jsonPath: string): ReportSummary | null {
 }
 
 /**
- * Load the full feature list from latest.json (features[]).  Used to
- * attach drill-down modals to status cells in the rendered report.
- * Returns [] if the file is missing or malformed.
+ * Load the full feature + acceptance-metric lists from latest.json.
+ * Used to attach drill-down modals to status cells in the rendered
+ * report. Returns empty arrays if the file is missing or malformed.
  */
-function loadFeatures(): any[] {
+function loadReportEntities(): { features: any[]; acceptance: any[] } {
   try {
     const data = JSON.parse(readFileSync(join(REPORTS, "latest.json"), "utf8"));
-    return Array.isArray(data.features) ? data.features : [];
+    return {
+      features: Array.isArray(data.features) ? data.features : [],
+      acceptance: Array.isArray(data.acceptance) ? data.acceptance : [],
+    };
   } catch {
-    return [];
+    return { features: [], acceptance: [] };
   }
 }
 
@@ -131,16 +135,17 @@ function linkContractRefs(html: string): string {
   return out;
 }
 
-function layout(title: string, bodyHtml: string, summary: ReportSummary | null): string {
+function layout(title: string, bodyHtml: string, summary: ReportSummary | null, opts: { bare?: boolean } = {}): string {
   const scope = summary?.scope_summary;
   const accept = summary?.acceptance_summary;
   const generated = summary?.generated_at
     ? new Date(summary.generated_at).toISOString().replace("T", " ").slice(0, 19)
     : "—";
   const pct = scope && scope.total ? Math.round((scope.done / scope.total) * 100) : 0;
-  // Only inject the features payload on report pages (summary present).
+  // Only inject the entities payload on report pages (summary present).
   // Keeps unrelated .md pages lean.
-  const featuresPayload = summary ? JSON.stringify(loadFeatures()) : "[]";
+  const entities = summary ? loadReportEntities() : { features: [], acceptance: [] };
+  const entitiesPayload = JSON.stringify(entities);
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -275,6 +280,53 @@ function layout(title: string, bodyHtml: string, summary: ReportSummary | null):
     /* Rows + section tables hidden by filter */
     article tr.filter-hidden { display: none; }
     article .section-hidden { display: none; }
+    /* Appendix A → card grid */
+    article .appendix-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin: 16px 0 24px; }
+    article .appendix-card {
+      background: var(--card); border: 1px solid var(--border); border-left-width: 3px;
+      border-radius: 8px; padding: 12px 14px; cursor: pointer; display: flex; flex-direction: column; gap: 6px;
+      transition: border-color 120ms ease, transform 120ms ease;
+    }
+    article .appendix-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+    article .appendix-card:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+    article .appendix-card.status-done { border-left-color: var(--done); }
+    article .appendix-card.status-partial { border-left-color: var(--partial); }
+    article .appendix-card.status-not_started { border-left-color: var(--not); }
+    article .appendix-card.status-unknown { border-left-color: var(--unk); }
+    article .appendix-card .ap-head { display: flex; align-items: center; gap: 8px; }
+    article .appendix-card .pill { padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 10.5px; letter-spacing: 0.04em; }
+    article .appendix-card .pill.done { background: rgba(46,160,67,0.18); color: var(--done); }
+    article .appendix-card .pill.partial { background: rgba(210,153,34,0.18); color: var(--partial); }
+    article .appendix-card .pill.not { background: rgba(207,34,46,0.2); color: var(--not); }
+    article .appendix-card .pill.unk { background: rgba(110,118,129,0.22); color: var(--unk); }
+    article .appendix-card .ap-id { font-size: 11px; color: var(--muted); font-family: var(--mono); background: transparent; padding: 0; }
+    article .appendix-card .ap-name { font-size: 14px; font-weight: 600; line-height: 1.3; }
+    article .appendix-card .ap-annex { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+    article .appendix-card .ap-sum { font-size: 12px; color: var(--text); opacity: 0.78; }
+    article .appendix-card .ap-miss { font-size: 11.5px; color: var(--not); font-weight: 600; }
+    article .appendix-card.status-done .ap-miss { color: var(--done); }
+    /* Developer Docs: 30/70 split, sidebar + iframe preview */
+    main.dev-docs { max-width: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(260px, 30%) 1fr; min-height: calc(100vh - 65px); }
+    main.dev-docs > .dd-sidebar { background: var(--card); border-right: 1px solid var(--border); overflow-y: auto; max-height: calc(100vh - 65px); display: flex; flex-direction: column; }
+    main.dev-docs .dd-search { padding: 12px 14px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--card); z-index: 1; }
+    main.dev-docs .dd-search input { width: 100%; padding: 7px 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font: inherit; font-size: 13px; }
+    main.dev-docs .dd-search input:focus { outline: none; border-color: var(--accent); }
+    main.dev-docs .dd-list { list-style: none; padding: 8px 0; margin: 0; }
+    main.dev-docs .dd-list li { margin: 0; }
+    main.dev-docs .dd-list a { display: flex; align-items: center; gap: 8px; padding: 7px 14px; color: var(--text); text-decoration: none; font-size: 13px; border-left: 2px solid transparent; }
+    main.dev-docs .dd-list a:hover { background: rgba(138,180,255,0.08); }
+    main.dev-docs .dd-list a.active { background: rgba(138,180,255,0.14); border-left-color: var(--accent); color: var(--accent); }
+    main.dev-docs .dd-list .icon { font-size: 13px; width: 16px; flex: 0 0 auto; }
+    main.dev-docs .dd-list .name { font-family: var(--mono); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    main.dev-docs > .dd-view { background: var(--bg); position: relative; }
+    main.dev-docs .dd-empty { padding: 48px 32px; color: var(--muted); max-width: 640px; }
+    main.dev-docs .dd-empty h1 { color: var(--text); margin-top: 0; }
+    main.dev-docs .dd-frame { width: 100%; height: calc(100vh - 65px); border: none; background: var(--bg); }
+    @media (max-width: 768px) {
+      main.dev-docs { grid-template-columns: 1fr; min-height: auto; }
+      main.dev-docs > .dd-sidebar { max-height: 240px; }
+      main.dev-docs .dd-frame { height: 70vh; }
+    }
   </style>
 </head>
 <body>
@@ -287,6 +339,7 @@ function layout(title: string, bodyHtml: string, summary: ReportSummary | null):
       <a href="/readiness">Latest</a>
       <a href="/readiness/history">History</a>
       <a href="/docs">Docs</a>
+      <a href="/dev-docs">Developer Docs</a>
       <a href="/readiness/raw">Raw .md</a>
       <a href="/readiness/data">JSON</a>
       <a href="${REPO_URL}" target="_blank" rel="noopener">GitHub</a>
@@ -295,7 +348,9 @@ function layout(title: string, bodyHtml: string, summary: ReportSummary | null):
     </nav>
   </header>
   ${
-    scope
+    opts.bare
+      ? bodyHtml
+      : scope
       ? `<main>
     <div class="cards">
       <div class="card done"><div class="label">Done</div><div class="value">${scope.done}</div><div class="sub">of ${scope.total} features</div></div>
@@ -326,7 +381,7 @@ function layout(title: string, bodyHtml: string, summary: ReportSummary | null):
       <div id="modal-content"></div>
     </div>
   </div>
-  <script id="features-json" type="application/json">${featuresPayload.replace(/</g, "\\u003c")}</script>
+  <script id="entities-json" type="application/json">${entitiesPayload.replace(/</g, "\\u003c")}</script>
   <script>
     async function refresh() {
       const t = document.createElement('div'); t.className='toast'; t.textContent='Re-running engine…'; document.body.appendChild(t);
@@ -340,38 +395,55 @@ function layout(title: string, bodyHtml: string, summary: ReportSummary | null):
       }
     }
 
-    // --- Feature drill-down modal -----------------------------------------
-    // Parse features once, index by normalized feature name so we can match
-    // table rows (which have the name but no id) back to their check data.
+    // --- Feature + acceptance-metric drill-down modal ---------------------
+    // Parse entities once, index by normalized name so we can match table
+    // rows (which have the name but no id) back to their check data. Both
+    // scope features and Annexure C acceptance metrics share one modal.
+    window.__entities = { features: [], acceptance: [] };
     (function () {
-      let features = [];
-      try { features = JSON.parse(document.getElementById('features-json').textContent || '[]'); } catch (e) {}
-      if (!features.length) return;
+      let entities = { features: [], acceptance: [] };
+      try { entities = JSON.parse(document.getElementById('entities-json').textContent || '{}'); } catch (e) {}
+      window.__entities = entities;
+      const features = Array.isArray(entities.features) ? entities.features : [];
+      const acceptance = Array.isArray(entities.acceptance) ? entities.acceptance : [];
+      if (!features.length && !acceptance.length) return;
       const norm = (s) => (s || '').replace(/\\s+/g, ' ').trim().toLowerCase();
+
+      // Build { name → {kind, data} } so one lookup serves both tables.
       const byName = new Map();
       for (const f of features) {
-        if (f && f.feature && f.feature.name) byName.set(norm(f.feature.name), f);
+        if (f && f.feature && f.feature.name) byName.set(norm(f.feature.name), { kind: 'feature', data: f });
+      }
+      for (const a of acceptance) {
+        if (a && a.metric && a.metric.name) byName.set(norm(a.metric.name), { kind: 'metric', data: a });
       }
 
-      // Walk every table in the report article. Rows whose 2nd cell matches
-      // a feature name get their status cell (3rd) made clickable.
+      // Walk every table in the report article. Try cell[1] (feature tables:
+      // "# | Feature | Status | Summary") then cell[0] (acceptance table:
+      // "Metric | Target | Status | Evidence"). Status is always in cell[2].
       document.querySelectorAll('article table').forEach((table) => {
         table.querySelectorAll('tbody tr').forEach((tr) => {
           const cells = tr.querySelectorAll('td');
           if (cells.length < 3) return;
-          // Column 2 is the feature name; column 3 is the status.
-          const name = norm(cells[1].textContent);
-          const feat = byName.get(name);
-          if (!feat) return;
-          cells[2].classList.add('status-cell');
-          cells[2].setAttribute('role', 'button');
-          cells[2].setAttribute('tabindex', '0');
-          cells[2].setAttribute('data-feature-id', feat.feature.id);
-          cells[2].title = 'Click to see what passed / failed';
-          // Tag the row for status filtering too.
-          tr.setAttribute('data-status', feat.status);
+          const hit = byName.get(norm(cells[1].textContent)) || byName.get(norm(cells[0].textContent));
+          if (!hit) return;
+          const statusCell = cells[2];
+          statusCell.classList.add('status-cell');
+          statusCell.setAttribute('role', 'button');
+          statusCell.setAttribute('tabindex', '0');
+          statusCell.setAttribute('data-entity-kind', hit.kind);
+          statusCell.setAttribute('data-entity-id', hit.kind === 'feature' ? hit.data.feature.id : hit.data.metric.id);
+          statusCell.title = 'Click to see what passed / failed';
+          // Tag the row for status filtering (only scope features have the
+          // status enum; acceptance rows are met/unmet, not filtered).
+          if (hit.kind === 'feature') tr.setAttribute('data-status', hit.data.status);
         });
       });
+
+      // --- Appendix cards: hoist "<h3><code>id</code> — Name</h3> + <ul>"
+      // triples under "## Appendix A …" into a responsive card grid, and
+      // make every card click through to the modal.
+      enhanceAppendix(features);
 
       // --- Status filter chips ---------------------------------------------
       // "All" shows everything; any other chip hides rows whose data-status
@@ -403,22 +475,29 @@ function layout(title: string, bodyHtml: string, summary: ReportSummary | null):
         btn.addEventListener('click', () => applyFilter(btn.getAttribute('data-filter')));
       });
 
-      // Event delegation on the article so re-renders don't break it.
+      // Event delegation covers both table status cells and appendix cards.
+      function openByAttrs(el) {
+        const kind = el.getAttribute('data-entity-kind') || 'feature';
+        const id = el.getAttribute('data-entity-id') || el.getAttribute('data-feature-id');
+        if (!id) return;
+        if (kind === 'metric') {
+          const m = acceptance.find((a) => a && a.metric && a.metric.id === id);
+          if (m) openModal({ kind: 'metric', data: m });
+        } else {
+          const f = features.find((x) => x && x.feature && x.feature.id === id);
+          if (f) openModal({ kind: 'feature', data: f });
+        }
+      }
       document.addEventListener('click', (e) => {
-        const cell = e.target && e.target.closest && e.target.closest('td.status-cell');
-        if (!cell) return;
-        const id = cell.getAttribute('data-feature-id');
-        const feat = features.find((f) => f && f.feature && f.feature.id === id);
-        if (feat) openModal(feat);
+        const el = e.target && e.target.closest && e.target.closest('[data-entity-id], [data-feature-id]');
+        if (el) openByAttrs(el);
       });
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
-          const cell = document.activeElement;
-          if (cell && cell.classList && cell.classList.contains('status-cell')) {
+          const el = document.activeElement;
+          if (el && (el.hasAttribute('data-entity-id') || el.hasAttribute('data-feature-id'))) {
             e.preventDefault();
-            const id = cell.getAttribute('data-feature-id');
-            const feat = features.find((f) => f && f.feature && f.feature.id === id);
-            if (feat) openModal(feat);
+            openByAttrs(el);
           }
         }
         if (e.key === 'Escape') closeModal();
@@ -427,6 +506,83 @@ function layout(title: string, bodyHtml: string, summary: ReportSummary | null):
         if (e.target && e.target.id === 'modal-bg') closeModal();
       });
     })();
+
+    // --- Appendix A → card grid ------------------------------------------
+    // Collect each "<h3><code>id</code> — Name</h3>" + following "<ul>" pair
+    // under the appendix h2 and replace them with a card grid matching the
+    // modal design. The whole card is clickable → opens the modal.
+    function enhanceAppendix(features) {
+      const article = document.querySelector('article');
+      if (!article) return;
+      // Find the appendix h2 heading
+      const h2s = article.querySelectorAll('h2');
+      let appH2 = null;
+      for (const h of h2s) {
+        if (/Appendix A/.test(h.textContent)) { appH2 = h; break; }
+      }
+      if (!appH2) return;
+
+      // Walk siblings after the h2 up to the next h2, collecting h3+ul pairs.
+      const grid = document.createElement('div');
+      grid.className = 'appendix-grid';
+      const toRemove = [];
+      let node = appH2.nextElementSibling;
+      while (node && node.tagName !== 'H2') {
+        if (node.tagName === 'H3') {
+          const h3 = node;
+          const next = h3.nextElementSibling;
+          const ul = next && next.tagName === 'UL' ? next : null;
+          const idCode = h3.querySelector('code');
+          const featureId = idCode ? idCode.textContent.trim() : '';
+          const feat = features.find((f) => f && f.feature && f.feature.id === featureId);
+          if (feat) grid.appendChild(buildAppendixCard(feat, h3, ul));
+          toRemove.push(h3);
+          if (ul) toRemove.push(ul);
+          node = (ul || h3).nextElementSibling;
+        } else {
+          node = node.nextElementSibling;
+        }
+      }
+      if (!grid.children.length) return;
+      appH2.insertAdjacentElement('afterend', grid);
+      toRemove.forEach((n) => n.remove());
+    }
+
+    function buildAppendixCard(feat, h3, ul) {
+      const card = document.createElement('div');
+      card.className = 'appendix-card status-' + feat.status;
+      card.setAttribute('data-entity-kind', 'feature');
+      card.setAttribute('data-entity-id', feat.feature.id);
+      card.setAttribute('role', 'button');
+      card.setAttribute('tabindex', '0');
+      card.title = 'Click to see what passed / failed';
+      // Nameline: feature-id chip + readable name
+      const name = (feat.feature && feat.feature.name) || feat.feature.id;
+      // Short summary from the engine ("PARTIAL — 2 pass, 1 fail, 1 needs-work")
+      const trimmed = String(feat.summary || '').replace(/^(DONE|PARTIAL|NOT STARTED|UNKNOWN)\\s*(\\u2014|-)\\s*/i, '');
+      const statusClass = feat.status === 'done' ? 'done' : feat.status === 'partial' ? 'partial' : feat.status === 'not_started' ? 'not' : 'unk';
+      const annex = (feat.feature && feat.feature.annexure) || '';
+      // Count failing / needs-work checks for the mini-stat line
+      const checks = Array.isArray(feat.checks) ? feat.checks : [];
+      const nFail = checks.filter((c) => c.status === 'fail').length;
+      const nNeedsWork = checks.filter((c) => c.status === 'needs_work').length;
+      const nPending = checks.filter((c) => c.status === 'manual_pending').length;
+      const bits = [];
+      if (nFail) bits.push(nFail + ' failing');
+      if (nNeedsWork) bits.push(nNeedsWork + ' needs-work');
+      if (nPending) bits.push(nPending + ' pending');
+      const miss = bits.length ? bits.join(' · ') : 'All checks pass';
+      card.innerHTML =
+        '<div class="ap-head">'
+          + '<span class="pill ' + statusClass + '">' + escH(feat.status.replace('_', ' ').toUpperCase()) + '</span>'
+          + '<code class="ap-id">' + escH(feat.feature.id) + '</code>'
+        + '</div>'
+        + '<div class="ap-name">' + escH(name) + '</div>'
+        + (annex ? '<div class="ap-annex">' + escH(annex) + '</div>' : '')
+        + '<div class="ap-sum">' + escH(trimmed || miss) + '</div>'
+        + '<div class="ap-miss">' + escH(miss) + '</div>';
+      return card;
+    }
 
     function escH(s) {
       return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -449,23 +605,42 @@ function layout(title: string, bodyHtml: string, summary: ReportSummary | null):
       return escH(t || 'unknown check');
     }
 
-    function openModal(feat) {
-      const f = feat.feature;
-      const checks = feat.checks || [];
+    function openModal(entity) {
+      // Accept either the old flat shape (feature object with .feature/.status)
+      // or the new wrapped shape {kind, data}.
+      const kind = entity && entity.kind ? entity.kind : (entity && entity.metric ? 'metric' : 'feature');
+      const row = entity && entity.data ? entity.data : entity;
+      const header = kind === 'metric' ? row.metric : row.feature;
+      const checks = row.checks || [];
+      const status = kind === 'metric' ? (row.met ? 'done' : 'not_started') : row.status;
       const failed = checks.filter((c) => c.status === 'fail');
       const needsWork = checks.filter((c) => c.status === 'needs_work');
       const pending = checks.filter((c) => c.status === 'manual_pending');
       const passed = checks.filter((c) => c.status === 'pass');
 
       let html = '';
-      html += '<h2 id="modal-title">' + escH(f.name) + '</h2>';
-      html += '<div class="annex">' + escH(f.annexure || '') + ' · <code>' + escH(f.id) + '</code>'
-            + (f.required_for_mvp ? ' · required for MVP' : '')
-            + '</div>';
+      html += '<h2 id="modal-title">' + escH(header.name) + '</h2>';
+      const subBits = [];
+      if (kind === 'metric') {
+        subBits.push('Annexure C acceptance metric');
+        if (header.target) subBits.push('Target: ' + header.target);
+      } else {
+        if (header.annexure) subBits.push(header.annexure);
+      }
+      subBits.push('<code>' + escH(header.id) + '</code>');
+      if (header.required_for_mvp) subBits.push('required for MVP');
+      html += '<div class="annex">' + subBits.join(' · ') + '</div>';
       // Strip the leading status word from the summary ("PARTIAL — 2 pass…" → "2 pass…")
       // so the pill + summary don't read "PARTIAL PARTIAL — …".
-      const trimmedSummary = String(feat.summary || '').replace(/^(DONE|PARTIAL|NOT STARTED|UNKNOWN)\\s*(\\u2014|-)\\s*/i, '');
-      html += '<div class="status-line">' + statusPill(feat.status) + escH(trimmedSummary) + '</div>';
+      const summaryText = kind === 'metric'
+        ? (row.met ? 'All acceptance checks met' : 'Acceptance not yet met')
+        : (row.summary || '');
+      const trimmedSummary = String(summaryText).replace(/^(DONE|PARTIAL|NOT STARTED|UNKNOWN)\\s*(\\u2014|-)\\s*/i, '');
+      // Acceptance metrics get MET/UNMET pills; features get DONE/PARTIAL/etc.
+      const pillHtml = kind === 'metric'
+        ? '<span class="pill ' + (row.met ? 'done' : 'not') + '">' + (row.met ? 'MET' : 'UNMET') + '</span>'
+        : statusPill(status);
+      html += '<div class="status-line">' + pillHtml + escH(trimmedSummary) + '</div>';
 
       // "What's missing" block — the main thing the user wanted
       const missingBits = [];
@@ -474,8 +649,10 @@ function layout(title: string, bodyHtml: string, summary: ReportSummary | null):
       if (pending.length) missingBits.push(pending.length + ' manual verdict pending');
       if (missingBits.length) {
         html += '<div class="what-missing"><strong>What\\'s missing:</strong> ' + escH(missingBits.join(' · ')) + '. Details below.</div>';
-      } else if (feat.status === 'done') {
-        html += '<div class="what-missing ok"><strong>All checks passed.</strong> This feature is Done.</div>';
+      } else if (status === 'done') {
+        html += '<div class="what-missing ok"><strong>All checks passed.</strong> This '
+              + (kind === 'metric' ? 'acceptance metric is met' : 'feature is Done')
+              + '.</div>';
       }
 
       // Full check breakdown — ordered: fail > needs_work > manual_pending > pass > skip
@@ -636,6 +813,185 @@ function serveSplitReadiness(): { status: number; headers: Record<string, string
     headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" },
     body: layout("Lex Origin Readiness", body, summary).replace("<main>", `<main class="split">`),
   };
+}
+
+/**
+ * Developer Docs browser: 30/70 split — the left pane lists every file in
+ * C:/Lex Origin/developers-docs (recursive), the right pane renders the
+ * selected one. Markdown is rendered to HTML; .docx and other binaries are
+ * offered as downloads; .txt / .yaml / .json / .ts are shown as code.
+ *
+ * The viewer uses a hash in the URL (#file=path) so refresh keeps your
+ * selection. Path-traversal safe: every requested path is resolved against
+ * DEV_DOCS and refused if it escapes.
+ */
+function serveDevDocs(): { status: number; headers: Record<string, string>; body: string } {
+  if (!existsSync(DEV_DOCS)) {
+    return {
+      status: 404,
+      headers: { "content-type": "text/html; charset=utf-8" },
+      body: layout("Developer Docs — not found", `<h1>404</h1><p><code>${escapeHtml(DEV_DOCS)}</code> does not exist on this host.</p>`, null),
+    };
+  }
+  // Walk DEV_DOCS once, record a (path, size, mtime) tuple for every file.
+  const files: Array<{ rel: string; size: number; mtime: string }> = [];
+  function walk(dir: string, prefix: string) {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      if (entry.name.startsWith(".")) continue;
+      const abs = join(dir, entry.name);
+      const rel = prefix ? `${prefix}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) walk(abs, rel);
+      else if (entry.isFile()) {
+        const s = statSync(abs);
+        files.push({ rel, size: s.size, mtime: s.mtime.toISOString().slice(0, 10) });
+      }
+    }
+  }
+  walk(DEV_DOCS, "");
+  files.sort((a, b) => a.rel.localeCompare(b.rel));
+  const listItems = files
+    .map((f) => {
+      const ext = (f.rel.split(".").pop() || "").toLowerCase();
+      const icon = ext === "md" ? "📄" : ext === "docx" ? "📘" : ext === "pdf" ? "📕" : ext === "yaml" || ext === "yml" ? "⚙" : "📎";
+      return `<li><a href="#file=${encodeURIComponent(f.rel)}" data-file="${escapeHtml(f.rel)}" title="${escapeHtml(f.rel)} · ${(f.size / 1024).toFixed(1)} KB">
+        <span class="icon">${icon}</span><span class="name">${escapeHtml(f.rel)}</span>
+      </a></li>`;
+    })
+    .join("\n");
+  const body = `
+  <main class="dev-docs">
+    <aside class="dd-sidebar" aria-label="Developer docs file list">
+      <div class="dd-search"><input type="search" id="dd-filter" placeholder="Filter ${files.length} files…" autocomplete="off" aria-label="Filter files"></div>
+      <ul class="dd-list" id="dd-list">${listItems}</ul>
+    </aside>
+    <section class="dd-view" aria-label="File preview">
+      <div class="dd-empty" id="dd-empty">
+        <h1>Developer Docs</h1>
+        <p>${files.length} files in <code>developers-docs/</code>. Pick one from the list to preview it here.</p>
+      </div>
+      <iframe class="dd-frame" id="dd-frame" title="File preview" hidden></iframe>
+    </section>
+  </main>
+  <script>
+    (function () {
+      const list = document.getElementById('dd-list');
+      const frame = document.getElementById('dd-frame');
+      const empty = document.getElementById('dd-empty');
+      const filter = document.getElementById('dd-filter');
+      function show(rel) {
+        if (!rel) {
+          frame.hidden = true; empty.hidden = false;
+          document.querySelectorAll('#dd-list a.active').forEach((a) => a.classList.remove('active'));
+          return;
+        }
+        frame.src = '/dev-docs/view?file=' + encodeURIComponent(rel);
+        frame.hidden = false; empty.hidden = true;
+        document.querySelectorAll('#dd-list a').forEach((a) => {
+          a.classList.toggle('active', a.getAttribute('data-file') === rel);
+        });
+        // Keep the active row in view
+        const active = document.querySelector('#dd-list a.active');
+        if (active) active.scrollIntoView({ block: 'nearest' });
+      }
+      function fromHash() {
+        const m = (location.hash || '').match(/file=([^&]+)/);
+        return m ? decodeURIComponent(m[1]) : '';
+      }
+      window.addEventListener('hashchange', () => show(fromHash()));
+      filter.addEventListener('input', () => {
+        const q = filter.value.toLowerCase().trim();
+        document.querySelectorAll('#dd-list li').forEach((li) => {
+          const n = li.querySelector('.name').textContent.toLowerCase();
+          li.style.display = !q || n.includes(q) ? '' : 'none';
+        });
+      });
+      show(fromHash());
+    })();
+  </script>`;
+  return {
+    status: 200,
+    headers: { "content-type": "text/html; charset=utf-8" },
+    body: layout("Developer Docs — Lex Origin", body, null, { bare: true }),
+  };
+}
+
+/**
+ * Content pane for the dev-docs iframe. Takes ?file=<relative>, resolves
+ * against DEV_DOCS, refuses path-traversal, renders .md to HTML and other
+ * known text formats as <pre><code>. Binaries get a download link.
+ */
+function serveDevDocsView(rel: string): { status: number; headers: Record<string, string>; body: string } {
+  const abs = resolve(DEV_DOCS, rel);
+  const relToDd = relative(DEV_DOCS, abs);
+  if (relToDd.startsWith("..") || relToDd.startsWith(sep) || /^[A-Za-z]:/.test(relToDd)) {
+    return { status: 400, headers: { "content-type": "text/html; charset=utf-8" }, body: devDocsFrame(`<h1>Bad path</h1>`) };
+  }
+  if (!existsSync(abs) || !statSync(abs).isFile()) {
+    return { status: 404, headers: { "content-type": "text/html; charset=utf-8" }, body: devDocsFrame(`<h1>Not found</h1><p><code>${escapeHtml(rel)}</code></p>`) };
+  }
+  const ext = (rel.split(".").pop() || "").toLowerCase();
+  if (ext === "md") {
+    const html = marked.parse(readFileSync(abs, "utf8")) as string;
+    return { status: 200, headers: { "content-type": "text/html; charset=utf-8" }, body: devDocsFrame(`<article class="dd-md"><h1 class="dd-filename">${escapeHtml(rel)}</h1>${html}</article>`) };
+  }
+  if (ext === "txt" || ext === "yaml" || ext === "yml" || ext === "json" || ext === "ts" || ext === "js" || ext === "py") {
+    const txt = readFileSync(abs, "utf8");
+    return { status: 200, headers: { "content-type": "text/html; charset=utf-8" }, body: devDocsFrame(`<h1 class="dd-filename">${escapeHtml(rel)}</h1><pre class="dd-code"><code>${escapeHtml(txt)}</code></pre>`) };
+  }
+  // Everything else (docx, pdf, images) → stream the raw file so the browser
+  // can download / preview natively via the raw endpoint.
+  const dlUrl = `/dev-docs/raw?file=${encodeURIComponent(rel)}`;
+  return {
+    status: 200,
+    headers: { "content-type": "text/html; charset=utf-8" },
+    body: devDocsFrame(`<h1 class="dd-filename">${escapeHtml(rel)}</h1>
+      <p>Binary file (.${escapeHtml(ext)}) — browser preview isn't rendered here.</p>
+      <p><a class="dd-download" href="${dlUrl}" download>⬇ Download ${escapeHtml(rel)}</a></p>
+      ${ext === "pdf" ? `<iframe src="${dlUrl}" style="width:100%;height:70vh;border:1px solid #333;border-radius:6px"></iframe>` : ""}`),
+  };
+}
+
+function serveDevDocsRaw(rel: string): { status: number; headers: Record<string, string>; body: Buffer | string } {
+  const abs = resolve(DEV_DOCS, rel);
+  const relToDd = relative(DEV_DOCS, abs);
+  if (relToDd.startsWith("..") || relToDd.startsWith(sep) || /^[A-Za-z]:/.test(relToDd) || !existsSync(abs)) {
+    return { status: 404, headers: { "content-type": "text/plain" }, body: "not found" };
+  }
+  const ext = (rel.split(".").pop() || "").toLowerCase();
+  const ct = ext === "pdf" ? "application/pdf"
+    : ext === "docx" ? "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    : ext === "png" ? "image/png"
+    : ext === "jpg" || ext === "jpeg" ? "image/jpeg"
+    : "application/octet-stream";
+  return { status: 200, headers: { "content-type": ct, "content-disposition": `inline; filename="${rel.split("/").pop()}"` }, body: readFileSync(abs) };
+}
+
+/** Minimal doc frame shell — picks up its CSS from the parent via @import-free inheritance (same origin). */
+function devDocsFrame(bodyHtml: string): string {
+  return `<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<style>
+  :root { --bg: #0b0d10; --card: #141820; --border: #262c36; --text: #e6e8eb; --muted: #9aa3af; --accent: #8ab4ff; }
+  @media (prefers-color-scheme: light) {
+    :root { --bg:#ffffff; --card:#ffffff; --border:#e5e7eb; --text:#111827; --muted:#4b5563; --accent:#2563eb; }
+  }
+  body { margin: 0; padding: 24px 32px; background: var(--bg); color: var(--text); font: 15px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  h1, h2, h3 { line-height: 1.3; }
+  h1 { font-size: 24px; }
+  h2 { font-size: 18px; margin-top: 28px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 15px; margin-top: 20px; }
+  code { background: rgba(127,127,127,0.14); padding: 1px 5px; border-radius: 4px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12.5px; }
+  pre { background: rgba(127,127,127,0.08); border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; overflow-x: auto; }
+  pre code { background: transparent; padding: 0; }
+  table { border-collapse: collapse; margin: 12px 0; }
+  th, td { border: 1px solid var(--border); padding: 6px 10px; }
+  a { color: var(--accent); }
+  .dd-filename { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; color: var(--muted); font-weight: 500; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .dd-download { display: inline-block; background: var(--accent); color: white; padding: 10px 18px; border-radius: 6px; text-decoration: none; font-weight: 500; }
+  .dd-code { font-size: 12.5px; }
+</style></head>
+<body>${bodyHtml}</body></html>`;
 }
 
 function serveHistoryList(): { status: number; headers: Record<string, string>; body: string } {
@@ -859,6 +1215,24 @@ const server = createServer(async (req, res) => {
       const r = serveDocsIndex();
       res.writeHead(r.status, r.headers);
       res.end(r.body);
+      return;
+    }
+    if (path === "/dev-docs") {
+      const r = serveDevDocs();
+      res.writeHead(r.status, r.headers);
+      res.end(r.body);
+      return;
+    }
+    if (path === "/dev-docs/view") {
+      const r = serveDevDocsView(url.searchParams.get("file") || "");
+      res.writeHead(r.status, r.headers);
+      res.end(r.body);
+      return;
+    }
+    if (path === "/dev-docs/raw") {
+      const r = serveDevDocsRaw(url.searchParams.get("file") || "");
+      res.writeHead(r.status, r.headers);
+      res.end(r.body as any);
       return;
     }
     // Generic .md file server — serves any .md inside the readiness
