@@ -45,6 +45,20 @@ function loadSummary(jsonPath: string): ReportSummary | null {
   }
 }
 
+/**
+ * Load the full feature list from latest.json (features[]).  Used to
+ * attach drill-down modals to status cells in the rendered report.
+ * Returns [] if the file is missing or malformed.
+ */
+function loadFeatures(): any[] {
+  try {
+    const data = JSON.parse(readFileSync(join(REPORTS, "latest.json"), "utf8"));
+    return Array.isArray(data.features) ? data.features : [];
+  } catch {
+    return [];
+  }
+}
+
 function escapeHtml(s: string): string {
   return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 }
@@ -118,6 +132,9 @@ function layout(title: string, bodyHtml: string, summary: ReportSummary | null):
     ? new Date(summary.generated_at).toISOString().replace("T", " ").slice(0, 19)
     : "—";
   const pct = scope && scope.total ? Math.round((scope.done / scope.total) * 100) : 0;
+  // Only inject the features payload on report pages (summary present).
+  // Keeps unrelated .md pages lean.
+  const featuresPayload = summary ? JSON.stringify(loadFeatures()) : "[]";
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -194,6 +211,45 @@ function layout(title: string, bodyHtml: string, summary: ReportSummary | null):
     .status-dot.unk { background: var(--unk); }
     .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--card); border: 1px solid var(--border); padding: 10px 16px; border-radius: 8px; font-size: 13px; }
     .toast.err { border-color: var(--not); color: var(--not); }
+    /* Clickable status cells + modal */
+    article td.status-cell { cursor: pointer; user-select: none; }
+    article td.status-cell:hover { background: rgba(138,180,255,0.08); outline: 1px solid var(--accent); outline-offset: -1px; }
+    article td.status-cell::after { content: " ⓘ"; color: var(--muted); font-size: 11px; opacity: 0.6; }
+    article td.status-cell:hover::after { opacity: 1; color: var(--accent); }
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.55); display: none; align-items: flex-start; justify-content: center; z-index: 100; overflow-y: auto; padding: 48px 16px; }
+    .modal-backdrop.open { display: flex; }
+    .modal { background: var(--card); border: 1px solid var(--border); border-radius: 12px; max-width: 820px; width: 100%; padding: 24px 28px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .modal header { position: static; background: transparent; border: none; padding: 0 0 12px; display: block; }
+    .modal h2 { margin: 0 0 4px; font-size: 18px; }
+    .modal .annex { font-size: 12px; color: var(--muted); font-family: var(--mono); }
+    .modal .close { position: absolute; top: 10px; right: 12px; background: transparent; border: none; color: var(--muted); font-size: 22px; cursor: pointer; line-height: 1; }
+    .modal .close:hover { color: var(--text); }
+    .modal-top { position: relative; }
+    .modal .status-line { font-size: 14px; margin: 8px 0 16px; padding: 8px 12px; border-radius: 6px; background: rgba(127,127,127,0.08); }
+    .modal .status-line .pill { display: inline-block; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 12px; margin-right: 8px; }
+    .modal .status-line .pill.done { background: rgba(46,160,67,0.18); color: var(--done); }
+    .modal .status-line .pill.partial { background: rgba(210,153,34,0.18); color: var(--partial); }
+    .modal .status-line .pill.not { background: rgba(207,34,46,0.18); color: var(--not); }
+    .modal .status-line .pill.unk { background: rgba(110,118,129,0.22); color: var(--unk); }
+    .modal .check { border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; }
+    .modal .check-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .modal .check-head .pill { padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .modal .check-head .pill.pass { background: rgba(46,160,67,0.18); color: var(--done); }
+    .modal .check-head .pill.fail { background: rgba(207,34,46,0.2); color: var(--not); }
+    .modal .check-head .pill.needs_work { background: rgba(210,153,34,0.2); color: var(--partial); }
+    .modal .check-head .pill.manual_pending { background: rgba(110,118,129,0.22); color: var(--unk); }
+    .modal .check-head .pill.skip { background: rgba(110,118,129,0.15); color: var(--muted); }
+    .modal .check-head .type { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+    .modal .check-body { font-size: 13px; color: var(--text); }
+    .modal .check-body code { background: rgba(127,127,127,0.14); padding: 1px 5px; border-radius: 3px; font-family: var(--mono); font-size: 12px; }
+    .modal .check-note { font-size: 12px; color: var(--muted); margin-top: 6px; font-style: italic; }
+    .modal .check-detail { font-family: var(--mono); font-size: 12px; margin-top: 4px; white-space: pre-wrap; word-break: break-word; }
+    .modal .issue-link { font-size: 12px; margin-top: 6px; }
+    .modal .issue-link a { color: var(--accent); }
+    .modal .what-missing { background: rgba(207,34,46,0.08); border-left: 3px solid var(--not); padding: 10px 14px; margin: 12px 0; border-radius: 4px; font-size: 13px; }
+    .modal .what-missing strong { color: var(--not); }
+    .modal .what-missing.ok { background: rgba(46,160,67,0.08); border-color: var(--done); }
+    .modal .what-missing.ok strong { color: var(--done); }
   </style>
 </head>
 <body>
@@ -231,6 +287,13 @@ function layout(title: string, bodyHtml: string, summary: ReportSummary | null):
   <footer>
     npm run readiness · engine source at <a href="${REPO_URL}" style="color:inherit">${REPO_URL}</a>
   </footer>
+  <div class="modal-backdrop" id="modal-bg" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal" id="modal-body">
+      <div class="modal-top"><button class="close" type="button" aria-label="Close" onclick="closeModal()">×</button></div>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+  <script id="features-json" type="application/json">${featuresPayload.replace(/</g, "\\u003c")}</script>
   <script>
     async function refresh() {
       const t = document.createElement('div'); t.className='toast'; t.textContent='Re-running engine…'; document.body.appendChild(t);
@@ -242,6 +305,140 @@ function layout(title: string, bodyHtml: string, summary: ReportSummary | null):
         t.textContent = 'Refresh failed: ' + e.message; t.classList.add('err');
         setTimeout(() => t.remove(), 4000);
       }
+    }
+
+    // --- Feature drill-down modal -----------------------------------------
+    // Parse features once, index by normalized feature name so we can match
+    // table rows (which have the name but no id) back to their check data.
+    (function () {
+      let features = [];
+      try { features = JSON.parse(document.getElementById('features-json').textContent || '[]'); } catch (e) {}
+      if (!features.length) return;
+      const norm = (s) => (s || '').replace(/\\s+/g, ' ').trim().toLowerCase();
+      const byName = new Map();
+      for (const f of features) {
+        if (f && f.feature && f.feature.name) byName.set(norm(f.feature.name), f);
+      }
+
+      // Walk every table in the report article. Rows whose 2nd cell matches
+      // a feature name get their status cell (3rd) made clickable.
+      document.querySelectorAll('article table').forEach((table) => {
+        table.querySelectorAll('tbody tr').forEach((tr) => {
+          const cells = tr.querySelectorAll('td');
+          if (cells.length < 3) return;
+          // Column 2 is the feature name; column 3 is the status.
+          const name = norm(cells[1].textContent);
+          const feat = byName.get(name);
+          if (!feat) return;
+          cells[2].classList.add('status-cell');
+          cells[2].setAttribute('role', 'button');
+          cells[2].setAttribute('tabindex', '0');
+          cells[2].setAttribute('data-feature-id', feat.feature.id);
+          cells[2].title = 'Click to see what passed / failed';
+        });
+      });
+
+      // Event delegation on the article so re-renders don't break it.
+      document.addEventListener('click', (e) => {
+        const cell = e.target && e.target.closest && e.target.closest('td.status-cell');
+        if (!cell) return;
+        const id = cell.getAttribute('data-feature-id');
+        const feat = features.find((f) => f && f.feature && f.feature.id === id);
+        if (feat) openModal(feat);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          const cell = document.activeElement;
+          if (cell && cell.classList && cell.classList.contains('status-cell')) {
+            e.preventDefault();
+            const id = cell.getAttribute('data-feature-id');
+            const feat = features.find((f) => f && f.feature && f.feature.id === id);
+            if (feat) openModal(feat);
+          }
+        }
+        if (e.key === 'Escape') closeModal();
+      });
+      document.getElementById('modal-bg').addEventListener('click', (e) => {
+        if (e.target && e.target.id === 'modal-bg') closeModal();
+      });
+    })();
+
+    function escH(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    function statusPill(s) {
+      const cls = s === 'done' ? 'done' : s === 'partial' ? 'partial' : s === 'not_started' ? 'not' : 'unk';
+      return '<span class="pill ' + cls + '">' + escH(s.replace('_', ' ').toUpperCase()) + '</span>';
+    }
+
+    function checkDescribe(c) {
+      const t = c.check && c.check.type;
+      if (t === 'file_exists') return 'file exists: <code>' + escH(c.check.path) + '</code>';
+      if (t === 'grep') return 'grep <code>' + escH(c.check.pattern) + '</code> in <code>' + escH(c.check.path) + '</code>' + (c.check.min_matches ? ' (≥' + c.check.min_matches + ' matches)' : '');
+      if (t === 'http_latency') return 'HTTP ' + escH(c.check.url) + ' (p avg ≤ ' + c.check.threshold_ms + 'ms, ' + (c.check.samples || 1) + ' samples)';
+      if (t === 'http_status') return 'HTTP ' + escH(c.check.url) + ' → ' + escH(String(c.check.expect_status || 200));
+      if (t === 'manual') return 'Manual: ' + escH(c.check.question || '');
+      if (t === 'github_issue') return 'GitHub issue: <code>' + escH(c.check.issue) + '</code>';
+      if (t === 'npm_script') return 'npm run ' + escH(c.check.script) + ' in <code>' + escH(c.check.cwd) + '</code>';
+      return escH(t || 'unknown check');
+    }
+
+    function openModal(feat) {
+      const f = feat.feature;
+      const checks = feat.checks || [];
+      const failed = checks.filter((c) => c.status === 'fail');
+      const needsWork = checks.filter((c) => c.status === 'needs_work');
+      const pending = checks.filter((c) => c.status === 'manual_pending');
+      const passed = checks.filter((c) => c.status === 'pass');
+
+      let html = '';
+      html += '<h2 id="modal-title">' + escH(f.name) + '</h2>';
+      html += '<div class="annex">' + escH(f.annexure || '') + ' · <code>' + escH(f.id) + '</code>'
+            + (f.required_for_mvp ? ' · required for MVP' : '')
+            + '</div>';
+      // Strip the leading status word from the summary ("PARTIAL — 2 pass…" → "2 pass…")
+      // so the pill + summary don't read "PARTIAL PARTIAL — …".
+      const trimmedSummary = String(feat.summary || '').replace(/^(DONE|PARTIAL|NOT STARTED|UNKNOWN)\\s*(\\u2014|-)\\s*/i, '');
+      html += '<div class="status-line">' + statusPill(feat.status) + escH(trimmedSummary) + '</div>';
+
+      // "What's missing" block — the main thing the user wanted
+      const missingBits = [];
+      if (failed.length) missingBits.push(failed.length + ' failing check' + (failed.length > 1 ? 's' : ''));
+      if (needsWork.length) missingBits.push(needsWork.length + ' needs-work');
+      if (pending.length) missingBits.push(pending.length + ' manual verdict pending');
+      if (missingBits.length) {
+        html += '<div class="what-missing"><strong>What\\'s missing:</strong> ' + escH(missingBits.join(' · ')) + '. Details below.</div>';
+      } else if (feat.status === 'done') {
+        html += '<div class="what-missing ok"><strong>All checks passed.</strong> This feature is Done.</div>';
+      }
+
+      // Full check breakdown — ordered: fail > needs_work > manual_pending > pass > skip
+      const order = { fail: 0, needs_work: 1, manual_pending: 2, pass: 3, skip: 4 };
+      const sorted = checks.slice().sort((a, b) => (order[a.status] ?? 9) - (order[b.status] ?? 9));
+      for (const c of sorted) {
+        html += '<div class="check">';
+        html += '<div class="check-head">';
+        html += '<span class="pill ' + c.status + '">' + escH(c.status.replace('_', ' ')) + '</span>';
+        html += '<span class="type">' + escH(c.check.type) + '</span>';
+        html += '</div>';
+        html += '<div class="check-body">' + checkDescribe(c) + '</div>';
+        if (c.detail) html += '<div class="check-detail">' + escH(c.detail) + '</div>';
+        if (c.check && c.check.note) html += '<div class="check-note">' + escH(c.check.note) + '</div>';
+        if (c.check && c.check.type === 'github_issue') {
+          const url = 'https://github.com/' + String(c.check.issue).replace('#', '/issues/');
+          html += '<div class="issue-link">→ <a href="' + url + '" target="_blank" rel="noopener">open issue on GitHub</a></div>';
+        }
+        html += '</div>';
+      }
+
+      document.getElementById('modal-content').innerHTML = html;
+      document.getElementById('modal-bg').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      document.getElementById('modal-bg').classList.remove('open');
+      document.body.style.overflow = '';
     }
   </script>
 </body>
